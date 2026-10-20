@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.6.0 — October 2026
+
+### Added
+- **Between Gigs page templates** (`src/templates/gigs/`), rebuilt from the client's review prototypes A, B and C on the system and taken further:
+  - **SearchResults**: brand hero with the people floating in, a search bar lifted over its edge, service pills with counts, availability / budget / distance filters, sort, list or grid, save, an empty state, an illustrative neighbourhood map whose pins light up with the card you hover, and How it works. Filters, search and sort re-flow the results with a view transition.
+  - **GigsterProfile**: portrait hero over an ambient glow taken from the person's own work, a sticky booking card, section tabs that follow the scroll, What I can help with, services, a bento portfolio with a keyboard lightbox, example reviews, experience, FAQs and similar professionals. Request opens a validated form; nothing is sent.
+  - **GigsterOnboarding**: five steps with a stepper and progress, chip pickers for skills, services and areas, "Another market" and private "Other" requests, per-step validation with a summary, a review step with Edit, a live preview card that updates as you type, and a finish moment. Steps slide forward and back.
+  - **GigsApp**: all three as one clickable prototype. The header holds still, pages cross-fade, and a portrait flies from its search card into the profile and back. `docs/showcase/app/` serves it on its own with linkable routes (`#/profile/maya`).
+- Six fictional people with copy, rates and imagery taken from the PDFs (`docs/showcase/app/img/`, cropped from the review screenshots).
+- Showcase section 05 · Templates: live previews of all three pages and "Open the prototype" / "Try it", which run the prototype full screen inside the page.
+- `startPageTransition` takes a `target`, for pages that hold more than one `vt-page` region.
+
+### Fixed
+- The raw-value lint now checks subfolders (it skipped them before).
+- Hand-built controls use `transition` rather than `transition-all`, so the focus outline shows the moment a control is focused.
+
 ## 1.5.0 — October 2026
 
 ### Added

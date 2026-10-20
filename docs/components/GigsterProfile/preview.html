@@ -1,0 +1,20 @@
+<!-- @dsCard group="Templates" level="template" height=900 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>GigsterProfile</title>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const { useState } = React;
+const BG = window.BetweenGigs;
+const { html, Icons: I } = BG;
+function Demo() {
+  return html`<${BG.Templates.GigsterProfile} personId="jordan" imageBase="../../showcase/app/img/" />`;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(Demo));
+</script>
+</body>
+</html>

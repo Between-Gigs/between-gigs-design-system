@@ -12,6 +12,8 @@ export interface PageTransitionOptions {
   direction?: "forward" | "back";
   /** Where reveal circles grow from: a point, an element, or the pointer event that started it. */
   origin?: { x: number; y: number } | Element | { clientX: number; clientY: number } | null;
+  /** The region that moves. Default: the first `.vt-page` in the document. Pass it when a page holds several. */
+  target?: HTMLElement | null;
 }
 
 type VT = { ready: Promise<void>; finished: Promise<void> };
@@ -31,13 +33,13 @@ function point(origin: PageTransitionOptions["origin"]) {
  * and the new one in. The element with `vt-page` is what moves; everything else holds still.
  * Falls back to a plain update without the API or under reduced motion.
  */
-export function startPageTransition(update: () => void, { effect = "slide", direction = "forward", origin }: PageTransitionOptions = {}) {
+export function startPageTransition(update: () => void, { effect = "slide", direction = "forward", origin, target }: PageTransitionOptions = {}) {
   const doc = document as DocWithVT;
   if (!doc.startViewTransition || reduced()) { update(); return null; }
   const root = document.documentElement;
   const p = point(origin);
   // The theme reveal covers the viewport; page effects play on the `vt-page` element's own box.
-  const page = effect === "theme" ? null : document.querySelector<HTMLElement>(".vt-page");
+  const page = effect === "theme" ? null : target ?? document.querySelector<HTMLElement>(".vt-page");
   const box = page ? page.getBoundingClientRect() : { left: 0, top: 0, width: window.innerWidth, height: window.innerHeight };
   // Reveal origin and radius, relative to the moving element.
   const x = p ? p.x - box.left : box.width / 2, y = p ? p.y - box.top : box.height / 2;

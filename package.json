@@ -1,6 +1,6 @@
 {
   "name": "@between-gigs/design-system",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "private": true,
   "description": "Between Gigs design system: tokens, Tailwind v4 theme, React components.",
   "type": "module",

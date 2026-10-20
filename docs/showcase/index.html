@@ -244,12 +244,21 @@ body { margin: 0; color: var(--ink); font-family: var(--text); -webkit-font-smoo
 .ico svg { width: 22px; height: 22px; }
 .ico span { font-family: var(--mono); font-size: 10px; color: var(--ink-subtle); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
+/* Previews are pictures: no view-transition names, so they never collide with the running prototype. */
+.canvas, .canvas * { view-transition-name: none !important; }
+/* ...and scroll reveals start finished: a preview never scrolls, so nothing should wait to appear. */
+.canvas [data-reveal] { opacity: 1 !important; transform: none !important; filter: none !important; clip-path: none !important; transition: none !important; }
+.gigs-intro { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px 32px; }
+.gigs-intro h3 { margin: 0; font-family: var(--display); font-weight: 600; font-size: clamp(28px, 3.4vw, 44px); line-height: 1.05; letter-spacing: -.03em; color: var(--ink); }
+.gigs-intro p { margin: 10px 0 0; max-width: 70ch; color: var(--ink-muted); font-size: 15px; line-height: 23px; }
+.gigs-hero .chip-btn { min-height: 44px; padding: 0 20px; font-size: 13px; }
+
 /* full-page template */
-#tpl-full { width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: var(--forest-950); overflow: auto; }
+#tpl-full { width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: var(--bg); color: var(--ink); overflow: auto; }
 #tpl-full::backdrop { background: rgba(2, 10, 6, .8); }
 #tpl-full-root { min-height: 100%; display: flex; flex-direction: column; }
 #tpl-full-root > * { flex: 1; }
-.tpl-close { position: fixed; top: 16px; right: 16px; z-index: 2; min-height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--rule-strong); background: rgba(7, 26, 17, .7); color: #eaf4ee; font: 500 12px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; cursor: pointer; backdrop-filter: blur(8px); }
+.tpl-close { position: fixed; bottom: 16px; right: 16px; z-index: 2000; box-shadow: 0 8px 24px rgba(0,0,0,.25); min-height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--rule-strong); background: rgba(7, 26, 17, .7); color: #eaf4ee; font: 500 12px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; cursor: pointer; backdrop-filter: blur(8px); }
 
 /* motion demos */
 .mx-fx { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -380,7 +389,7 @@ body { margin: 0; color: var(--ink); font-family: var(--text); -webkit-font-smoo
   <header class="mast">
     <span class="mount" data-mount="logo-wide"></span>
     <div class="mast-end">
-      <div class="mast-meta"><span><b>Design system</b> v1.5</span><span>October 2026</span><span>Light + dark</span><span>React · Tailwind v4</span></div>
+      <div class="mast-meta"><span><b>Design system</b> v1.6</span><span>October 2026</span><span>Light + dark</span><span>React · Tailwind v4</span></div>
       <span class="mount" data-mount="theme-toggle"></span>
     </div>
   </header>
@@ -560,16 +569,41 @@ body { margin: 0; color: var(--ink); font-family: var(--text); -webkit-font-smoo
   </section>
 
   <!-- TEMPLATES -->
-  <section class="sec"><span class="sec-k">05 · Templates</span><h2>Whole pages, assembled from the parts.</h2><p>Each template is a React component made only from the system's components and tokens. Drop it in, pass your data, ship the page.</p></section>
+  <section class="sec"><span class="sec-k">05 · Templates</span><h2>Whole pages, assembled from the parts.</h2><p>Each template is a React component made only from the system's components and tokens. The three Between Gigs pages run together as one clickable prototype.</p></section>
   <section class="bento" aria-label="Templates">
-    <div class="tile s-12" style="--i:0">
+    <div class="tile s-12 gigs-hero" style="--i:0">
+      <div class="label"><span>Prototype</span><b>GigsApp · search, profile, onboarding</b></div>
+      <div class="gigs-intro">
+        <div>
+          <h3>Search, meet, book. Then join.</h3>
+          <p>The client's three review prototypes, rebuilt on the system and taken further: filters that re-flow live, a portrait that flies from its card into the profile, a bento portfolio with a lightbox, and a five-step onboarding with a live preview. All six people are fictional.</p>
+        </div>
+        <div class="tpl-meta"><button type="button" class="tpl-open chip-btn tpl-launch" data-launch="GigsApp" aria-haspopup="dialog">Open the prototype ↗</button></div>
+      </div>
+    </div>
+    <div class="tile s-12" style="--i:1">
+      <div class="label"><span>A · Search results</span><b>SearchResults</b></div>
+      <div class="frame"><div class="frame-bar"><i></i><i></i><i></i><span>betweengigs.com/find</span></div><div class="viewport" data-template="SearchResults" data-h="1500"></div></div>
+      <div class="tpl-meta"><button type="button" class="tpl-open chip-btn tpl-launch" data-launch="GigsApp" data-route="search" aria-haspopup="dialog">Try it ↗</button><span class="chip">Live filters that re-flow</span><span class="chip">List / grid</span><span class="chip">Map pins follow your hover</span><span class="chip">Save</span></div>
+    </div>
+    <div class="tile s-6" style="--i:2">
+      <div class="label"><span>B · Profile</span><b>GigsterProfile</b></div>
+      <div class="frame"><div class="frame-bar"><i></i><i></i><i></i><span>betweengigs.com/maya-chen</span></div><div class="viewport" data-template="GigsterProfile" data-h="1700"></div></div>
+      <div class="tpl-meta"><button type="button" class="tpl-open chip-btn tpl-launch" data-launch="GigsApp" data-route="profile/maya" aria-haspopup="dialog">Try it ↗</button><span class="chip">Portrait morph</span><span class="chip">Scrollspy tabs</span><span class="chip">Lightbox</span><span class="chip">Request flow</span></div>
+    </div>
+    <div class="tile s-6" style="--i:3">
+      <div class="label"><span>C · Gigster onboarding</span><b>GigsterOnboarding</b></div>
+      <div class="frame"><div class="frame-bar"><i></i><i></i><i></i><span>betweengigs.com/join</span></div><div class="viewport" data-template="GigsterOnboarding" data-h="1700"></div></div>
+      <div class="tpl-meta"><button type="button" class="tpl-open chip-btn tpl-launch" data-launch="GigsApp" data-route="onboarding" aria-haspopup="dialog">Try it ↗</button><span class="chip">5 steps, sliding</span><span class="chip">Live preview</span><span class="chip">Validation</span></div>
+    </div>
+    <div class="tile s-12" style="--i:4">
       <div class="label"><span>Coming soon</span><b>ComingSoon · template</b></div>
       <div class="frame"><div class="frame-bar"><i></i><i></i><i></i><span>betweengigs.com</span></div><div class="viewport" data-template="ComingSoon" data-h="820"></div></div>
-      <div class="tpl-meta"><button type="button" class="tpl-open chip-btn" id="tpl-open" aria-haspopup="dialog">Open full page ↗</button><span class="chip">Email capture with validation</span><span class="chip">Confirmation state</span><span class="chip">backdrop-europium · subtle</span></div>
+      <div class="tpl-meta"><button type="button" class="tpl-open chip-btn tpl-launch" data-launch="ComingSoon" aria-haspopup="dialog">Open full page ↗</button><span class="chip">Email capture with validation</span><span class="chip">Confirmation state</span><span class="chip">backdrop-europium · subtle</span></div>
     </div>
   </section>
 
-  <dialog id="tpl-full" aria-label="Coming soon, full page">
+  <dialog id="tpl-full" aria-label="Template, full page">
     <div id="tpl-full-root"></div>
     <button type="button" id="tpl-close" class="tpl-close" aria-label="Close full page">Close ✕</button>
   </dialog>
@@ -580,7 +614,7 @@ body { margin: 0; color: var(--ink); font-family: var(--text); -webkit-font-smoo
     <div id="detail-body"><div id="detail-root"></div></div>
   </dialog>
 
-  <footer class="foot"><span class="mount" data-mount="logo-mark"></span><span>Between Gigs Design System · v1.5 · October 2026</span></footer>
+  <footer class="foot"><span class="mount" data-mount="logo-mark"></span><span>Between Gigs Design System · v1.6 · October 2026</span></footer>
 </div>
 </div>
 
@@ -765,27 +799,33 @@ body { margin: 0; color: var(--ink); font-family: var(--text); -webkit-font-smoo
     if (f) ReactDOM.createRoot(el).render(R.createElement(function () { return f(); }));
   });
 
-  // "Open full page": the template opens full screen, morphing out of its frame.
+  // "Open full page" / "Try it": the template opens full screen, morphing out of its tile.
   (function () {
-    var dlgT = document.getElementById("tpl-full"), openBtn = document.getElementById("tpl-open"), frame = openBtn && openBtn.closest(".tile").querySelector(".frame");
-    if (!dlgT || !openBtn) return;
+    var dlgT = document.getElementById("tpl-full"); if (!dlgT) return;
     var rootT = ReactDOM.createRoot(document.getElementById("tpl-full-root"));
     var still = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
     var morph = function (from, to, update) {
-      if (!document.startViewTransition || still) { update(); return; }
+      if (!document.startViewTransition || still || !from) { update(); return; }
       from.style.viewTransitionName = "morph";
       var t = document.startViewTransition(function () { from.style.viewTransitionName = ""; update(); to.style.viewTransitionName = "morph"; });
       t.finished.finally(function () { from.style.viewTransitionName = ""; to.style.viewTransitionName = ""; });
     };
     var links = [{ label: "Instagram", href: "#instagram" }, { label: "Privacy", href: "#privacy" }, { label: "Terms", href: "#terms" }];
-    openBtn.addEventListener("click", function (e) {
-      e.stopPropagation();
-      morph(frame, dlgT, function () { ReactDOM.flushSync(function () { rootT.render(R.createElement(BG.Templates.ComingSoon, { links: links })); }); dlgT.showModal(); });
+    var lastBtn = null, lastFrom = null;
+    document.querySelectorAll(".tpl-launch").forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var name = btn.getAttribute("data-launch"), route = btn.getAttribute("data-route");
+        var props = name === "ComingSoon" ? { links: links } : { imageBase: "app/img/", initial: route ? { page: route.split("/")[0], id: route.split("/")[1] } : { page: "search" } };
+        var tile = btn.closest(".tile"); lastBtn = btn; lastFrom = tile.querySelector(".frame") || tile;
+        dlgT.setAttribute("aria-label", (name === "ComingSoon" ? "Coming soon" : "Between Gigs prototype") + ", full page");
+        morph(lastFrom, dlgT, function () { ReactDOM.flushSync(function () { rootT.render(R.createElement(BG.Templates[name], props)); }); dlgT.showModal(); dlgT.scrollTop = 0; });
+      });
     });
-    var close = function () { morph(dlgT, frame, function () { dlgT.close(); }); };
+    var close = function () { morph(dlgT, lastFrom, function () { dlgT.close(); }); };
     document.getElementById("tpl-close").addEventListener("click", close);
     dlgT.addEventListener("cancel", function (e) { e.preventDefault(); close(); });
-    dlgT.addEventListener("close", function () { rootT.render(null); openBtn.focus(); });
+    dlgT.addEventListener("close", function () { rootT.render(null); if (lastBtn) lastBtn.focus(); });
   })();
 
   // Live templates, rendered at 1440px and scaled into their frames.
@@ -802,7 +842,9 @@ body { margin: 0; color: var(--ink); font-family: var(--text); -webkit-font-smoo
     var fit = function () { var k = vp.clientWidth / 1440; canvas.style.transform = "scale(" + k + ")"; vp.style.height = (h * k) + "px"; };
     fit();
     if (window.ResizeObserver) new ResizeObserver(fit).observe(vp);
-    ReactDOM.createRoot(canvas).render(R.createElement(T, { links: [{ label: "Instagram", href: "#instagram" }, { label: "Privacy", href: "#privacy" }, { label: "Terms", href: "#terms" }] }));
+    var name = vp.getAttribute("data-template");
+    var props = name === "ComingSoon" ? { links: [{ label: "Instagram", href: "#instagram" }, { label: "Privacy", href: "#privacy" }, { label: "Terms", href: "#terms" }] } : { imageBase: "app/img/" };
+    ReactDOM.createRoot(canvas).render(R.createElement(T, props));
   });
 
 })();

@@ -15,10 +15,11 @@ const rules = [
   { name: "Tailwind arbitrary value", re: /\b(?!transition-)[a-z][a-z0-9-]*-\[[^\]]+\](?!:)/g },
 ];
 let failures = 0;
+// Every .ts/.tsx file under each dir, subfolders included.
+const walk = (d) => fs.readdirSync(path.join(ROOT, d), { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(`${d}/${e.name}`) : [`${d}/${e.name}`]));
 for (const d of dirs) {
-  for (const f of fs.readdirSync(path.join(ROOT, d))) {
-    const rel = `${d}/${f}`;
-    if (!/\.tsx?$/.test(f) || allow.has(rel)) continue;
+  for (const rel of walk(d)) {
+    if (!/\.tsx?$/.test(rel) || allow.has(rel)) continue;
     const lines = fs.readFileSync(path.join(ROOT, rel), "utf8").split("\n");
     lines.forEach((line, i) => {
       if (line.trim().startsWith("//") || line.trim().startsWith("*") || line.trim().startsWith("/*")) return;

@@ -35,7 +35,7 @@ LEVELS = {
                "Tabs", "Breadcrumbs", "Pager", "NavItem", "Menu", "Popover", "Accordion", "AvatarGroup", "Stepper", "PageTransition"],
   "organism": ["Modal", "Drawer", "ConfirmDialog", "Table", "PageHeader", "ModuleCard", "AppShell", "FilterBar", "WorkspaceTile",
                "FunnelStepCard", "ProfileCard", "StageStats", "CommandPalette"],
-  "template": ["ComingSoon"],
+  "template": ["ComingSoon", "SearchResults", "GigsterProfile", "GigsterOnboarding"],
 }
 LEVEL = {n: lv for lv, names in LEVELS.items() for n in names}
 
@@ -1672,6 +1672,67 @@ The teaser page before launch: logo, a Coming soon badge, the headline, one line
 
 - A product or city that isn't open yet. Keep it this simple: no countdown, no feature list.
 - It is a dark-theme island in either theme. The backdrop is `backdrop-europium` (see MATERIALS.md).
+""")
+
+comp("SearchResults", "Templates", 900, """
+function Demo() {
+  return html`<${BG.Templates.SearchResults} imageBase="../../showcase/app/img/" />`;
+}
+""", """
+# SearchResults
+
+Find a Gigster: a brand hero with the people in it, a search bar lifted over its edge, service pills, filters, sort, list or grid, and a rail with an illustrative neighbourhood map and how it works.
+
+## The consumer provides
+
+- `onOpenProfile(id)` and `onNavigate(page)`, to route to a profile or another page.
+- `imageBase`: the folder the sample photos are served from.
+
+## Use when
+
+- The public "Find a professional" page. Filters and sort re-flow the results with a view transition: each card glides to its new place.
+- Hovering a card lights up its pin on the map, and the other way round.
+- All sample people, photos and rates are fictional. Keep the "Fictional sample" notes until real profiles exist.
+""")
+
+comp("GigsterProfile", "Templates", 900, """
+function Demo() {
+  return html`<${BG.Templates.GigsterProfile} personId="jordan" imageBase="../../showcase/app/img/" />`;
+}
+""", """
+# GigsterProfile
+
+A Gigster's public profile: portrait hero over an ambient glow from their own work, a sticky booking card, section tabs that follow the scroll, services, a bento portfolio with a lightbox, example reviews, experience, FAQs and similar professionals.
+
+## The consumer provides
+
+- `personId`, `onBack`, `onOpenProfile(id)`, `onNavigate(page)`, `imageBase`.
+
+## Use when
+
+- The page a client lands on from search. The portrait carries a view-transition name, so it flies from the search card into the hero.
+- Request, Check availability and Tell us about your project open a short request form; in this concept nothing is sent.
+- Disclosures stay visible: fictional profile, sample availability, credits not verified, insurance not verified.
+""")
+
+comp("GigsterOnboarding", "Templates", 900, """
+function Demo() {
+  return html`<${BG.Templates.GigsterOnboarding} imageBase="../../showcase/app/img/" />`;
+}
+""", """
+# GigsterOnboarding
+
+Five steps from "about you" to a profile ready for review, with a live preview of how clients will see you beside the form.
+
+## The consumer provides
+
+- `onNavigate(page)` and `imageBase`. Wire the final submit to your review queue.
+
+## Use when
+
+- Professionals joining Between Gigs. Steps: About you, Skills, Where & when, Your story, Review.
+- Curated lists are chip pickers, not dropdowns: every option visible, one tap to pick or drop. "Something else" goes to private review.
+- Continue validates the step and lists what needs fixing; Back and the stepper slide the other way. Review jumps back to any step with Edit.
 """)
 
 def main():

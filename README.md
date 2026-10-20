@@ -17,7 +17,7 @@ Tokens, a Tailwind CSS v4 theme and 51 React components for the Between Gigs das
 | `tokens/contrast-report.json` | 138 text/ground pairs with their contrast ratios, both themes. |
 | `styles/between-gigs.css` | The Tailwind v4 theme the app imports. |
 | `src/motion/` | Page transitions, scroll reveals, scroll progress and parallax. See MOTION.md. |
-| `src/templates/` | Page templates built from the components (`ComingSoon`). |
+| `src/templates/` | Page templates built from the components: ComingSoon, and the Between Gigs SearchResults, GigsterProfile and GigsterOnboarding, joined as the GigsApp prototype (`docs/showcase/app/`). |
 | `src/components/` | 51 components, TypeScript, one file each. No runtime dependency besides React. |
 | `fonts/`, `logos/` | Sora, Figtree, Newsreader, JetBrains Mono (woff2); approved logo SVGs. |
 | `scripts/` | Docs bundle, previews, showcase, raw-value lint, QA (axe and keyboard tests). |
@@ -67,4 +67,4 @@ Organised by atomic design: atoms are single controls and marks, molecules combi
 - **Atoms:** Button · IconButton · Switch · ThemeToggle · Input · Textarea · Select · Checkbox · Slider · Badge · StatusBadge · Tag · Count · Avatar · Progress · Skeleton · Kbd · Logo · Tooltip · FlowConnector · Reveal · Parallax · ScrollProgress
 - **Molecules:** SegmentedControl · Field · RadioGroup · Combobox · Card · Stat · Banner · Toast · EmptyState · Tabs · Breadcrumbs · Pager · NavItem · Menu · Popover · Accordion · AvatarGroup · Stepper · PageTransition (`useViewTransition`)
 - **Organisms:** Modal · Drawer · ConfirmDialog · Table · PageHeader · ModuleCard · AppShell (TopBar, ModuleBar, Sidebar, Inspector, PromptBar) · FilterBar · WorkspaceTile · FunnelStepCard · ProfileCard · StageStats · CommandPalette
-- **Templates:** ComingSoon
+- **Templates:** ComingSoon · SearchResults · GigsterProfile · GigsterOnboarding · GigsApp (the three joined as a clickable prototype)
