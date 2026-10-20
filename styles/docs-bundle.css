@@ -2,4 +2,5 @@
 @import "tailwindcss" source(none);
 @import "./docs-theme.css";
 @source "../src/components";
+@source "../src/templates";
 @source "../docs/components";

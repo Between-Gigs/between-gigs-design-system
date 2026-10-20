@@ -6,7 +6,7 @@ A short label for a state or a type, in a tone color.
 
 - `tone`: `success`, `warning`, `danger`, `info`, `neutral` or `brand` (types and samples, not states).
 - `children`: one to three words.
-- `dot` or `icon` (14px) for scanning in dense lists; `size` `sm` or `md`.
+- `icon` (14px) for scanning in dense lists; `size` `sm` or `md`. Badges carry no dot: the tone and the word say it.
 
 ## Use when
 

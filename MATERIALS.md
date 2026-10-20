@@ -47,3 +47,11 @@ Four procedural finishes drawn entirely in CSS, with no image files to host. Eac
 ```
 
 The showcase shows them at full strength, with a highlight that follows the pointer. In the product they run at `opacity-material` like any other finish.
+
+## Brand backdrop: Europium
+
+`backdrop-europium` is the one exception to "public pages stay flat". It is brand artwork, not a personal finish: a very quiet Europium phosphor field (faint mint grain, soft glow at the bottom edge) for teaser and launch pages such as the Coming soon template.
+
+- Always dark: use it on a `data-theme="dark"` element. It paints its own `forest-950` ground.
+- It stays subtle on purpose: the grain is low contrast and a soft darker zone sits behind the centered copy, so text reads cleanly. Don't raise its strength.
+- One per page, full-bleed. Never inside the app shell.

@@ -3,7 +3,7 @@
 Tokens, a Tailwind CSS v4 theme and 50 React components for the Between Gigs dashboard, marketing site and onboarding, in light and dark.
 
 - **Brand book:** [BRAND.md](BRAND.md) (principles, content, color, type, layout, states, accessibility)
-- **Logo:** [LOGO.md](LOGO.md) · **Materials:** [MATERIALS.md](MATERIALS.md)
+- **Logo:** [LOGO.md](LOGO.md) · **Icons:** [ICONS.md](ICONS.md) (Lucide) · **Materials:** [MATERIALS.md](MATERIALS.md)
 - **Component guides:** [docs/components/](docs/components) (one README and live preview each)
 - **Showcase:** [between-gigs.github.io/between-gigs-design-system](https://between-gigs.github.io/between-gigs-design-system/), built from [docs/showcase/index.html](docs/showcase/index.html), a static page that runs every component live. `.github/workflows/pages.yml` republishes it on every push to `main`.
 - **QA report:** [docs/QA.md](docs/QA.md) · **Changes:** [CHANGELOG.md](CHANGELOG.md)
@@ -16,6 +16,7 @@ Tokens, a Tailwind CSS v4 theme and 50 React components for the Between Gigs das
 | `tokens/tokens.json` | All tokens: 93 colors (light and dark), 19 type styles, 74 scale values. |
 | `tokens/contrast-report.json` | 130 text/ground pairs with their contrast ratios, both themes. |
 | `styles/between-gigs.css` | The Tailwind v4 theme the app imports. |
+| `src/templates/` | Page templates built from the components (`ComingSoon`). |
 | `src/components/` | 50 components, TypeScript, one file each. No runtime dependency besides React. |
 | `fonts/`, `logos/` | Sora, Figtree, Newsreader, JetBrains Mono (woff2); approved logo SVGs. |
 | `scripts/` | Docs bundle, previews, showcase, raw-value lint, QA (axe and keyboard tests). |

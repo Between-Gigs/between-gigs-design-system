@@ -5,7 +5,7 @@ type GlyphProps = React.SVGProps<SVGSVGElement>;
 const glyph = (d: React.ReactNode) =>
   function Glyph(props: GlyphProps) {
     return (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75}
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}
         strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>{d}</svg>
     );
   };

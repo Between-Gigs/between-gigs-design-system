@@ -4,7 +4,7 @@ One step on the Funnel Studio canvas: what kind of step it is, its order, status
 
 ## The consumer provides
 
-- `type`: `traffic`, `page`, `form`, `email` or `marketplace`. Each has a fixed label, category color and icon (`stepTypes`), shown as the top stripe, a dot and the empty-preview icon.
+- `type`: `traffic`, `page`, `form`, `email` or `marketplace`. Each has a fixed label, category color and icon (`stepTypes`), shown as the top stripe and the empty-preview icon.
 - `status` shows as a badge in the preview's top-right corner, so the header always has room for the full step type.
 - `step` (shown as "03"), `title`, `status`.
 - `description`: what the step does, with an arrow to the next step ("Name, email, ZIP → reserved email").

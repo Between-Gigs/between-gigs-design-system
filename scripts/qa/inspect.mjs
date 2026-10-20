@@ -38,6 +38,7 @@ const staticChecks = () => {
     const r = el.getBoundingClientRect(); if (!r.width || !r.height || getComputedStyle(el).visibility === "hidden") continue;
     if (["checkbox", "radio", "range"].includes(el.type)) continue; // their labels enlarge the target
     if (el.closest("p, li") && el.tagName === "A" && el.closest("p")) continue; // inline links in sentences are exempt
+    if (el.closest("[inert]")) continue; // scaled, non-interactive template previews
     if (r.width < 24 || r.height < 24) out.push(`small target: ${desc(el)} ${Math.round(r.width)}×${Math.round(r.height)}`);
   }
   for (const el of document.querySelectorAll("body *")) {

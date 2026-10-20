@@ -17,10 +17,6 @@ export const stepTypes: Record<StepType, { label: string; color: CategoryColor; 
   marketplace: { label: "Marketplace", color: "cat-7", Glyph: StoreGlyph },
 };
 
-const dots: Record<CategoryColor, string> = {
-  "cat-1": "bg-cat-1", "cat-2": "bg-cat-2", "cat-3": "bg-cat-3", "cat-4": "bg-cat-4",
-  "cat-5": "bg-cat-5", "cat-6": "bg-cat-6", "cat-7": "bg-cat-7", "cat-8": "bg-cat-8",
-};
 
 export interface FunnelStepCardProps {
   type: StepType;
@@ -51,7 +47,6 @@ export function FunnelStepCard({ type, step, title, description, status, preview
       className={cx("flex flex-col", fluid ? "min-w-48 flex-1 basis-0" : "w-56 shrink-0", className)}>
       <div className="flex items-center gap-2 px-3 pt-4">
         <span className="font-mono text-data-sm text-ink-subtle tabular-nums">{String(step).padStart(2, "0")}</span>
-        <span aria-hidden="true" className={cx("size-2 shrink-0 rounded-full", dots[t.color])} />
         <span className="min-w-0 truncate text-label-sm text-ink-muted">{t.label}</span>
       </div>
       <button type="button" onClick={onOpen} onDoubleClick={onOpen} aria-label={`Open ${title}`}

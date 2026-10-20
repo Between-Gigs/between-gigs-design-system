@@ -23,7 +23,7 @@ export interface StatusBadgeProps extends Omit<BadgeProps, "tone" | "children"> 
 }
 
 /** The product's fixed status vocabulary, each word always in the same color. */
-export function StatusBadge({ status, dot = true, ...rest }: StatusBadgeProps) {
+export function StatusBadge({ status, ...rest }: StatusBadgeProps) {
   const m = statusMeta[status];
-  return <Badge tone={m.tone} dot={dot} {...rest}>{m.label}</Badge>;
+  return <Badge tone={m.tone} {...rest}>{m.label}</Badge>;
 }

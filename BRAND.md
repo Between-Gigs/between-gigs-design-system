@@ -73,7 +73,7 @@ The draft strip at the top of preview pages ("Draft · not public …") is a ful
 
 ### Categories
 
-`cat-1` to `cat-8` tell apart things of the same kind: funnel step types (traffic source, web page, form, email, marketplace), workspace covers and chart series. They are marks: a 3px top stripe on a card, a dot, a chart bar or line, a cover tint. Each holds 3:1 on `surface` and `bg`. Never use them for text or status, and always pair a category color with its label. Assign them in order and keep the assignment stable across the product (Pages & experiences is always `cat-1`).
+`cat-1` to `cat-8` tell apart things of the same kind: funnel step types (traffic source, web page, form, email, marketplace), workspace covers and chart series. They are marks: a 3px top stripe on a card, a chart bar or line, a cover tint. Each holds 3:1 on `surface` and `bg`. Never use them for text or status, and always pair a category color with its label. Assign them in order and keep the assignment stable across the product (Pages & experiences is always `cat-1`).
 
 Workspace cover tiles use a category color as a flat fill, with the workspace initials in `ink` on a `surface` plate at `heading-lg`. Never put text directly on a category color: the dark-theme category colors are light, so no single text color reads on all of them. No random gradients.
 

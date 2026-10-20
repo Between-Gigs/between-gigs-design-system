@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.4.0 — October 2026
+
+### Added
+- **Templates are back, starting with `ComingSoon`** (`src/templates/`): a simple teaser page before launch: headline, one line of copy and an email capture with validation and a confirmation. Built only from system components. Exported as `Templates.ComingSoon` in the docs bundle.
+- **`backdrop-europium`**: a quiet Europium phosphor field for teaser and launch pages: faint mint grain with a soft glow at the bottom edge. See MATERIALS.md.
+- **ICONS.md**: the icon reference. Interface icons are Lucide (`lucide-react`), passed into components as props; sizes, stroke, color and labelling rules, the built-in glyphs, and every icon in use with its meaning. The showcase has a live Icons tile.
+- **Showcase section 04 · Templates**: the Coming soon page rendered live in a browser frame, plus a full-screen version at `templates/coming-soon.html`.
+
+### Changed
+- Built-in glyphs (chevrons, check, close, status icons) now use a 2px stroke, the same as Lucide.
+
+### Removed
+- **Dots in badges.** `Badge` no longer has a `dot` prop and `StatusBadge` no longer draws one: the tone color and the word carry the status. The category dot in the FunnelStepCard header is gone too; the card's top stripe already shows the step type.
+
 ## 1.3.0 — October 2026
 
 ### Added

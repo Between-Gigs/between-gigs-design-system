@@ -16,3 +16,5 @@ export const Icons = {
 };
 /** Tagged-template JSX for previews: html`<${Button} variant="primary">Save<//>`. */
 export const html = htm.bind(React.createElement);
+/** Page templates, assembled from the components. */
+export * as Templates from "../src/templates/index";

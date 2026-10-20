@@ -378,7 +378,7 @@ function Demo() {
       <${Badge} tone="info">Preview<//><${Badge} tone="neutral">Not started<//><${Badge} tone="brand">Sample person<//>
     </div>
     <div className="flex flex-wrap items-center gap-2">
-      <${Badge} tone="warning" dot size="sm">Draft · not public<//><${Badge} tone="info" icon=${html`<${I.Lock}/>`}>Design locked<//>
+      <${Badge} tone="warning" size="sm">Draft · not public<//><${Badge} tone="info" icon=${html`<${I.Lock}/>`}>Design locked<//>
       <${Badge} tone="brand" size="sm">Trust · Week 2<//>
     </div>
   </div>`;
@@ -392,7 +392,7 @@ A short label for a state or a type, in a tone color.
 
 - `tone`: `success`, `warning`, `danger`, `info`, `neutral` or `brand` (types and samples, not states).
 - `children`: one to three words.
-- `dot` or `icon` (14px) for scanning in dense lists; `size` `sm` or `md`.
+- `icon` (14px) for scanning in dense lists; `size` `sm` or `md`. Badges carry no dot: the tone and the word say it.
 
 ## Use when
 
@@ -1142,7 +1142,7 @@ One step on the Funnel Studio canvas: what kind of step it is, its order, status
 
 ## The consumer provides
 
-- `type`: `traffic`, `page`, `form`, `email` or `marketplace`. Each has a fixed label, category color and icon (`stepTypes`), shown as the top stripe, a dot and the empty-preview icon.
+- `type`: `traffic`, `page`, `form`, `email` or `marketplace`. Each has a fixed label, category color and icon (`stepTypes`), shown as the top stripe and the empty-preview icon.
 - `status` shows as a badge in the preview's top-right corner, so the header always has room for the full step type.
 - `step` (shown as "03"), `title`, `status`.
 - `description`: what the step does, with an arrow to the next step ("Name, email, ZIP → reserved email").
