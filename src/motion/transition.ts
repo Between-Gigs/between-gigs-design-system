@@ -2,8 +2,8 @@ import * as React from "react";
 import { flushSync } from "react-dom";
 
 /** Page transition effects. Each one is a pair of keyframes in the theme CSS (see MOTION.md). */
-export type PageEffect = "reveal" | "slide" | "push" | "zoom" | "flip" | "wipe" | "dissolve";
-export const pageEffects: PageEffect[] = ["reveal", "slide", "push", "zoom", "flip", "wipe", "dissolve"];
+export type PageEffect = "shift" | "reveal" | "slide" | "push" | "zoom" | "flip" | "wipe" | "dissolve";
+export const pageEffects: PageEffect[] = ["shift", "slide", "push", "zoom", "reveal", "wipe", "flip", "dissolve"];
 
 export interface PageTransitionOptions {
   /** Which effect plays. Default "slide". "theme" is reserved for the theme switch. */

@@ -61,8 +61,8 @@ export function SearchResults({ imageBase = "img/", onOpenProfile, onNavigate }:
         <span aria-hidden="true" className="glow-horizon opacity-60" />
         <div className="relative z-raised mx-auto grid max-w-7xl items-center gap-10 px-4 pt-14 pb-28 sm:px-6 lg:grid-cols-12 lg:pt-20 lg:pb-32">
           <div className="lg:col-span-7">
-            <Reveal effect="slide-left"><p className="text-eyebrow text-ink-brand uppercase">Concept · sample profiles</p></Reveal>
-            <Reveal effect="clip-up" delay={80}>
+            <Reveal effect="fade-up"><p className="text-eyebrow text-ink-brand uppercase">Concept · sample profiles</p></Reveal>
+            <Reveal effect="fade-up" delay={80}>
               <h1 className="mt-4 font-display text-display-md text-balance text-ink sm:text-display-lg lg:text-display-xl">
                 Extraordinary talent. <span className="glow-text text-ink-brand">Everyday help.</span>
               </h1>
@@ -76,7 +76,7 @@ export function SearchResults({ imageBase = "img/", onOpenProfile, onNavigate }:
             {allPeople.map((p, i) => {
               const spots = ["top-0 left-8 size-28", "top-6 right-4 size-24", "top-32 left-36 size-32", "bottom-0 left-0 size-24", "bottom-4 right-16 size-28", "top-20 right-40 size-16"];
               return (
-                <Reveal key={p.id} effect="pop" delay={300 + i * 90} className={cx("absolute", spots[i])}>
+                <Reveal key={p.id} effect="fade-up" delay={150 + i * 60} className={cx("absolute", spots[i])}>
                   <img src={img(`${p.id}.jpg`)} alt="" className="size-full rounded-full border-4 border-surface-brand object-cover shadow-lg ring-1 ring-line transition-transform duration-slow hover:scale-105" />
                 </Reveal>
               );

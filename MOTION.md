@@ -10,7 +10,7 @@ Everything here turns off under `prefers-reduced-motion`: changes happen instant
 | --- | --- | --- |
 | `duration-instant` · `fast` · `base` · `slow` | 80 · 140 · 200 · 320ms | Controls, menus, modals (unchanged). |
 | `duration-deliberate` | 480ms | Card fans, marketing reveals. |
-| `duration-page` | 640ms | Page transitions, morphs, the theme reveal, scroll reveals. |
+| `duration-page` | 460ms | Page transitions, morphs and the theme reveal. Scroll reveals use 520ms with a soft ease-out. |
 | `ease-standard` · `enter` · `exit` · `spring` | | As before; `spring` only for `pop`. |
 
 ## Page transitions
@@ -27,7 +27,8 @@ Put `vt-page` on the content region. Only it moves; the shell (top bar, sidebar,
 
 | Effect | Feels like | Use for |
 | --- | --- | --- |
-| `slide` | Sideways to a neighbour | Tabs, steps, peers. The default. |
+| `shift` | A short fade with an 8-12px nudge | Steps inside a flow (onboarding, wizards), small view changes. The quiet default. |
+| `slide` | Sideways to a neighbour | Moving between peer pages. |
 | `push` | Drilling in; the old page sinks | List → detail, hub → module. |
 | `zoom` | Stepping into something | Opening an item from a grid. |
 | `reveal` | A circle of the new page grows from the click | Big moments: publish, launch, switching workspace. |
@@ -36,6 +37,10 @@ Put `vt-page` on the content region. Only it moves; the shell (top bar, sidebar,
 | `dissolve` | Blur and melt | Changing mode (Studio → Preview). Sparingly. |
 
 One effect per kind of move, the same everywhere.
+
+## Keep it subtle
+
+Motion should feel like the interface settling, not performing. Distances stay small (8-16px), fades are short, and nothing replays: content that is already on screen never animates in again when a step or filter changes. Reserve `reveal`, `flip` and `dissolve` for rare, big moments.
 
 ## Shared-element morphs
 

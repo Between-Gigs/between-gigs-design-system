@@ -71,8 +71,8 @@ export function GigsterProfile({ personId = "maya", imageBase = "img/", onBack, 
                 <Badge tone={p.availability === "this-week" ? "success" : "info"} className="absolute top-3 left-3 shadow-sm">{availabilityLabel[p.availability]}</Badge>
               </div>
               <div className="sm:col-span-7">
-                <Reveal effect="slide-left"><p className="text-eyebrow text-ink-brand uppercase">{p.service}</p></Reveal>
-                <Reveal effect="clip-up" delay={80}><h1 className="mt-2 font-display text-display-md text-ink sm:text-display-lg">{p.name}</h1></Reveal>
+                <Reveal effect="fade-up"><p className="text-eyebrow text-ink-brand uppercase">{p.service}</p></Reveal>
+                <Reveal effect="fade-up" delay={80}><h1 className="mt-2 font-display text-display-md text-ink sm:text-display-lg">{p.name}</h1></Reveal>
                 <Reveal effect="fade-up" delay={160}>
                   <p className="mt-2 text-body-lg text-ink-muted">{p.helps.slice(0, 3).join(" · ")}</p>
                   <ul className="mt-5 grid gap-2 text-body-md text-ink">
@@ -107,8 +107,8 @@ export function GigsterProfile({ personId = "maya", imageBase = "img/", onBack, 
               <ul className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3">
                 {p.helps.map((h, i) => (
                   <li key={h}>
-                    <Reveal effect="scale-in" delay={i * 50} className="group flex items-center gap-3 rounded-xl border border-line bg-surface p-2.5 transition duration-base hover:-translate-y-0.5 hover:border-ink-brand hover:shadow-md">
-                      <img src={img(p.portfolio[i % p.portfolio.length].src)} alt="" className="size-12 shrink-0 rounded-lg object-cover transition-transform duration-slow group-hover:scale-110" />
+                    <Reveal effect="fade-up" delay={i * 50} className="group flex items-center gap-3 rounded-xl border border-line bg-surface p-2.5 transition duration-base hover:-translate-y-0.5 hover:border-ink-brand hover:shadow-md">
+                      <img src={img(p.portfolio[i % p.portfolio.length].src)} alt="" className="size-12 shrink-0 rounded-lg object-cover transition-transform duration-slow group-hover:scale-105" />
                       <span className="text-label-md text-ink">{h}</span>
                     </Reveal>
                   </li>
@@ -120,7 +120,7 @@ export function GigsterProfile({ personId = "maya", imageBase = "img/", onBack, 
               <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
                 {p.helps.slice(0, 4).map((h, i) => (
                   <li key={h}>
-                    <Reveal effect="fade-up" delay={i * 70} className="group overflow-hidden rounded-2xl border border-line bg-surface transition duration-base hover:-translate-y-1 hover:shadow-lg">
+                    <Reveal effect="fade-up" delay={i * 70} className="group overflow-hidden rounded-2xl border border-line bg-surface transition duration-base hover:-translate-y-0.5 hover:shadow-lg">
                       <div className="aspect-video overflow-hidden"><img src={img(p.portfolio[i % p.portfolio.length].src)} alt="" className="size-full object-cover transition-transform duration-slow group-hover:scale-105" /></div>
                       <div className="grid gap-1 p-4">
                         <h3 className="font-display text-heading-md text-ink">{h}</h3>
@@ -139,10 +139,10 @@ export function GigsterProfile({ personId = "maya", imageBase = "img/", onBack, 
               <ul className={cx("grid grid-cols-2 gap-3", p.portfolio.length === 4 ? "md:grid-cols-4" : "md:grid-cols-3")}>
                 {p.portfolio.map((it, i) => (
                   <li key={it.src} className={cx(i === 0 ? "col-span-2 row-span-2" : "h-36 md:h-44", p.portfolio.length === 4 && i === 1 && "col-span-2")}>
-                    <Reveal effect={i === 0 ? "blur-in" : "scale-in"} delay={i * 60} className="h-full">
+                    <Reveal effect="fade-up" delay={i * 60} className="h-full">
                       <button type="button" onClick={() => setLightbox(i)} aria-label={`Open ${it.caption}`}
                         className="group relative block size-full min-h-36 overflow-hidden rounded-xl">
-                        <img src={img(it.src)} alt="" className="size-full object-cover transition-transform duration-slow group-hover:scale-110" />
+                        <img src={img(it.src)} alt="" className="size-full object-cover transition-transform duration-slow group-hover:scale-105" />
                         <span className="absolute inset-x-0 bottom-0 translate-y-2 bg-linear-to-t from-surface-brand to-transparent p-3 pt-8 text-left text-label-md text-ink-on-brand opacity-0 transition duration-base group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">{it.caption}</span>
                       </button>
                     </Reveal>
@@ -156,7 +156,7 @@ export function GigsterProfile({ personId = "maya", imageBase = "img/", onBack, 
               <ul className="grid gap-4 md:grid-cols-3">
                 {exampleReviews.map((r, i) => (
                   <li key={r.by}>
-                    <Reveal effect="tilt-in" delay={i * 90} className="flex h-full flex-col gap-4 rounded-2xl border border-line bg-surface p-5">
+                    <Reveal effect="fade-up" delay={i * 90} className="flex h-full flex-col gap-4 rounded-2xl border border-line bg-surface p-5">
                       <Quote className="size-6 text-ink-brand" aria-hidden="true" />
                       <p className="font-serif text-editorial-lg text-ink">{r.quote}</p>
                       <div className="mt-auto flex items-center justify-between"><span className="text-body-sm text-ink-subtle">{r.by}</span><Badge tone="neutral" size="sm">Example · fictional</Badge></div>
@@ -193,7 +193,7 @@ export function GigsterProfile({ personId = "maya", imageBase = "img/", onBack, 
                 {others.map((o, i) => (
                   <li key={o.id}>
                     <Reveal effect="fade-up" delay={i * 80}>
-                      <button type="button" onClick={() => onOpenProfile?.(o.id)} className="group block w-full overflow-hidden rounded-2xl border border-line bg-surface text-left transition duration-base hover:-translate-y-1 hover:shadow-lg">
+                      <button type="button" onClick={() => onOpenProfile?.(o.id)} className="group block w-full overflow-hidden rounded-2xl border border-line bg-surface text-left transition duration-base hover:-translate-y-0.5 hover:shadow-lg">
                         <div className="aspect-video overflow-hidden"><Portrait person={o} morph={false} src={img(`${o.id}.jpg`)} className="size-full transition-transform duration-slow group-hover:scale-105" /></div>
                         <div className="flex items-center justify-between gap-2 p-4">
                           <span><b className="block font-display text-heading-md text-ink">{o.name}</b><span className="text-body-sm text-ink-muted">{o.service}</span></span>
@@ -210,7 +210,7 @@ export function GigsterProfile({ personId = "maya", imageBase = "img/", onBack, 
           {/* Booking rail */}
           <aside className="lg:col-span-4">
             <div className="grid gap-5 lg:sticky lg:top-24">
-              <Reveal effect="slide-right" className="rounded-2xl border border-line bg-surface p-5 shadow-lg">
+              <Reveal effect="fade-up" className="rounded-2xl border border-line bg-surface p-5 shadow-lg">
                 <div className="flex items-start justify-between gap-3">
                   <p><span className="block text-caption text-ink-subtle">From</span><span className="font-display text-display-sm text-ink">${p.rate}</span><span className="text-body-md text-ink-muted">/hour</span></p>
                   <IconButton label={saved ? "Unsave" : "Save"} pressed={saved} onClick={() => setSaved(!saved)} variant="ghost" icon={<Star className={cx(saved && "fill-current")} />} />
@@ -260,7 +260,7 @@ function Section({ id, name, title, meta, children }: { id: string; name: string
   return (
     <section id={id} data-section={name} aria-labelledby={`${id}-h`} className="scroll-mt-32 pt-14">
       <div className="mb-5 flex items-baseline justify-between gap-4">
-        <Reveal effect="clip-up"><h2 id={`${id}-h`} className="font-display text-display-sm text-ink">{title}</h2></Reveal>
+        <Reveal effect="fade-up"><h2 id={`${id}-h`} className="font-display text-display-sm text-ink">{title}</h2></Reveal>
         {meta && <span className="text-caption text-ink-subtle">{meta}</span>}
       </div>
       {children}
@@ -308,7 +308,7 @@ function RequestModal({ person: p, open, onClose }: { person: Person; open: bool
       )}>
       {sent ? (
         <div className="grid justify-items-center gap-3 py-6 text-center">
-          <Reveal effect="pop" className="grid size-16 place-items-center rounded-full bg-action text-on-action shadow-lg"><Check className="size-8" /></Reveal>
+          <Reveal effect="fade-up" className="grid size-16 place-items-center rounded-full bg-action text-on-action shadow-lg"><Check className="size-8" /></Reveal>
           <p className="max-w-sm text-body-md text-ink-muted">In the live product, {p.first} would get your note and reply to agree scope, timing and the final rate. In this concept, nothing was sent.</p>
         </div>
       ) : (

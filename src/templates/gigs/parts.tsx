@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Check } from "lucide-react";
+import { Check, Plus } from "lucide-react";
 import { Badge, Button, Logo, ThemeToggle, cx } from "../../components";
 import type { Person } from "./data";
 
@@ -60,9 +60,12 @@ export function ChipPicker({ options, value, onChange, label, max }: { options: 
         const on = value.includes(o);
         return (
           <button key={o} type="button" aria-pressed={on} onClick={() => toggle(o)}
-            className={cx("group inline-flex min-h-9 items-center gap-1.5 rounded-full border px-3.5 text-label-md transition duration-base",
+            className={cx("group inline-flex min-h-9 items-center gap-1.5 rounded-full border px-3.5 text-label-md transition-colors duration-fast",
               on ? "border-ink-brand bg-surface-selected text-ink-brand" : "border-line-strong text-ink-muted hover:border-ink hover:text-ink")}>
-            <Check className={cx("size-4 transition duration-base", on ? "w-4 opacity-100" : "w-0 opacity-0")} aria-hidden="true" />
+            <span aria-hidden="true" className="relative size-4 shrink-0">
+              <Plus className={cx("absolute inset-0 size-4 transition duration-fast", on ? "scale-75 opacity-0" : "opacity-70")} />
+              <Check className={cx("absolute inset-0 size-4 transition duration-fast", on ? "opacity-100" : "scale-75 opacity-0")} />
+            </span>
             {o}
           </button>
         );
@@ -102,11 +105,10 @@ export function NeighbourhoodMap({ people, img, active, onHover, onPick }: {
           <button key={p.id} type="button" onClick={() => onPick?.(p.id)} onMouseEnter={() => onHover?.(p.id)} onMouseLeave={() => onHover?.(null)}
             onFocus={() => onHover?.(p.id)} onBlur={() => onHover?.(null)} aria-label={`${p.name}, ${p.area}`}
             style={{ left: `${p.pin.x}%`, top: `${p.pin.y}%` }}
-            className={cx("absolute -translate-x-1/2 -translate-y-full transition-transform duration-base ease-spring", on ? "z-raised scale-125" : "hover:scale-110")}>
+            className={cx("absolute -translate-x-1/2 -translate-y-full transition-transform duration-base", on ? "z-raised scale-110" : "hover:scale-105")}>
             <span className={cx("block size-9 overflow-hidden rounded-full rounded-bl-none border-2 shadow-md transition-colors", on ? "border-action" : "border-surface")}>
               <img src={img(`${p.id}.jpg`)} alt="" className="size-full object-cover" />
             </span>
-            {on && <span aria-hidden="true" className="absolute -inset-2 -z-10 animate-ping rounded-full bg-action opacity-30" />}
           </button>
         );
       })}

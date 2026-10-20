@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.6.1 — October 2026
+
+### Changed
+- **Motion is calmer and more realistic.** Scroll reveals travel 8-16px instead of up to 56px, scale from 0.97 instead of 0.6, blur 6px instead of 16px, and tilt 8 degrees instead of 24, over 520ms with a soft ease-out. `duration-page` is 460ms (was 640ms). The page templates use one gentle fade-up throughout, without pops, tilts or pings.
+- New page effect **`shift`**, the quiet default for steps inside a flow: the old step fades out in 140ms with an 8px nudge, the new one fades in over 300ms with a 12px nudge.
+- Onboarding steps use `shift`, scroll instantly instead of smoothly, and no longer replay entrance effects. Chip pickers keep a fixed-width +/✓ slot, so picking a chip never reflows the others.
+
+### Fixed
+- Step transitions animated the step content across the page whenever Continue was pressed below the card's top (the page scrolled up, and the content travelled about 450px), and cross-faded the whole page between the two scroll positions. During region transitions the rest of the page now switches instantly, and `shift` fades in place.
+- The prototype's route fade no longer runs during step and theme transitions.
+
 ## 1.6.0 — October 2026
 
 ### Added

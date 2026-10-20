@@ -70,14 +70,15 @@ export function GigsterOnboarding({ imageBase = "img/", onNavigate }: GigsterOnb
   const stage = React.useRef<HTMLDivElement>(null);
   const set = <K extends keyof Draft>(k: K) => (v: Draft[K]) => { setD((x) => ({ ...x, [k]: v })); setErrors((e) => { const n = { ...e }; delete n[k as string]; return n; }); };
 
+  // Bring the card's top into view instantly (no smooth scroll racing the transition).
+  const toTop = () => { const r = stage.current?.parentElement?.getBoundingClientRect(); if (r && r.top < 64) top.current?.scrollIntoView({ block: "start" }); };
   const go = (to: number, origin?: Element | null) => {
-    startPageTransition(() => { setStep(to); setErrors({}); }, { effect: "slide", direction: to < step ? "back" : "forward", origin, target: stage.current });
-    top.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    startPageTransition(() => { setStep(to); setErrors({}); toTop(); }, { effect: "shift", direction: to < step ? "back" : "forward", origin, target: stage.current });
   };
   const next = (e: React.MouseEvent) => {
     const errs = validate(step, d);
     if (Object.keys(errs).length) { setErrors(errs); return; }
-    if (step === 4) { startPageTransition(() => setDone(true), { effect: "reveal", origin: e.currentTarget, target: stage.current }); return; }
+    if (step === 4) { startPageTransition(() => setDone(true), { effect: "shift", target: stage.current }); return; }
     go(step + 1, e.currentTarget);
   };
   const error = (k: string) => errors[k];
@@ -91,9 +92,9 @@ export function GigsterOnboarding({ imageBase = "img/", onNavigate }: GigsterOnb
       <section data-theme="dark" className="relative isolate overflow-hidden bg-surface-brand">
         <span aria-hidden="true" className="glow-horizon opacity-50" />
         <div className="relative z-raised mx-auto max-w-7xl px-4 pt-12 pb-24 sm:px-6">
-          <Reveal effect="slide-left"><p className="text-eyebrow text-ink-brand uppercase">Good work. Great people. Your next chapter.</p></Reveal>
-          <Reveal effect="clip-up" delay={80}><h1 className="mt-3 max-w-3xl font-display text-display-md text-balance text-ink sm:text-display-lg">Let's meet the person <span className="glow-text text-ink-brand">behind the experience.</span></h1></Reveal>
-          <Reveal effect="fade-up" delay={180}><p className="mt-4 max-w-xl text-body-lg text-ink-muted">Bring your on-set know-how to everyday life. Build a profile that feels like you.</p></Reveal>
+          <Reveal effect="fade-up"><p className="text-eyebrow text-ink-brand uppercase">Good work. Great people. Your next chapter.</p></Reveal>
+          <Reveal effect="fade-up" delay={60}><h1 className="mt-3 max-w-3xl font-display text-display-md text-balance text-ink sm:text-display-lg">Let's meet the person <span className="glow-text text-ink-brand">behind the experience.</span></h1></Reveal>
+          <Reveal effect="fade-up" delay={120}><p className="mt-4 max-w-xl text-body-lg text-ink-muted">Bring your on-set know-how to everyday life. Build a profile that feels like you.</p></Reveal>
         </div>
       </section>
 
@@ -107,7 +108,7 @@ export function GigsterOnboarding({ imageBase = "img/", onNavigate }: GigsterOnb
               </div>
             )}
             <div ref={stage} className="vt-page overflow-hidden rounded-b-2xl bg-surface px-5 py-7 sm:px-8">
-              {done ? <Finished first={d.name.split(" ")[0] || "there"} onNavigate={onNavigate} onEdit={() => startPageTransition(() => { setDone(false); setStep(4); }, { effect: "zoom", target: stage.current })} /> : (
+              {done ? <Finished first={d.name.split(" ")[0] || "there"} onNavigate={onNavigate} onEdit={() => startPageTransition(() => { setDone(false); setStep(4); }, { effect: "shift", direction: "back", target: stage.current })} /> : (
                 <>
                   <div className="mb-6 flex items-start justify-between gap-4">
                     <div>
@@ -125,7 +126,7 @@ export function GigsterOnboarding({ imageBase = "img/", onNavigate }: GigsterOnb
                     <div className="grid gap-5">
                       <div className="flex items-center gap-4 rounded-xl border border-line bg-surface-sunken p-4">
                         {d.photo
-                          ? <Reveal effect="pop"><img src={img("maya.jpg")} alt="Sample profile portrait" className="size-20 rounded-xl object-cover shadow-md" /></Reveal>
+                          ? <img src={img("maya.jpg")} alt="Sample profile portrait" className="size-20 rounded-xl object-cover shadow-md" />
                           : <span className="grid size-20 place-items-center rounded-xl border border-dashed border-line-strong text-ink-subtle"><Plus /></span>}
                         <div className="grid gap-2">
                           <p className="text-label-md text-ink">Profile photo</p>
@@ -180,10 +181,10 @@ export function GigsterOnboarding({ imageBase = "img/", onNavigate }: GigsterOnb
                         <Field label="Home ZIP code" error={error("zip")}><Input inputMode="numeric" value={d.zip} start={<MapPin />} onChange={(e) => set("zip")(e.target.value.replace(/\D/g, "").slice(0, 5))} /></Field>
                       </div>
                       {d.market === "other" ? (
-                        <Reveal effect="fade-up" className="grid gap-3">
+                        <div className="grid gap-3">
                           <Field label="City / region and country" error={error("otherCity")}><Input value={d.otherCity} onChange={(e) => set("otherCity")(e.target.value)} /></Field>
                           <Banner tone="info">Los Angeles is the launch market. Your profile would be held for a future market.</Banner>
-                        </Reveal>
+                        </div>
                       ) : (
                         <div className="grid gap-3">
                           <p className="text-label-md text-ink">Los Angeles service areas <span className="font-normal text-ink-subtle">· you'll only appear in these</span></p>
@@ -228,8 +229,8 @@ export function GigsterOnboarding({ imageBase = "img/", onNavigate }: GigsterOnb
                         [1, "Skills & services", [["On set", d.skills.join(" · ")], ["Off set", [...d.services, d.other && "Other · private review"].filter(Boolean).join(" · ")]]],
                         [2, "Where & when", [["Market", d.market === "la" ? `Los Angeles · ${d.zip}` : `${d.otherCity} · ${d.zip}`], ["Areas", d.market === "la" ? d.areas.join(" · ") : "Held for a future market"], ["Availability", `${d.month} · ${d.dates}`], ["Rate", d.rate ? `$${d.rate} USD · ${d.basis}` : "Not supplied"]]],
                         [3, "Your story", [["About me", d.about], ["Languages", d.languages || "Not supplied"], ["Tools", d.tools || "Not supplied"], ["Transport", d.transport || "Not supplied"]]],
-                      ].map(([i, title, rows], k) => (
-                        <Reveal key={title as string} effect="fade-up" delay={k * 70} className="rounded-xl border border-line p-4">
+                      ].map(([i, title, rows]) => (
+                        <section key={title as string} className="rounded-xl border border-line p-4">
                           <div className="mb-2 flex items-center justify-between">
                             <h3 className="font-display text-heading-md text-ink"><span className="mr-2 font-mono text-data-md text-ink-subtle">0{(i as number) + 1}</span>{title as string}</h3>
                             <Button size="sm" variant="ghost" iconStart={<Pencil />} onClick={(e) => go(i as number, e.currentTarget)}>Edit</Button>
@@ -239,7 +240,7 @@ export function GigsterOnboarding({ imageBase = "img/", onNavigate }: GigsterOnb
                               <div key={k2} className="grid gap-1 sm:grid-cols-4"><dt className="text-label-sm text-ink-subtle">{k2}</dt><dd className="text-body-sm text-ink sm:col-span-3">{v}</dd></div>
                             ))}
                           </dl>
-                        </Reveal>
+                        </section>
                       ))}
                       <p className="text-body-sm text-ink-muted">Going live would also need staff approval, a current available status, an active market and a matching service area.</p>
                     </div>
@@ -302,16 +303,15 @@ function Preview({ d, img }: { d: Draft; img: (f: string) => string }) {
 function Finished({ first, onNavigate, onEdit }: { first: string; onNavigate?: (p: GigsPage) => void; onEdit: () => void }) {
   return (
     <div className="grid justify-items-center gap-5 py-10 text-center">
-      <Reveal effect="pop" className="relative grid size-24 place-items-center rounded-full bg-action text-on-action shadow-lg">
-        <Check className="size-12" />
-        <span aria-hidden="true" className="absolute -inset-3 -z-10 animate-ping rounded-full bg-action opacity-20" />
+      <Reveal effect="scale-in" className="grid size-20 place-items-center rounded-full bg-action text-on-action shadow-md">
+        <Check className="size-10" />
       </Reveal>
-      <Reveal effect="clip-up" delay={120}><h2 className="font-display text-display-md text-ink">You're in the queue, {first}.</h2></Reveal>
-      <Reveal effect="fade-up" delay={220}><p className="max-w-md text-body-lg text-ink-muted">In the live product, our team would review your profile and let you know within a few days. In this concept, nothing was sent or saved.</p></Reveal>
-      <Reveal effect="fade-up" delay={300} className="flex flex-wrap justify-center gap-3">
+      <h2 className="font-display text-display-md text-ink">You're in the queue, {first}.</h2>
+      <p className="max-w-md text-body-lg text-ink-muted">In the live product, our team would review your profile and let you know within a few days. In this concept, nothing was sent or saved.</p>
+      <div className="flex flex-wrap justify-center gap-3">
         <Button variant="secondary" iconStart={<X />} onClick={onEdit}>Back to review</Button>
         <Button variant="primary" iconEnd={<ArrowRight />} onClick={() => onNavigate?.("search")}>See Gigsters in search</Button>
-      </Reveal>
+      </div>
     </div>
   );
 }

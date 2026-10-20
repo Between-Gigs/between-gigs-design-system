@@ -13,7 +13,7 @@ const BG = window.BetweenGigs;
 const { html, Icons: I } = BG;
 function Demo() {
   const { useViewTransition, pageEffects, Button, Card } = BG;
-  const [fx, setFx] = useState("slide");
+  const [fx, setFx] = useState("shift");
   const [page, setPage] = useState(0);
   const go = useViewTransition(fx);
   const pages = [["Workspace hub", "Your projects, drafts and the founding wall."], ["Funnel Studio", "Campaign 2: four steps, two drafts."], ["Profile review", "Twelve profiles waiting for approval."]];

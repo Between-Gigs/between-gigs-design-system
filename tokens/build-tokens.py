@@ -210,7 +210,7 @@ OTHER = {
   "duration": [("duration-instant","80ms","Color and opacity on press."),("duration-fast","140ms","Hover states, toggles, checkbox ticks."),
            ("duration-base","200ms","Menus, popovers, tabs indicator."),("duration-slow","320ms","Modals, drawers, panel resize."),
            ("duration-deliberate","480ms","Coverflow and card-fan moves; marketing reveals."),
-           ("duration-page","640ms","Page transitions between views, and the theme reveal.")],
+           ("duration-page","460ms","Page transitions between views, morphs and the theme reveal.")],
   "easing": [("ease-standard","cubic-bezier(0.2, 0, 0, 1)","Default for anything that moves and stays."),
            ("ease-enter","cubic-bezier(0, 0, 0.2, 1)","Elements arriving (menus, toasts)."),
            ("ease-exit","cubic-bezier(0.4, 0, 1, 1)","Elements leaving."),
@@ -421,9 +421,19 @@ UTILS = """/* 6. Utilities the scales don't cover. */
 :root[data-vt=flip]::view-transition-new(page) { animation-name: vt-flip-in; animation-timing-function: cubic-bezier(.1, .5, .5, 1); animation-duration: calc(--theme(--duration-page) / 2); animation-delay: calc(--theme(--duration-page) / 2); }
 :root[data-vt=wipe]::view-transition-old(page) { animation-name: vt-hold; }
 :root[data-vt=wipe]::view-transition-new(page) { animation-name: vt-wipe; }
+/* During a region transition the rest of the page switches instantly: no whole-page cross-fade, even if it scrolled. */
+:root[data-vt]:not([data-vt=theme])::view-transition-old(root) { display: none; }
+:root[data-vt]:not([data-vt=theme])::view-transition-new(root) { animation: none; }
+/* shift fades in place: the region does not travel from where it was, even if the page scrolled to bring it into view. */
+:root[data-vt=shift]::view-transition-group(page) { animation-duration: 0s; }
+:root[data-vt=shift]::view-transition-old(page) { animation: vt-shift-out 140ms cubic-bezier(.4, 0, 1, 1) both; }
+:root[data-vt=shift]::view-transition-new(page) { animation: vt-shift-in 300ms cubic-bezier(.2, .8, .2, 1) 80ms both; }
 :root[data-vt=dissolve]::view-transition-old(page) { animation-name: vt-dissolve-out; }
 :root[data-vt=dissolve]::view-transition-new(page) { animation-name: vt-dissolve-in; }
 @keyframes vt-hold { from, to { opacity: 1; } }
+/* shift: the quiet default for steps inside a flow. A short fade with an 8-12px nudge in the direction of travel. */
+@keyframes vt-shift-out { to { opacity: 0; transform: translateX(calc(var(--vt-dir, 1) * -8px)); } }
+@keyframes vt-shift-in { from { opacity: 0; transform: translateX(calc(var(--vt-dir, 1) * 12px)); } }
 @keyframes vt-reveal { from { clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 50%)); } to { clip-path: circle(var(--vt-r, 150%) at var(--vt-x, 50%) var(--vt-y, 50%)); } }
 @keyframes vt-slide-out { to { transform: translateX(calc(var(--vt-dir, 1) * -32%)); opacity: 0; } }
 @keyframes vt-slide-in { from { transform: translateX(calc(var(--vt-dir, 1) * 100%)); } }
@@ -438,18 +448,18 @@ UTILS = """/* 6. Utilities the scales don't cover. */
 @keyframes vt-dissolve-in { from { opacity: 0; filter: blur(14px) saturate(1.6); transform: scale(.97); } }
 
 /* Scroll reveals: <Reveal effect="..."> sets data-reveal; data-shown is added when it enters the viewport. */
-[data-reveal] { transition-property: opacity, transform, filter, clip-path; transition-duration: --theme(--duration-page); transition-timing-function: cubic-bezier(.2, .8, .2, 1); transition-delay: var(--reveal-delay, 0ms); }
+[data-reveal] { transition-property: opacity, transform, filter, clip-path; transition-duration: 520ms; transition-timing-function: cubic-bezier(.25, .8, .25, 1); transition-delay: var(--reveal-delay, 0ms); }
 [data-reveal]:not([data-shown]) { opacity: 0; }
-[data-reveal=fade-up]:not([data-shown]) { transform: translateY(32px); }
-[data-reveal=scale-in]:not([data-shown]) { transform: scale(.9); }
-[data-reveal=blur-in]:not([data-shown]) { filter: blur(16px); transform: scale(1.04); }
-[data-reveal=slide-left]:not([data-shown]) { transform: translateX(-56px); }
-[data-reveal=slide-right]:not([data-shown]) { transform: translateX(56px); }
+[data-reveal=fade-up]:not([data-shown]) { transform: translateY(14px); }
+[data-reveal=scale-in]:not([data-shown]) { transform: scale(.97); }
+[data-reveal=blur-in]:not([data-shown]) { filter: blur(6px); }
+[data-reveal=slide-left]:not([data-shown]) { transform: translateX(-16px); }
+[data-reveal=slide-right]:not([data-shown]) { transform: translateX(16px); }
 [data-reveal=clip-up] { clip-path: inset(0 0 0 0); }
 /* Partly clipped, not fully: a fully clipped element never reports as on screen. */
-[data-reveal=clip-up]:not([data-shown]) { clip-path: inset(45% 0 0 0); transform: translateY(20px); }
-[data-reveal=tilt-in]:not([data-shown]) { transform: perspective(900px) rotateX(24deg) translateY(24px); transform-origin: 50% 100%; }
-[data-reveal=pop]:not([data-shown]) { transform: scale(.6); }
+[data-reveal=clip-up]:not([data-shown]) { clip-path: inset(30% 0 0 0); transform: translateY(8px); }
+[data-reveal=tilt-in]:not([data-shown]) { transform: perspective(900px) rotateX(8deg) translateY(10px); transform-origin: 50% 100%; }
+[data-reveal=pop]:not([data-shown]) { transform: scale(.9); }
 [data-reveal=pop][data-shown] { transition-timing-function: --theme(--ease-spring); }
 
 @media (prefers-reduced-motion: reduce) {

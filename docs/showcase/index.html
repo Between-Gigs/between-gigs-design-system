@@ -389,7 +389,7 @@ body { margin: 0; color: var(--ink); font-family: var(--text); -webkit-font-smoo
   <header class="mast">
     <span class="mount" data-mount="logo-wide"></span>
     <div class="mast-end">
-      <div class="mast-meta"><span><b>Design system</b> v1.6</span><span>October 2026</span><span>Light + dark</span><span>React · Tailwind v4</span></div>
+      <div class="mast-meta"><span><b>Design system</b> v1.6.1</span><span>October 2026</span><span>Light + dark</span><span>React · Tailwind v4</span></div>
       <span class="mount" data-mount="theme-toggle"></span>
     </div>
   </header>
@@ -533,9 +533,9 @@ body { margin: 0; color: var(--ink); font-family: var(--text); -webkit-font-smoo
   </section>
 
   <!-- MOTION -->
-  <section class="sec"><span class="sec-k">03 · Motion</span><h2>Pages that move like places.</h2><p>Seven page transitions, eight scroll effects, a theme reveal and shared-element morphs, on the browser's own View Transitions API. All of it switches off under reduced motion.</p></section>
+  <section class="sec"><span class="sec-k">03 · Motion</span><h2>Pages that move like places.</h2><p>Eight page transitions led by a quiet default, eight soft scroll effects, a theme reveal and shared-element morphs, on the browser's own View Transitions API. Small distances, short fades, and all of it off under reduced motion.</p></section>
   <section class="bento" aria-label="Motion">
-    <div class="tile s-8" style="--i:0" data-detail="components" data-focus="Motion" data-name="Page transitions"><div class="label"><span>Page transitions</span><b>useViewTransition · 7 effects</b></div><div class="mount" data-mount="transitions"></div></div>
+    <div class="tile s-8" style="--i:0" data-detail="components" data-focus="Motion" data-name="Page transitions"><div class="label"><span>Page transitions</span><b>useViewTransition · 8 effects</b></div><div class="mount" data-mount="transitions"></div></div>
     <div class="tile s-4" style="--i:1" data-detail="components" data-focus="Actions" data-name="Theme toggle"><div class="label"><span>Theme</span><b>ThemeToggle · atom</b></div><div class="stage mount" data-mount="theme-demo"></div><p>The whole page reveals from the switch. Try it here or in the top bar.</p></div>
     <div class="tile s-12" style="--i:2" data-detail="components" data-focus="Motion" data-name="Scroll effects"><div class="label"><span>Scroll effects</span><b>Reveal · 8 effects</b></div><div class="mount" data-mount="reveals"></div></div>
     <div class="tile s-6" style="--i:3" data-detail="components" data-focus="Motion" data-name="Shared element"><div class="label"><span>Shared element</span><b>Morph · view transitions</b></div><div class="mount" data-mount="morph"></div><p>The card you pick grows into its page. Every tile on this showcase opens the same way.</p></div>
@@ -670,7 +670,7 @@ body { margin: 0; color: var(--ink); font-family: var(--text); -webkit-font-smoo
     { name: "Profile review", body: function () { return html`<div className="grid gap-3"><p className="text-body-md text-ink-muted">Twelve profiles waiting for a decision.</p><div className="flex items-center gap-3"><${BG.AvatarGroup} people=${[{ name: "Maya Chen" }, { name: "Jordan Ellis" }, { name: "Sam Ortiz" }, { name: "Priya Nair" }]} max=${3} /><span className="text-body-sm text-ink-muted">and 8 more</span></div><div className="flex gap-2"><${BG.Button} size="sm" variant="strong">Approve next<//><${BG.Button} size="sm" variant="ghost">Skip<//></div></div>`; } },
   ];
   function Transitions() {
-    var fx = R.useState("slide"), pg = R.useState(0);
+    var fx = R.useState("shift"), pg = R.useState(0);
     var go = BG.useViewTransition(fx[0]);
     var to = function (i, e) { if (i === pg[0]) return; go(function () { pg[1](i); }, e.currentTarget, i < pg[0] ? "back" : "forward"); };
     var P = PAGES[pg[0]];

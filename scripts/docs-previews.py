@@ -1540,7 +1540,7 @@ The Day/Night switch: a sliding sun and moon. Left uncontrolled, it switches the
 comp("PageTransition", "Motion", 420, """
 function Demo() {
   const { useViewTransition, pageEffects, Button, Card } = BG;
-  const [fx, setFx] = useState("slide");
+  const [fx, setFx] = useState("shift");
   const [page, setPage] = useState(0);
   const go = useViewTransition(fx);
   const pages = [["Workspace hub", "Your projects, drafts and the founding wall."], ["Funnel Studio", "Campaign 2: four steps, two drafts."], ["Profile review", "Twelve profiles waiting for approval."]];
@@ -1562,7 +1562,7 @@ function Demo() {
 """, """
 # PageTransition
 
-Animated moves between pages and views, on the browser's View Transitions API: the old page animates out while the new one animates in. Seven effects: `reveal`, `slide`, `push`, `zoom`, `flip`, `wipe` and `dissolve`.
+Animated moves between pages and views, on the browser's View Transitions API: the old page animates out while the new one animates in. Eight effects: `shift` (the quiet default), `slide`, `push`, `zoom`, `reveal`, `wipe`, `flip` and `dissolve`.
 
 ## The consumer provides
 
@@ -1572,7 +1572,7 @@ Animated moves between pages and views, on the browser's View Transitions API: t
 
 ## Use when
 
-- `slide` for moving sideways between peers (tabs, steps). `push` for drilling into a detail. `zoom` for opening something from a grid. `reveal` and `wipe` for big moments (publish, launch). `flip` and `dissolve` sparingly, once per flow.
+- `shift` for steps inside a flow and small view changes: a short fade with an 8-12px nudge. `slide` for moving sideways between peer pages. `push` for drilling into a detail. `zoom` for opening something from a grid. `reveal` and `wipe` for big moments (publish, launch). `flip` and `dissolve` sparingly, once per flow.
 - One effect per kind of move, the same everywhere in the product.
 - Under reduced motion, or in browsers without the API, the change happens instantly. Nothing depends on the animation finishing.
 """)
