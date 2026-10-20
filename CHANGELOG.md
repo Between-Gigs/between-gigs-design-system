@@ -17,6 +17,7 @@
 - **Loading buttons looked disabled.** They keep their color, show the spinner and ignore clicks.
 - **Click targets under 24px** (WCAG 2.5.8): Switch is now 44×24, Tag remove 24×24, and breadcrumb, table-sort, module-title and workspace links have 24px hit areas without moving the layout.
 - **Funnel row looked broken**: white preview boxes, arrows at different heights, step types cut off and the last card clipped. FunnelStepCard now shows a quiet placeholder (step-type glyph, "No preview yet") when there's no screenshot, prints the full step type, and puts the status badge in a footer row so badges line up. New `fluid` prop lets cards share a row. FlowConnector labels sit above the line and never wrap, so every arrow stays on one centerline.
+- **Showcase handover row**: removed the leftover "Next / Roadmap" tile, and the "In the box" list now fills its tile instead of leaving an empty band under it. The page declares UTF-8 so separators render when opened as a file.
 - New `scripts/qa/inspect.mjs` runs in `npm run qa`: flags double or missing focus rings, unstyled native options, small targets and clipped text on every preview and the showcase.
 
 ### Changed
