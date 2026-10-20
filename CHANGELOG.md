@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.3.0 — October 2026
+
+### Added
+- **Rare-earth materials**: `material-neodymium`, `material-europium`, `material-didymium` and `material-holmium`, procedural presets for the material layer with no image files. Europium glows only in dark; Holmium shifts from sand (light) to rose (dark). See MATERIALS.md.
+- **Showcase Day/Night switch** in the top bar: a sliding sun and moon with a circular reveal (instant under reduced motion). The choice is remembered per browser.
+- **Showcase rare-earth tile**: the four finishes as periodic-table cells at full strength, with a highlight that follows the pointer.
+
+### Changed
+- The showcase is now a complete standalone HTML document (doctype, viewport, language), so it renders the same on GitHub Pages as in the hosted preview. The hero stays a dark brand panel in both modes.
+
 ## 1.2.0 — October 2026
 
 ### Removed

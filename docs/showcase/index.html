@@ -1,6 +1,15 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Between Gigs Showcase</title>
+<meta name="description" content="The Between Gigs design system: tokens, type, React components and materials, live in light and dark.">
 <meta name="claude:viewport-fit-sides" content="cover">
+<script>
+  // Day/Night: restore the saved choice before first paint. Dark is the default.
+  try { if (localStorage.getItem("bg-showcase-theme") === "light") document.documentElement.setAttribute("data-theme", "light"); } catch (e) {}
+</script>
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="bundle.css">
 <style>
@@ -18,7 +27,16 @@
   --text: var(--font-sans);
   --mono: var(--font-mono);
 }
-html, body { background: var(--page); }
+:root[data-theme="light"] {
+  color-scheme: light;
+  --page: var(--sage-100);
+  --tile: #fbfcfa;
+  --tile-hi: #ffffff;
+  --rule: var(--sage-200);
+  --rule-strong: var(--sage-300);
+  --guide: rgba(111, 242, 185, 0.06);
+}
+html, body { background: var(--page); transition: background-color .4s var(--ease-standard); }
 body { margin: 0; color: var(--ink); font-family: var(--text); -webkit-font-smoothing: antialiased; }
 .page {
   background: var(--page);
@@ -38,7 +56,7 @@ body { margin: 0; color: var(--ink); font-family: var(--text); -webkit-font-smoo
 .bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gap); }
 .tile {
   position: relative; min-width: 0; overflow: hidden;
-  background: var(--tile); border: 1px solid var(--rule); border-radius: 22px;
+  background: var(--tile); color: var(--ink); border: 1px solid var(--rule); border-radius: 22px;
   padding: 24px; display: flex; flex-direction: column; gap: 16px;
   transition: border-color .2s var(--ease-standard), transform .3s var(--ease-standard), background .2s;
   animation: rise .7s var(--ease-enter) both;
@@ -153,6 +171,77 @@ body { margin: 0; color: var(--ink); font-family: var(--text); -webkit-font-smoo
 .m-oak { background: repeating-linear-gradient(100deg, #6b4a2b 0 6px, #7a5634 6px 9px, #5e3f24 9px 14px); }
 .m-felt { background: radial-gradient(rgba(255,255,255,.08) 1px, transparent 1.4px) 0 0 / 5px 5px, #24533c; }
 
+/* Day/Night switch */
+.mast-end { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
+.dn { display: inline-flex; align-items: center; gap: 10px; min-height: 40px; padding: 4px 14px 4px 4px; border-radius: 999px; border: 1px solid var(--rule-strong); background: var(--tile); color: var(--ink); font: 500 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: border-color .2s, background .2s; }
+.dn:hover { border-color: var(--ink-brand); }
+.dn-track { position: relative; width: 60px; height: 30px; border-radius: 999px; overflow: hidden; background: linear-gradient(180deg, #0b2b1d, #04120b); box-shadow: inset 0 1px 3px rgba(0,0,0,.45); transition: background .5s var(--ease-standard); }
+.dn-stars { position: absolute; inset: 0; background: radial-gradient(circle at 8px 8px, #eafff4 0 1px, transparent 1.6px), radial-gradient(circle at 17px 19px, #bdf7dc 0 .8px, transparent 1.4px), radial-gradient(circle at 24px 7px, #eafff4 0 .7px, transparent 1.3px), radial-gradient(circle at 12px 23px, #9ff5cf 0 .6px, transparent 1.2px), radial-gradient(circle at 27px 15px, #d9ffe9 0 .5px, transparent 1.1px); opacity: .95; transition: opacity .4s, transform .6s var(--ease-standard); }
+.dn-knob { position: absolute; top: 3px; left: 33px; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: #eaf4ee; color: #0f3d29; box-shadow: 0 0 0 4px rgba(111,242,185,.12), 0 0 14px rgba(111,242,185,.45); transition: left .5s var(--ease-spring, cubic-bezier(.34,1.56,.64,1)), background .4s, box-shadow .4s, color .4s; }
+.dn-knob svg { position: absolute; width: 15px; height: 15px; transition: opacity .3s, transform .5s var(--ease-standard); }
+.dn-sun { opacity: 0; transform: rotate(-90deg) scale(.4); }
+.dn-moon { opacity: 1; }
+:root[data-theme="light"] .dn-track { background: linear-gradient(180deg, #bfe9d4, #e4f3c2); box-shadow: inset 0 1px 3px rgba(15,61,41,.18); }
+:root[data-theme="light"] .dn-stars { opacity: 0; transform: translateY(-6px); }
+:root[data-theme="light"] .dn-knob { left: 3px; background: #f0c14e; color: #5a3b00; box-shadow: 0 0 0 4px rgba(240,193,78,.22), 0 0 14px rgba(240,193,78,.55); }
+:root[data-theme="light"] .dn-sun { opacity: 1; transform: none; }
+:root[data-theme="light"] .dn-moon { opacity: 0; transform: rotate(90deg) scale(.4); }
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+@media (prefers-reduced-motion: reduce) { .dn-track, .dn-stars, .dn-knob, .dn-knob svg { transition: none; } }
+
+/* Rare-earth collection: procedural finishes, no image files. Each layer is plain CSS. */
+@property --ho { syntax: "<color>"; inherits: true; initial-value: #e3cfa3; }
+@property --eu { syntax: "<number>"; inherits: true; initial-value: 1; }
+.re-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 1080px) { .re-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .re-grid { grid-template-columns: 1fr; } }
+.re { --mx: 30%; --my: 20%; position: relative; isolation: isolate; overflow: hidden; min-height: 248px; border-radius: 18px; padding: 16px; display: grid; grid-template-rows: auto 1fr auto; border: 1px solid rgba(255,255,255,.12); box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 18px 40px -24px rgba(0,0,0,.6); transition: transform .5s var(--ease-standard), box-shadow .5s; }
+.re:hover { transform: translateY(-3px); }
+.re-base { position: absolute; inset: 0; z-index: -2; }
+.re::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,.42), rgba(255,255,255,0) 42%); mix-blend-mode: overlay; transition: background-position .2s; }
+.re-top { display: flex; justify-content: space-between; font: 500 11px/1 var(--mono); letter-spacing: .06em; opacity: .85; }
+.re-sym { align-self: center; font-family: var(--display); font-weight: 600; font-size: 76px; line-height: 1; letter-spacing: -.05em; }
+.re-name { font-family: var(--display); font-weight: 600; font-size: 17px; }
+.re-note { margin-top: 4px; font-size: 12.5px; line-height: 18px; opacity: .82; max-width: 30ch; }
+
+/* 60 Nd: nickel-plated magnet, brushed, with the lilac sheen of neodymium salts */
+.re-nd { color: #f3f4f7; }
+.re-nd .re-base { background:
+  repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, transparent 1px 3px),
+  conic-gradient(from calc(200deg + var(--tilt, 0deg)) at 78% 18%, rgba(185,161,242,.6), rgba(134,179,243,.35), rgba(79,211,204,.3), rgba(242,141,186,.4), rgba(185,161,242,.6)),
+  linear-gradient(155deg, #50555f 0%, #23272e 46%, #383c44 72%, #17191e 100%); background-blend-mode: normal, soft-light, normal; }
+
+/* 63 Eu: europium-doped phosphor, charged by day and glowing by night */
+.re-eu { color: #dcffec; }
+.re-eu .re-base { background:
+  linear-gradient(180deg, #04120b 0 13%, transparent 30%, transparent 52%, #04120b 76%),
+  radial-gradient(rgba(170,255,214,.9) .7px, transparent 1.3px) 0 0 / 7px 7px,
+  radial-gradient(rgba(110,240,180,.7) .6px, transparent 1.2px) 3px 4px / 11px 11px,
+  radial-gradient(120% 95% at 30% 72%, rgba(31,220,140,calc(.55 * var(--eu))), transparent 62%),
+  #04120b; }
+.re-eu .re-sym { text-shadow: 0 0 calc(22px * var(--eu)) rgba(79,224,160,.85); }
+.re-eu { --eu: 1; animation: phosphor 4.8s ease-in-out infinite alternate; }
+:root[data-theme="light"] .re-eu { --eu: .3; animation: none; }
+:root[data-theme="light"] .re-eu .re-base { filter: saturate(.35) brightness(.85); }
+.re-eu .re-base { transition: filter .8s var(--ease-standard); }
+@keyframes phosphor { from { --eu: .7; } to { --eu: 1.15; } }
+
+/* 59 Pr + 60 Nd: didymium glass, dichroic lilac to sea green; tilts with the pointer */
+.re-di { color: #1f1638; border-color: rgba(255,255,255,.5); }
+.re-di .re-base { background:
+  linear-gradient(105deg, transparent 28%, rgba(255,255,255,.6) 40%, transparent 49%),
+  linear-gradient(calc(118deg + var(--tilt, 0deg)), #cbb4f4 0%, #b7c6f1 34%, #9fdcc8 64%, #d6c3f7 100%);
+  filter: hue-rotate(calc(var(--hue, 0) * 1deg)) saturate(1.1); transition: filter .3s; }
+
+/* 67 Ho: holmium oxide, sand under daylight, rose under night light */
+.re-ho { color: #2b1a14; --ho: #e8a6c4; transition: --ho 1.2s var(--ease-standard), transform .5s var(--ease-standard); }
+:root[data-theme="light"] .re-ho { --ho: #e3cfa3; }
+.re-ho .re-base { background:
+  radial-gradient(rgba(60,30,20,.10) .6px, transparent 1.1px) 0 0 / 4px 4px,
+  radial-gradient(rgba(255,255,255,.35) .6px, transparent 1.1px) 2px 2px / 5px 5px,
+  linear-gradient(160deg, color-mix(in oklab, var(--ho), white 28%), var(--ho) 55%, color-mix(in oklab, var(--ho), black 14%)); }
+@media (prefers-reduced-motion: reduce) { .re, .re-eu { animation: none; transition: none; } .re:hover { transform: none; } }
+
 /* deliverables */
 .box { flex: 1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 0 24px; }
 .box div { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 12px; border-top: 1px solid var(--rule); font-size: 14px; }
@@ -199,7 +288,7 @@ body { margin: 0; color: var(--ink); font-family: var(--text); -webkit-font-smoo
 .dv-use { color: var(--ink-muted); font-size: 13px; line-height: 19px; min-width: 220px; }
 .dv-table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 12px; }
 .dv-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-.dv-table th { text-align: left; font: 500 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-subtle); padding: 12px; border-bottom: 1px solid var(--rule); background: #06140d; }
+.dv-table th { text-align: left; font: 500 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-subtle); padding: 12px; border-bottom: 1px solid var(--rule); background: var(--surface-sunken); }
 .dv-table td { padding: 10px 12px; border-bottom: 1px solid var(--rule); vertical-align: middle; }
 .dv-table tr:last-child td { border-bottom: 0; }
 .dv-pair { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
@@ -259,18 +348,31 @@ body { margin: 0; color: var(--ink); font-family: var(--text); -webkit-font-smoo
   :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 }
 </style>
-
-<div class="page" data-theme="dark">
+</head>
+<body>
+<div class="page">
 <div class="wrap">
 
   <header class="mast">
     <span class="mount" data-mount="logo-wide"></span>
-    <div class="mast-meta"><span><b>Design system</b> v1.1</span><span>October 2026</span><span>Light + dark</span><span>React · Tailwind v4</span></div>
+    <div class="mast-end">
+      <div class="mast-meta"><span><b>Design system</b> v1.3</span><span>October 2026</span><span>Light + dark</span><span>React · Tailwind v4</span></div>
+      <button class="dn" id="daynight" type="button" aria-pressed="false" title="Switch between day and night">
+        <span class="dn-track" aria-hidden="true">
+          <span class="dn-stars"></span>
+          <span class="dn-knob">
+            <svg class="dn-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></svg>
+            <svg class="dn-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.4 14.6A8.6 8.6 0 0 1 9.4 3.6a8.6 8.6 0 1 0 11 11Z"/></svg>
+          </span>
+        </span>
+        <span class="dn-l">Night</span>
+      </button>
+    </div>
   </header>
 
   <!-- HERO -->
   <section class="bento" aria-label="Overview">
-    <div class="tile hero s-8 r-2" style="--i:0">
+    <div class="tile hero s-8 r-2" style="--i:0" data-theme="dark">
       <div class="hero-mark mount" data-mount="hero-mark" aria-hidden="true"></div>
       <div class="label"><span>Between Gigs</span><b>System overview</b></div>
       <h1>One system for every screen <em>between gigs.</em></h1>
@@ -376,6 +478,15 @@ body { margin: 0; color: var(--ink); font-family: var(--text); -webkit-font-smoo
       <div class="mats"><div class="mat m-glass">Frosted glass</div><div class="mat m-oak">Lacquered oak</div><div class="mat m-felt">Pressed felt</div></div>
       <p>A layer people can switch on. The default stays flat, and text never sits on a texture.</p>
     </div>
+    <div class="tile s-12 re-tile" style="--i:8" data-detail="materials" data-name="Rare-earth materials">
+      <div class="label"><span>Materials · Rare-earth collection</span><b>Move your pointer · try Day/Night</b></div>
+      <div class="re-grid">
+        <div class="re re-nd"><span class="re-base"></span><span class="re-top"><span>60</span><span>144.24</span></span><span class="re-sym">Nd</span><div><div class="re-name">Neodymium</div><div class="re-note">Brushed magnet steel with the lilac sheen of its salts.</div></div></div>
+        <div class="re re-eu"><span class="re-base"></span><span class="re-top"><span>63</span><span>151.96</span></span><span class="re-sym">Eu</span><div><div class="re-name">Europium</div><div class="re-note">Phosphor grain. Charges by day, glows by night.</div></div></div>
+        <div class="re re-di"><span class="re-base"></span><span class="re-top"><span>59 · 60</span><span>Pr · Nd</span></span><span class="re-sym">Di</span><div><div class="re-name">Didymium glass</div><div class="re-note">Dichroic lilac to sea green. Tilt it with your pointer.</div></div></div>
+        <div class="re re-ho"><span class="re-base"></span><span class="re-top"><span>67</span><span>164.93</span></span><span class="re-sym">Ho</span><div><div class="re-name">Holmium</div><div class="re-note">Sand in daylight, rose under night light, like the oxide.</div></div></div>
+      </div>
+    </div>
   </section>
 
   <!-- COMPONENTS -->
@@ -428,6 +539,43 @@ body { margin: 0; color: var(--ink); font-family: var(--text); -webkit-font-smoo
 </div>
 </div>
 
+<script>
+(function () {
+  var root = document.documentElement, btn = document.getElementById("daynight");
+  var still = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function sync() {
+    var day = root.getAttribute("data-theme") === "light";
+    btn.setAttribute("aria-pressed", String(day));
+    btn.querySelector(".dn-l").textContent = day ? "Day" : "Night";
+    btn.setAttribute("aria-label", day ? "Day mode on. Switch to night" : "Night mode on. Switch to day");
+  }
+  function set(theme) {
+    var apply = function () { root.setAttribute("data-theme", theme); sync(); try { localStorage.setItem("bg-showcase-theme", theme); } catch (e) {} };
+    if (still || !document.startViewTransition) return apply();
+    var r = btn.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
+    var end = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    document.startViewTransition(apply).ready.then(function () {
+      root.animate({ clipPath: ["circle(0px at " + x + "px " + y + "px)", "circle(" + end + "px at " + x + "px " + y + "px)"] },
+        { duration: 700, easing: "cubic-bezier(.2,.8,.2,1)", pseudoElement: "::view-transition-new(root)" });
+    });
+  }
+  btn.addEventListener("click", function () { set(root.getAttribute("data-theme") === "light" ? "dark" : "light"); });
+  sync();
+
+  // Rare-earth swatches: the highlight follows the pointer; didymium also tilts its hue.
+  if (still) return;
+  document.querySelectorAll(".re").forEach(function (el) {
+    el.addEventListener("pointermove", function (e) {
+      var b = el.getBoundingClientRect(), px = (e.clientX - b.left) / b.width, py = (e.clientY - b.top) / b.height;
+      el.style.setProperty("--mx", (px * 100).toFixed(1) + "%");
+      el.style.setProperty("--my", (py * 100).toFixed(1) + "%");
+      el.style.setProperty("--tilt", ((px - .5) * 60).toFixed(1) + "deg");
+      el.style.setProperty("--hue", ((px - .5) * 50).toFixed(1));
+    });
+    el.addEventListener("pointerleave", function () { ["--mx", "--my", "--tilt", "--hue"].forEach(function (k) { el.style.removeProperty(k); }); });
+  });
+})();
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
 <script src="bundle.js"></script>
@@ -499,3 +647,5 @@ body { margin: 0; color: var(--ink); font-family: var(--text); -webkit-font-smoo
 })();
 </script>
 <script src="details.js"></script>
+</body>
+</html>

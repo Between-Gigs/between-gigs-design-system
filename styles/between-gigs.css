@@ -531,3 +531,32 @@
 }
 [data-material=off] .material::before, .material[data-material=off]::before { display: none; }
 @media (prefers-reduced-transparency: reduce) { .material::before { display: none; } }
+
+/* 7b. Rare-earth finishes: procedural material presets, no image files. Use with `material`:
+   class="material material-holmium". Holmium and Europium respond to the theme. */
+@utility material-neodymium {
+  --material-size: auto;
+  --material-blend: overlay;
+  --material-image: repeating-linear-gradient(90deg, rgba(255,255,255,.08) 0 1px, transparent 1px 3px), conic-gradient(from 200deg at 78% 18%, #b9a1f2, #86b3f3, #4fd3cc, #f28dba, #b9a1f2);
+}
+@utility material-europium {
+  --material-size: 7px 7px, auto;
+  --material-blend: screen;
+  --material-image: radial-gradient(rgba(170,255,214,.9) .7px, transparent 1.3px), radial-gradient(120% 95% at 30% 72%, var(--material-glow), transparent 62%);
+  --material-glow: rgba(31,220,140,.18);
+  [data-theme=dark] &, &[data-theme=dark] { --material-glow: rgba(31,220,140,.55); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme=light]) & { --material-glow: rgba(31,220,140,.55); } }
+}
+@utility material-didymium {
+  --material-size: auto;
+  --material-blend: soft-light;
+  --material-image: linear-gradient(105deg, transparent 28%, rgba(255,255,255,.6) 40%, transparent 49%), linear-gradient(118deg, #cbb4f4 0%, #b7c6f1 34%, #9fdcc8 64%, #d6c3f7 100%);
+}
+@utility material-holmium {
+  --material-size: 4px 4px, auto;
+  --material-blend: soft-light;
+  --material-image: radial-gradient(rgba(60,30,20,.12) .6px, transparent 1.1px), linear-gradient(160deg, var(--material-tint), transparent);
+  --material-tint: #e3cfa3;
+  [data-theme=dark] &, &[data-theme=dark] { --material-tint: #e8a6c4; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme=light]) & { --material-tint: #e8a6c4; } }
+}

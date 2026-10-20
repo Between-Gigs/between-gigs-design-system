@@ -275,6 +275,12 @@
   }
 
   /* ---------- materials, logo, box ---------- */
+  var RARE = [
+    ["nd", "60", "144.24", "Nd", "Neodymium", "Brushed magnet steel with the lilac sheen of its salts."],
+    ["eu", "63", "151.96", "Eu", "Europium", "Phosphor grain. Charges by day, glows by night."],
+    ["di", "59 \u00b7 60", "Pr \u00b7 Nd", "Di", "Didymium glass", "Dichroic lilac to sea green."],
+    ["ho", "67", "164.93", "Ho", "Holmium", "Sand in daylight, rose under night light, like the oxide."]
+  ];
   function MaterialsView() {
     return html`<div className="dv-stack"><${Sec} title="Personal finish" lead="Materials sit on top of the theme as an optional layer. Every screen looks finished with them off, and that flat version is the default for new people, screenshots and anything a client sees.">
       <div className="mats dv-mats"><div className="mat m-glass">Frosted glass</div><div className="mat m-oak">Lacquered oak</div><div className="mat m-felt">Pressed felt</div></div>
@@ -285,7 +291,17 @@
         <li>Only the shell (sidebar, top bar, prompt bar) and large panels take materials.</li>
         <li>Brand sections, embedded previews and public pages stay flat.</li>
         <li>Shine and lighting turn off under reduced motion or reduced transparency.</li>
-      </ul><//></div>`;
+      </ul><//>
+      <${Sec} title="Rare-earth collection" meta="material-neodymium \u00b7 europium \u00b7 didymium \u00b7 holmium" lead="Four procedural finishes drawn entirely in CSS, with no image files. In the product they run through the same material layer at panel strength; here they are shown at full strength.">
+        <div className="re-grid">${RARE.map(function (r) {
+          return html`<div key=${r[0]} className=${"re re-" + r[0]}><span className="re-base"></span><span className="re-top"><span>${r[1]}</span><span>${r[2]}</span></span><span className="re-sym">${r[3]}</span><div><div className="re-name">${r[4]}</div><div className="re-note">${r[5]}</div></div></div>`;
+        })}</div>
+        <ul className="dv-list">
+          <li>Use them like any material: <code>class="material material-holmium"</code> on the shell or a large panel.</li>
+          <li>Holmium and Europium respond to the theme: Holmium shifts from sand to rose, Europium glows only in dark.</li>
+          <li>Same rules as every material: never behind text, inputs or anything that carries state, and off under reduced transparency.</li>
+        </ul>
+      <//></div>`;
   }
   function LogoView() {
     var lock = function (layout, h) { return html`<${BG.Logo} layout=${layout} height=${h} />`; };

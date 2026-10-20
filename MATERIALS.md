@@ -30,3 +30,20 @@ Add the `material` utility to a surface and set `--material-image` (and optional
   …
 </aside>
 ```
+
+## Rare-earth collection
+
+Four procedural finishes drawn entirely in CSS, with no image files to host. Each is a preset for the `material` utility, so every rule above still applies (strength, never behind text, off under reduced transparency).
+
+| Utility | Element | Look | Theme behaviour |
+| --- | --- | --- | --- |
+| `material-neodymium` | 60 Nd | Brushed magnet steel with the lilac and blue sheen of neodymium salts. | Same in both. |
+| `material-europium` | 63 Eu | Phosphor grain with a mint glow, like europium-doped glow pigment. | Faint in light ("charging"), glows in dark. |
+| `material-didymium` | 59 Pr + 60 Nd | Dichroic glass that shifts from lilac to sea green, with a glass streak. | Same in both. |
+| `material-holmium` | 67 Ho | Fine ceramic grain. | Sand in light, rose in dark, as holmium oxide shifts under different light. |
+
+```html
+<aside class="material material-holmium bg-surface border-r border-line">…</aside>
+```
+
+The showcase shows them at full strength, with a highlight that follows the pointer. In the product they run at `opacity-material` like any other finish.
