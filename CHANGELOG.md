@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.6.2 — October 2026
+
+### Changed
+- **ComingSoon copy** matches the live brand: eyebrow "Extraordinary talent. Everyday solutions.", headline "Coming soon.", line "Los Angeles Call Sheet", button "Get on the call sheet" with an up-right arrow, and the confirmation "You're on the call sheet."
+
 ## 1.6.1 — October 2026
 
 ### Changed

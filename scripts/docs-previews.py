@@ -1661,7 +1661,7 @@ function Demo() {
 """, """
 # ComingSoon
 
-The teaser page before launch: logo, a Coming soon badge, the headline, one line of copy and an email signup. It sits on a curved panel over the quiet Europium backdrop, lit by a mint horizon glow; the button and field glow on hover and focus.
+The teaser page before launch: logo, the eyebrow "Extraordinary talent. Everyday solutions.", the headline "Coming soon.", the line "Los Angeles Call Sheet" and an email signup ("Get on the call sheet"). It sits on a curved panel over the quiet Europium backdrop, lit by a mint horizon glow; the button and field glow on hover and focus.
 
 ## The consumer provides
 

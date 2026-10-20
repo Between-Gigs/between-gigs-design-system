@@ -1,6 +1,6 @@
 import * as React from "react";
-import { ArrowRight, Check, Mail } from "lucide-react";
-import { Badge, Button, Input, Logo } from "../components";
+import { ArrowUpRight, Check, Mail } from "lucide-react";
+import { Button, Input, Logo } from "../components";
 
 export interface ComingSoonLink {
   label: string;
@@ -43,17 +43,17 @@ export function ComingSoon({ onJoin, links = [], copyright = "© 2026 Between Gi
         </header>
 
         <main className="relative z-raised flex flex-1 flex-col items-center justify-center gap-6 px-6 pt-10 pb-24 text-center">
-          <Badge tone="brand">Coming soon</Badge>
+          <p className="text-eyebrow text-ink-brand uppercase">Extraordinary talent. Everyday solutions.</p>
           <h1 className="max-w-3xl font-display text-display-lg text-balance text-ink sm:text-display-xl">
-            Hollywood craft, <span className="glow-text text-ink-brand">between gigs.</span>
+            Coming <span className="glow-text text-ink-brand">soon.</span>
           </h1>
           <p className="max-w-lg text-body-lg text-ink-muted">
-            Set builders, costumers and prop makers for the projects in everyday life. Be first to know when we open.
+            Los Angeles Call Sheet
           </p>
 
           {joined ? (
             <p role="status" className="mt-2 flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-2 text-body-md text-ink">
-              <Check className="size-5 text-ink-brand" /> You're on the list. We'll email {email} when we open.
+              <Check className="size-5 text-ink-brand" /> You're on the call sheet. We'll email {email} when we open.
             </p>
           ) : (
             <form noValidate onSubmit={submit} className="mt-2 grid w-full max-w-md gap-2 text-left">
@@ -62,7 +62,7 @@ export function ComingSoon({ onJoin, links = [], copyright = "© 2026 Between Gi
                   invalid={Boolean(error)} aria-describedby={error ? "coming-soon-error" : undefined}
                   onChange={(e) => setEmail(e.target.value)} className="glow-focus sm:flex-1" />
                 <Button type="submit" variant="primary" size="lg" className="group glow-hover"
-                  iconEnd={<ArrowRight className="transition-transform duration-base group-hover:translate-x-0.5" />}>Notify me</Button>
+                  iconEnd={<ArrowUpRight className="transition-transform duration-base group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />}>Get on the call sheet</Button>
               </div>
               {error && <p id="coming-soon-error" className="text-body-sm text-danger">{error}</p>}
             </form>
