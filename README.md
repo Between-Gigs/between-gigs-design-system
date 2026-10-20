@@ -5,7 +5,7 @@ Tokens, a Tailwind CSS v4 theme and 50 React components for the Between Gigs das
 - **Brand book:** [BRAND.md](BRAND.md) (principles, content, color, type, layout, states, accessibility)
 - **Logo:** [LOGO.md](LOGO.md) · **Materials:** [MATERIALS.md](MATERIALS.md)
 - **Component guides:** [docs/components/](docs/components) (one README and live preview each)
-- **Showcase:** [docs/showcase/index.html](docs/showcase/index.html), a static page that runs every component live
+- **Showcase:** [between-gigs.github.io/between-gigs-design-system](https://between-gigs.github.io/between-gigs-design-system/), built from [docs/showcase/index.html](docs/showcase/index.html), a static page that runs every component live. `.github/workflows/pages.yml` republishes it on every push to `main`.
 - **QA report:** [docs/QA.md](docs/QA.md) · **Changes:** [CHANGELOG.md](CHANGELOG.md)
 
 ## What's inside
