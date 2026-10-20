@@ -492,14 +492,14 @@ body { margin: 0; color: var(--ink); font-family: var(--text); -webkit-font-smoo
     "profile": function () { return html`<${BG.ProfileCard} sample name="Maya Chen" specialty="Costume & wardrobe" summary="Thoughtful alterations, wardrobe edits and custom pieces for everyday life." tags=${["Alterations", "Closet styling"]} location="Silver Lake · 3 miles away" availability="Available this week" rate=${45} action=${html`<${BG.Button} size="sm" variant="secondary">View profile<//>`} save=${html`<${BG.IconButton} size="sm" label="Save" pressed icon=${html`<${I.Star}/>`} />`} />`; },
     "module": function () { return html`<${BG.ModuleCard} title="Connected work" status="preview" version="v3.46" action=${open} pin=${html`<${BG.IconButton} size="sm" label="Pin" icon=${html`<${I.Pin}/>`} />`} progress=${{ value: 55, label: "Building" }} selected />`; },
     "flow": function () { return html`<${Flow} />`; },
-    "funnel": function () { return html`<div className="flex w-max items-stretch">
-      <${BG.FunnelStepCard} type="traffic" step=${1} status="published" title="As seen in Deadline" description="Press and Peter's network → landing" />
+    "funnel": function () { return html`<div className="flex items-stretch" style=${{ minWidth: "940px" }}>
+      <${BG.FunnelStepCard} fluid type="traffic" step=${1} status="published" title="As seen in Deadline" description="Press and Peter's network bring visitors to the landing page." />
       <${BG.FlowConnector} label="Clicks" />
-      <${BG.FunnelStepCard} type="page" step=${3} status="draft" title="Founding 20 landing" description="Card wheel, offer → Claim" selected />
+      <${BG.FunnelStepCard} fluid type="page" step=${2} status="draft" title="Founding 20 landing" description="Card wheel, the offer and how it works, ending in Claim." selected />
       <${BG.FlowConnector} label="Claims a card" />
-      <${BG.FunnelStepCard} type="form" step=${4} status="draft" title="Claim your card" description="Name, email, ZIP → reserved email" />
+      <${BG.FunnelStepCard} fluid type="form" step=${3} status="draft" title="Claim your card" description="Name, email and ZIP reserve a numbered card." />
       <${BG.FlowConnector} label="Books" variant="dashed" />
-      <${BG.FunnelStepCard} type="marketplace" step=${6} status="not-started" title="Book a professional" description="$250 applied at checkout" />
+      <${BG.FunnelStepCard} fluid type="marketplace" step=${4} status="not-started" title="Book a professional" description="The client books and the $250 is applied at checkout." />
     </div>`; },
   };
   document.querySelectorAll("[data-mount]").forEach(function (el) {

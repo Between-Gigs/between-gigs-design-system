@@ -1,4 +1,4 @@
-<!-- @dsCard group="Patterns" height=420 -->
+<!-- @dsCard group="Patterns" height=330 -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -12,13 +12,17 @@ const { useState } = React;
 const BG = window.BetweenGigs;
 const { html, Icons: I } = BG;
 function Demo() {
-  const { FunnelStepCard } = BG;
-  return html`<div className="flex flex-wrap items-start gap-4 p-6">
-    <${FunnelStepCard} type="traffic" step=${1} status="published" title="As seen in Deadline" description="Press, social posts and Peter's network → landing page" hint="External traffic" />
-    <${FunnelStepCard} type="page" step=${3} status="draft" title="Founding 20 landing" description="Card wheel, offer, how it works → Claim" hint="Double-click to open draft" selected />
-    <${FunnelStepCard} type="form" step=${4} status="draft" title="Claim your card" description="Name, email, ZIP, project, wall opt-in → reserved email" hint="Double-click to open draft" />
-    <${FunnelStepCard} type="marketplace" step=${6} status="not-started" title="Book a professional" description="Client books and pays through Between Gigs; $250 applied" hint="Not built yet" />
-  </div>`;
+  const { FunnelStepCard, FlowConnector } = BG;
+  const [sel, setSel] = useState("p3");
+  return html`<div className="overflow-x-auto p-6"><div className="flex items-stretch" style=${{ minWidth: "940px" }}>
+    <${FunnelStepCard} fluid type="traffic" step=${1} status="published" title="As seen in Deadline" description="Press and Peter's network bring visitors to the landing page." hint="External traffic" selected=${sel === "p1"} onOpen=${() => setSel("p1")} />
+    <${FlowConnector} label="Clicks" />
+    <${FunnelStepCard} fluid type="page" step=${2} status="draft" title="Founding 20 landing" description="Card wheel, the offer and how it works, ending in Claim." hint="Double-click to open draft" selected=${sel === "p3"} onOpen=${() => setSel("p3")} />
+    <${FlowConnector} label="Claims a card" />
+    <${FunnelStepCard} fluid type="email" step=${3} status="draft" title="Your card is reserved" description="Card number and a link to browse professionals." hint="Double-click to open draft" selected=${sel === "p5"} onOpen=${() => setSel("p5")} />
+    <${FlowConnector} label="Books" variant="dashed" />
+    <${FunnelStepCard} fluid type="marketplace" step=${4} status="not-started" title="Book a professional" description="The client books and the $250 is applied at checkout." hint="Not built yet" selected=${sel === "p6"} onOpen=${() => setSel("p6")} />
+  </div></div>`;
 }
 ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(Demo));
 </script>

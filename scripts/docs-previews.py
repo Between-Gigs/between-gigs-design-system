@@ -1121,15 +1121,19 @@ A company workspace in the Playset gallery: cover, relationship, name, state and
 - Initials sit on a `surface` plate in `ink`, never directly on the color. That keeps them readable in both themes (dark-theme category colors are light).
 """)
 
-comp("FunnelStepCard", "Patterns", 420, """
+comp("FunnelStepCard", "Patterns", 330, """
 function Demo() {
-  const { FunnelStepCard } = BG;
-  return html`<div className="flex flex-wrap items-start gap-4 p-6">
-    <${FunnelStepCard} type="traffic" step=${1} status="published" title="As seen in Deadline" description="Press, social posts and Peter's network → landing page" hint="External traffic" />
-    <${FunnelStepCard} type="page" step=${3} status="draft" title="Founding 20 landing" description="Card wheel, offer, how it works → Claim" hint="Double-click to open draft" selected />
-    <${FunnelStepCard} type="form" step=${4} status="draft" title="Claim your card" description="Name, email, ZIP, project, wall opt-in → reserved email" hint="Double-click to open draft" />
-    <${FunnelStepCard} type="marketplace" step=${6} status="not-started" title="Book a professional" description="Client books and pays through Between Gigs; $250 applied" hint="Not built yet" />
-  </div>`;
+  const { FunnelStepCard, FlowConnector } = BG;
+  const [sel, setSel] = useState("p3");
+  return html`<div className="overflow-x-auto p-6"><div className="flex items-stretch" style=${{ minWidth: "940px" }}>
+    <${FunnelStepCard} fluid type="traffic" step=${1} status="published" title="As seen in Deadline" description="Press and Peter's network bring visitors to the landing page." hint="External traffic" selected=${sel === "p1"} onOpen=${() => setSel("p1")} />
+    <${FlowConnector} label="Clicks" />
+    <${FunnelStepCard} fluid type="page" step=${2} status="draft" title="Founding 20 landing" description="Card wheel, the offer and how it works, ending in Claim." hint="Double-click to open draft" selected=${sel === "p3"} onOpen=${() => setSel("p3")} />
+    <${FlowConnector} label="Claims a card" />
+    <${FunnelStepCard} fluid type="email" step=${3} status="draft" title="Your card is reserved" description="Card number and a link to browse professionals." hint="Double-click to open draft" selected=${sel === "p5"} onOpen=${() => setSel("p5")} />
+    <${FlowConnector} label="Books" variant="dashed" />
+    <${FunnelStepCard} fluid type="marketplace" step=${4} status="not-started" title="Book a professional" description="The client books and the $250 is applied at checkout." hint="Not built yet" selected=${sel === "p6"} onOpen=${() => setSel("p6")} />
+  </div></div>`;
 }
 """, """
 # FunnelStepCard
@@ -1138,11 +1142,13 @@ One step on the Funnel Studio canvas: what kind of step it is, its order, status
 
 ## The consumer provides
 
-- `type`: `traffic`, `page`, `form`, `email` or `marketplace`. Each has a fixed label and category color (`stepTypes`), shown as the top stripe and a dot.
+- `type`: `traffic`, `page`, `form`, `email` or `marketplace`. Each has a fixed label, category color and icon (`stepTypes`), shown as the top stripe, a dot and the empty-preview icon.
+- `status` shows as a badge in the preview's top-right corner, so the header always has room for the full step type.
 - `step` (shown as "03"), `title`, `status`.
 - `description`: what the step does, with an arrow to the next step ("Name, email, ZIP → reserved email").
-- `preview`: a screenshot. It sits on `surface-embed` so light pages and emails look true in both themes.
+- `preview`: a screenshot. It sits on `surface-embed` so light pages and emails look true in both themes. Without one, a quiet dashed placeholder shows the step type's icon instead of an empty white box.
 - `hint`: a short footer note. `selected`: the step shown in the inspector. `onOpen`: opens the draft.
+- `fluid`: the card grows to share the row (min 192px). Without it the card is a fixed 224px, for canvases that scroll.
 
 Connector lines between steps belong to the canvas, drawn in `line-strong` with labels in `caption`.
 """)
@@ -1237,7 +1243,7 @@ The arrow between two steps on a flow or funnel canvas, with an optional label f
 - `label`: a short verb phrase ("Claims a card", "Books").
 - `variant`: `solid`, or `dashed` for paths to steps that aren't built or are optional.
 
-Place it between two cards in a flex row; it stretches to fill the gap. It is drawn in `line-strong`, so it holds 3:1 on the canvas.
+Place it between two cards in a flex row; it stretches to fill the gap. The label sits above the line and never wraps, so every arrow in a row stays at the same height. Keep labels to two or three words. It is drawn in `line-strong`, so it holds 3:1 on the canvas.
 """)
 
 

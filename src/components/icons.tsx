@@ -28,3 +28,10 @@ export function Spinner({ className }: { className?: string }) {
     </svg>
   );
 }
+
+/* Step-type glyphs for empty previews on the funnel canvas. */
+export const PageGlyph = glyph(<><rect x="4" y="3" width="16" height="18" rx="2" /><path d="M8 8h8" /><path d="M8 12h8" /><path d="M8 16h5" /></>);
+export const FormGlyph = glyph(<><rect x="4" y="3" width="16" height="18" rx="2" /><rect x="7.5" y="7" width="9" height="3" rx="1" /><rect x="7.5" y="13" width="9" height="3" rx="1" /></>);
+export const MailGlyph = glyph(<><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3.5 6.5 8.5 6 8.5-6" /></>);
+export const StoreGlyph = glyph(<><path d="M4 9.5 5.5 4h13L20 9.5" /><path d="M4 9.5a2.7 2.7 0 0 0 5.3 0 2.7 2.7 0 0 0 5.4 0 2.7 2.7 0 0 0 5.3 0" /><path d="M5.5 12v8h13v-8" /><path d="M10 20v-4h4v4" /></>);
+export const SignalGlyph = glyph(<><circle cx="12" cy="12" r="2" /><path d="M7.8 7.8a6 6 0 0 0 0 8.4" /><path d="M16.2 7.8a6 6 0 0 1 0 8.4" /><path d="M5 5a10 10 0 0 0 0 14" /><path d="M19 5a10 10 0 0 1 0 14" /></>);
