@@ -1,0 +1,550 @@
+<title>Between Gigs Showcase</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="bundle.css">
+<style>
+/* Layout: a 12-column bento grid on the brand's near-black forest; every tile is a cell of the same grid, and the grid itself is drawn faintly behind the hero. */
+:root {
+  color-scheme: dark;
+  --page: var(--forest-950);
+  --tile: #0b2117;
+  --tile-hi: #0f2a1e;
+  --rule: #1d3a2b;
+  --rule-strong: #2c5541;
+  --guide: rgba(111, 242, 185, 0.06);
+  --gap: 12px;
+  --display: var(--font-display);
+  --text: var(--font-sans);
+  --mono: var(--font-mono);
+}
+html, body { background: var(--page); }
+body { margin: 0; color: var(--ink); font-family: var(--text); -webkit-font-smoothing: antialiased; }
+.page {
+  background: var(--page);
+  color: var(--ink);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 64px;
+}
+.wrap { max-width: 1400px; margin: 0 auto; display: grid; gap: 56px; }
+
+/* top bar */
+.mast { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding-block: 8px; border-bottom: 1px solid var(--rule); padding-bottom: 20px; }
+.mast-meta { display: flex; flex-wrap: wrap; gap: 8px 20px; font-family: var(--mono); font-size: 12px; color: var(--ink-muted); letter-spacing: .02em; }
+.mast-meta b { color: var(--ink); font-weight: 500; }
+
+/* bento */
+.bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gap); }
+.tile {
+  position: relative; min-width: 0; overflow: hidden;
+  background: var(--tile); border: 1px solid var(--rule); border-radius: 22px;
+  padding: 24px; display: flex; flex-direction: column; gap: 16px;
+  transition: border-color .2s var(--ease-standard), transform .3s var(--ease-standard), background .2s;
+  animation: rise .7s var(--ease-enter) both;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+.tile:hover { border-color: var(--rule-strong); background: var(--tile-hi); }
+@keyframes rise { from { opacity: .35; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .tile { animation: none; } .tile:hover { transform: none; } }
+.s-12 { grid-column: span 12; } .s-8 { grid-column: span 8; } .s-7 { grid-column: span 7; } .s-6 { grid-column: span 6; }
+.s-5 { grid-column: span 5; } .s-4 { grid-column: span 4; } .s-3 { grid-column: span 3; }
+.r-2 { grid-row: span 2; }
+@media (max-width: 1080px) {
+  .s-8, .s-7, .s-6, .s-5 { grid-column: span 12; }
+  .s-4, .s-3 { grid-column: span 6; }
+  .r-2 { grid-row: auto; }
+}
+@media (max-width: 640px) { .bento > * { grid-column: span 12 !important; } .tile { padding: 20px; } }
+
+.label { display: flex; justify-content: space-between; gap: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-subtle); }
+.label b { color: var(--ink-brand); font-weight: 500; }
+.tile > h3 { margin: 0; font-family: var(--display); font-weight: 600; font-size: 22px; line-height: 28px; letter-spacing: -.015em; color: var(--ink); text-wrap: balance; }
+.tile > p { margin: 0; color: var(--ink-muted); font-size: 15px; line-height: 23px; max-width: 62ch; }
+.grow { flex: 1; }
+
+/* section heads */
+.sec { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gap); align-items: end; }
+.sec-k { grid-column: span 3; font-family: var(--mono); font-size: 12px; color: var(--ink-brand); letter-spacing: .08em; text-transform: uppercase; }
+.sec h2 { grid-column: span 6; margin: 0; font-family: var(--display); font-weight: 600; font-size: clamp(30px, 4vw, 48px); line-height: 1.04; letter-spacing: -.03em; text-wrap: balance; }
+.sec p { grid-column: span 3; margin: 0; color: var(--ink-muted); font-size: 14px; line-height: 21px; }
+@media (max-width: 1080px) { .sec-k, .sec h2, .sec p { grid-column: span 12; } }
+
+/* hero */
+.hero { min-height: 520px; padding: clamp(24px, 4vw, 48px); justify-content: space-between; background: var(--surface-brand); border-color: #1e5a3e; isolation: isolate; }
+.hero::before { content: ""; position: absolute; inset: 0; z-index: -1;
+  background-image: repeating-linear-gradient(90deg, var(--guide) 0 1px, transparent 1px calc(100% / 12));
+  mask-image: linear-gradient(180deg, #000 0%, transparent 85%); }
+.hero-mark { position: absolute; right: -6%; bottom: -14%; z-index: -1; opacity: .12; pointer-events: none; }
+.hero-mark svg { width: min(62vw, 760px); height: auto; }
+.hero h1 { margin: 0; font-family: var(--display); font-weight: 600; font-size: clamp(44px, 7.4vw, 108px); line-height: .94; letter-spacing: -.045em; text-wrap: balance; max-width: 11ch; }
+.hero h1 em { font-style: normal; color: var(--ink-brand); }
+.hero-foot { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 20px; }
+.hero-foot p { font-size: 17px; line-height: 26px; color: var(--ink-muted); max-width: 46ch; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; padding: 6px 10px; border-radius: 999px; border: 1px solid #2f6b4c; color: var(--ink); }
+
+.big { font-family: var(--display); font-weight: 600; font-size: clamp(56px, 6vw, 88px); line-height: .9; letter-spacing: -.05em; font-variant-numeric: tabular-nums; color: var(--ink); }
+.big small { font-size: .32em; letter-spacing: -.01em; color: var(--ink-muted); margin-left: 6px; }
+.meter { display: grid; grid-template-columns: repeat(26, 1fr); gap: 3px; }
+.meter i { height: 22px; border-radius: 3px; background: var(--action); }
+.meter i:nth-child(4n) { opacity: .75; }
+
+.split { display: grid; grid-template-columns: 1fr 1fr; border-radius: 14px; overflow: hidden; border: 1px solid var(--rule); flex: 1; min-height: 120px; }
+.split > div { padding: 16px; display: flex; flex-direction: column; justify-content: space-between; gap: 10px; background: var(--bg); color: var(--ink); }
+.split .mini-t { font-family: var(--display); font-weight: 600; font-size: 15px; }
+.split .mini-s { font-size: 12px; color: var(--ink-muted); }
+
+/* color */
+.swatches { display: grid; grid-template-columns: 2.2fr 1.6fr 1fr 1fr; grid-template-rows: 150px 90px; gap: 8px; }
+.sw { border-radius: 14px; padding: 12px; display: flex; flex-direction: column; justify-content: flex-end; font-family: var(--mono); font-size: 11px; line-height: 16px; min-width: 0; }
+.sw b { font-family: var(--text); font-size: 13px; font-weight: 600; }
+.sw-forest { grid-row: span 2; background: var(--forest-800); color: #eaf4ee; border: 1px solid #1e5a3e; }
+.sw-mint { background: var(--mint-500); color: #04180e; }
+.sw-sage { background: var(--sage-50); color: #0e1a13; }
+.sw-ink { background: var(--forest-950); color: #eaf4ee; border: 1px solid var(--rule); }
+.sw-lime { background: var(--lime-300); color: #04180e; }
+.sw-sage2 { background: var(--sage-200); color: #0e1a13; }
+.sw-mint2 { background: var(--mint-200); color: #04180e; }
+@media (max-width: 640px) { .swatches { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, 84px); } .sw-forest { grid-row: span 1; } }
+.cats { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; }
+.cats i { height: 28px; border-radius: 8px; }
+
+/* type */
+.aa { font-family: var(--display); font-weight: 600; font-size: clamp(120px, 14vw, 190px); line-height: .8; letter-spacing: -.06em; color: var(--ink); }
+.aa span { color: var(--ink-brand); }
+.faces { display: grid; gap: 0; }
+.face { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding-block: 10px; border-top: 1px solid var(--rule); }
+.face span:first-child { font-size: 20px; color: var(--ink); }
+.face span:last-child { font-family: var(--mono); font-size: 11px; color: var(--ink-subtle); text-align: right; }
+.ladder { display: grid; gap: 8px; }
+.rung { display: flex; align-items: baseline; gap: 16px; min-width: 0; }
+.rung code { flex: 0 0 96px; font-family: var(--mono); font-size: 11px; color: var(--ink-subtle); }
+.rung span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+
+/* scales */
+.bars { display: grid; gap: 7px; }
+.bar { display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 11px; color: var(--ink-subtle); }
+.bar i { height: 10px; border-radius: 3px; background: var(--ink-brand); display: block; }
+.radii { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.radii div { aspect-ratio: 1; border: 1.5px solid var(--ink-brand); border-bottom: 0; border-left: 0; display: flex; align-items: flex-end; padding: 6px; font-family: var(--mono); font-size: 10px; color: var(--ink-subtle); }
+.stack { position: relative; flex: 1; min-height: 170px; }
+.stack div { position: absolute; width: 62%; height: 90px; border-radius: 16px; background: var(--surface-raised); border: 1px solid var(--line); padding: 12px; font-family: var(--mono); font-size: 11px; color: var(--ink-muted); }
+.stack div:nth-child(1) { left: 0; top: 0; box-shadow: var(--shadow-sm); }
+.stack div:nth-child(2) { left: 18%; top: 38px; box-shadow: var(--shadow-md); }
+.stack div:nth-child(3) { left: 36%; top: 76px; box-shadow: var(--shadow-lg); }
+.curves { display: grid; gap: 12px; }
+.curve { display: grid; grid-template-columns: 110px 1fr; align-items: center; gap: 12px; font-family: var(--mono); font-size: 11px; color: var(--ink-subtle); }
+.track { position: relative; height: 18px; border-radius: 999px; background: var(--surface-sunken); }
+.track i { position: absolute; top: 3px; left: 3px; width: 12px; height: 12px; border-radius: 50%; background: var(--action); animation: glide 2.4s infinite alternate; }
+@keyframes glide { to { left: calc(100% - 15px); } }
+@media (prefers-reduced-motion: reduce) { .track i { animation: none; left: calc(100% - 15px); } }
+
+/* live mounts */
+.mount { min-width: 0; }
+.mount .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.stage { border-radius: 16px; background: var(--bg); border: 1px solid var(--rule); padding: 20px; flex: 1; display: grid; align-content: center; gap: 14px; min-width: 0; }
+
+/* template frames */
+.frame { border-radius: 16px; overflow: hidden; border: 1px solid var(--rule-strong); background: var(--bg); }
+.frame-bar { display: flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; background: #06140d; border-bottom: 1px solid var(--rule); font-family: var(--mono); font-size: 11px; color: var(--ink-subtle); }
+.frame-bar i { width: 9px; height: 9px; border-radius: 50%; background: #234634; }
+.frame-bar span { margin-left: 8px; }
+.viewport { position: relative; overflow: hidden; }
+.viewport > .canvas { position: absolute; top: 0; left: 0; width: 1440px; transform-origin: 0 0; }
+
+/* materials */
+.mats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; flex: 1; }
+.mat { border-radius: 14px; min-height: 120px; display: flex; align-items: flex-end; padding: 10px; font-size: 12px; font-weight: 600; color: #eaf4ee; border: 1px solid var(--rule); }
+.m-glass { background: linear-gradient(135deg, rgba(234,244,238,.22), rgba(234,244,238,.04) 60%), radial-gradient(circle at 30% 20%, rgba(111,242,185,.25), transparent 60%), var(--forest-900); }
+.m-oak { background: repeating-linear-gradient(100deg, #6b4a2b 0 6px, #7a5634 6px 9px, #5e3f24 9px 14px); }
+.m-felt { background: radial-gradient(rgba(255,255,255,.08) 1px, transparent 1.4px) 0 0 / 5px 5px, #24533c; }
+
+/* deliverables */
+.box { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 24px; }
+.box div { display: flex; justify-content: space-between; gap: 12px; padding-block: 12px; border-top: 1px solid var(--rule); font-size: 14px; }
+.box div span:last-child { font-family: var(--mono); font-size: 12px; color: var(--ink-subtle); text-align: right; }
+@media (max-width: 640px) { .box { grid-template-columns: 1fr; } }
+.next { display: grid; gap: 10px; }
+.next div { display: flex; gap: 12px; align-items: baseline; font-size: 14px; color: var(--ink-muted); }
+.next div::before { content: ""; flex: 0 0 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--ink-brand); transform: translateY(-1px); }
+
+.foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding-top: 20px; border-top: 1px solid var(--rule); font-family: var(--mono); font-size: 12px; color: var(--ink-subtle); }
+
+/* clickable tiles */
+.tile.is-link { cursor: pointer; }
+.tile.is-link:hover { transform: translateY(-2px); }
+@media (prefers-reduced-motion: reduce) { .tile.is-link:hover { transform: none; } }
+.label { align-items: center; }
+.label > span:first-child { margin-right: auto; }
+.more { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 999px; border: 1px solid var(--rule-strong); background: transparent; color: var(--ink); font: 500 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; cursor: pointer; transition: background .15s, border-color .15s, color .15s; white-space: nowrap; }
+.more svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2; }
+.tile:hover .more, .more:hover, .more:focus-visible { background: var(--action); border-color: var(--action); color: var(--on-action); }
+@media (max-width: 640px) { .label b { display: none; } }
+
+/* detail overlay */
+#detail { width: min(1320px, calc(100% - 32px)); height: calc(100% - 32px); max-width: none; max-height: none; margin: auto; padding: 0; border: 1px solid var(--rule-strong); border-radius: 22px; background: var(--page); color: var(--ink); overflow: hidden; }
+#detail::backdrop { background: rgba(2, 10, 6, .72); backdrop-filter: blur(6px); }
+#detail[open] { display: flex; flex-direction: column; animation: pop .28s var(--ease-enter); }
+@keyframes pop { from { opacity: .4; transform: translateY(12px) scale(.985); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { #detail[open] { animation: none; } }
+.dv-head { display: flex; align-items: center; gap: 16px; padding: 18px 24px; border-bottom: 1px solid var(--rule); background: var(--tile); }
+.dv-head h2 { margin: 0; font: 600 24px/1.1 var(--display); letter-spacing: -.02em; }
+.dv-head p { margin: 2px 0 0; font: 12px/1.4 var(--mono); color: var(--ink-subtle); }
+.dv-close { margin-left: auto; width: 40px; height: 40px; border-radius: 12px; border: 1px solid var(--rule-strong); background: transparent; color: var(--ink); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; }
+.dv-close:hover { background: var(--surface-hover); }
+.dv-close svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; }
+#detail-body { flex: 1; overflow: auto; padding: 24px; }
+@media (max-width: 640px) { #detail { width: 100%; height: 100%; border-radius: 0; } #detail-body { padding: 16px; } .dv-head { padding: 14px 16px; } }
+.dv-stack { display: grid; gap: 20px; }
+.dv-sec { display: grid; gap: 14px; padding: 20px; border: 1px solid var(--rule); border-radius: 18px; background: var(--tile); min-width: 0; }
+.dv-sec-h { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; }
+.dv-sec-h h3 { margin: 0; font: 600 20px/1.2 var(--display); letter-spacing: -.015em; }
+.dv-meta { font: 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-brand); }
+.dv-lead { margin: 0; color: var(--ink-muted); font-size: 14px; line-height: 21px; max-width: 70ch; }
+.dv-mono { font-family: var(--mono); font-size: 12px; }
+.dv-sub { color: var(--ink-subtle); }
+.dv-small { font-size: 12px; }
+.dv-strong { color: var(--ink); }
+.dv-use { color: var(--ink-muted); font-size: 13px; line-height: 19px; min-width: 220px; }
+.dv-table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 12px; }
+.dv-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.dv-table th { text-align: left; font: 500 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-subtle); padding: 12px; border-bottom: 1px solid var(--rule); background: #06140d; }
+.dv-table td { padding: 10px 12px; border-bottom: 1px solid var(--rule); vertical-align: middle; }
+.dv-table tr:last-child td { border-bottom: 0; }
+.dv-pair { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+.dv-chip { width: 22px; height: 22px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, .14); flex: 0 0 auto; }
+.dv-ramp { display: grid; grid-template-columns: 80px 1fr; gap: 12px; align-items: start; }
+.dv-ramp-k { font: 500 12px/32px var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-subtle); }
+.dv-ramp-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 8px; }
+.dv-step { display: grid; gap: 4px; min-width: 0; }
+.dv-step-c { height: 56px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, .1); }
+@media (max-width: 640px) { .dv-ramp { grid-template-columns: 1fr; } }
+.dv-faces { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.dv-face { display: grid; gap: 4px; padding: 16px; border: 1px solid var(--rule); border-radius: 12px; min-width: 0; }
+.dv-face-aa { font-size: 40px; line-height: 1.1; color: var(--ink); }
+.dv-type { display: grid; }
+.dv-type-row { display: grid; grid-template-columns: 260px 1fr; gap: 20px; padding-block: 14px; border-top: 1px solid var(--rule); align-items: center; }
+.dv-type-spec { display: grid; gap: 3px; }
+.dv-type-sample { min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 760px) { .dv-type-row { grid-template-columns: 1fr; } }
+.dv-bar { display: block; height: 10px; border-radius: 3px; background: var(--ink-brand); }
+.dv-rad { display: block; width: 40px; height: 40px; border: 2px solid var(--ink-brand); border-left: 0; border-bottom: 0; }
+.dv-shadow { display: block; width: 72px; height: 40px; border-radius: 10px; background: var(--surface-raised); }
+.dv-track { position: relative; display: block; width: 160px; height: 16px; border-radius: 999px; background: var(--surface-sunken); }
+.dv-track i { position: absolute; top: 3px; left: 3px; width: 10px; height: 10px; border-radius: 50%; background: var(--action); animation: glide 2.2s infinite alternate; }
+@media (prefers-reduced-motion: reduce) { .dv-track i { animation: none; } }
+.dv-pairs { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 8px; }
+.dv-pr { display: flex; align-items: center; gap: 12px; padding: 8px; border: 1px solid var(--rule); border-radius: 12px; min-width: 0; }
+.dv-pr-demo { flex: 0 0 auto; width: 44px; height: 44px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; font: 600 17px var(--display); border: 2px solid transparent; }
+.dv-pr-txt { display: grid; gap: 2px; min-width: 0; flex: 1; }
+.dv-pr-txt span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dv-pr-r { display: grid; justify-items: end; font-family: var(--mono); font-size: 11px; }
+.dv-pr-r b { font-size: 15px; color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.dv-themes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 900px) { .dv-themes { grid-template-columns: 1fr; } }
+.dv-theme { display: grid; gap: 14px; align-content: start; padding: 24px; border-radius: 16px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); min-width: 0; }
+.dv-kit { display: grid; gap: 16px; }
+.dv-island { display: grid; gap: 18px; padding: 32px; border-radius: 16px; background: var(--surface-brand); color: var(--ink); }
+.dv-island-h { font: 600 clamp(28px, 4vw, 44px)/1.02 var(--display); letter-spacing: -.03em; }
+.dv-island-h em { font-style: normal; color: var(--ink-brand); }
+.dv-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.dv-top { align-items: flex-start; }
+.dv-col { display: grid; gap: 12px; }
+.dv-narrow { max-width: 440px; }
+.dv-grid3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.dv-inline { display: inline-flex; align-items: center; gap: 8px; color: var(--ink); font-size: 14px; }
+.dv-demo { padding: 24px; border-radius: 14px; background: var(--bg); border: 1px solid var(--rule); min-width: 0; overflow-x: auto; }
+.dv-tip { padding-top: 40px; }
+.dv-menu { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 16px; min-height: 280px; }
+.dv-nav { max-width: 280px; padding: 12px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); }
+.dv-flow { display: flex; align-items: stretch; min-width: 560px; }
+.dv-logos { align-items: flex-end; gap: 32px; }
+.dv-logo { justify-items: start; gap: 28px; padding: 32px; }
+.dv-filters { display: flex; flex-wrap: wrap; gap: 8px; position: sticky; top: -24px; z-index: 5; padding: 12px 0; background: var(--page); }
+.dv-list { margin: 0; padding-left: 18px; display: grid; gap: 8px; color: var(--ink-muted); font-size: 14px; line-height: 21px; max-width: 75ch; }
+.dv-mats { min-height: 160px; }
+a { color: var(--link); }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+</style>
+
+<div class="page" data-theme="dark">
+<div class="wrap">
+
+  <header class="mast">
+    <span class="mount" data-mount="logo-wide"></span>
+    <div class="mast-meta"><span><b>Design system</b> v1.1</span><span>October 2026</span><span>Light + dark</span><span>React · Tailwind v4</span></div>
+  </header>
+
+  <!-- HERO -->
+  <section class="bento" aria-label="Overview">
+    <div class="tile hero s-8 r-2" style="--i:0">
+      <div class="hero-mark mount" data-mount="hero-mark" aria-hidden="true"></div>
+      <div class="label"><span>Between Gigs</span><b>System overview</b></div>
+      <h1>One system for every screen <em>between gigs.</em></h1>
+      <div class="hero-foot">
+        <p>The Workspace hub, Funnel Studio, profile review, onboarding and the marketing site now share one set of colors, type, components and rules, in light and dark.</p>
+        <div class="chips"><span class="chip">93 color tokens</span><span class="chip">19 type styles</span><span class="chip">74 scale tokens</span></div>
+      </div>
+    </div>
+    <div class="tile s-4" style="--i:1" data-detail="components" data-name="All 50 components">
+      <div class="label"><span>Components</span><b>Live</b></div>
+      <div class="big">50<small>React components</small></div>
+      <p>Every one renders live on this page. Nothing here is a screenshot.</p>
+    </div>
+    <div class="tile s-4" style="--i:2" data-detail="templates" data-name="Templates">
+      <div class="label"><span>Screens</span><b>Templates</b></div>
+      <div class="big">6<small>full templates</small></div>
+      <p>Hub, Funnel Studio, Review, Onboarding, Sign-in, Founding 20.</p>
+    </div>
+    <div class="tile s-6" style="--i:3" data-detail="a11y" data-name="Contrast checks">
+      <div class="label"><span>Accessibility</span><b>WCAG 2.1 AA</b></div>
+      <div class="big">130<small>/ 130 color pairs pass</small></div>
+      <div class="meter" aria-hidden="true"></div>
+      <p>Every text and ground pairing is checked in both themes: 4.5:1 for text, 3:1 for borders, focus rings and marks.</p>
+    </div>
+    <div class="tile s-6" style="--i:4" data-detail="themes" data-name="Themes">
+      <div class="label"><span>Themes</span><b>One component, two themes</b></div>
+      <div class="split">
+        <div data-theme="light"><span class="mini-t">Light</span><span class="mount" data-mount="theme-light"></span><span class="mini-s">Sage ground, forest ink</span></div>
+        <div data-theme="dark"><span class="mini-t">Dark</span><span class="mount" data-mount="theme-dark"></span><span class="mini-s">Forest ground, mint signal</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUNDATIONS -->
+  <section class="sec"><span class="sec-k">01 · Foundations</span><h2>Built from the brand, not from a template.</h2><p>Forest, mint and green-tinted neutrals. Every color has a job, and components only use colors by their job.</p></section>
+  <section class="bento" aria-label="Foundations">
+    <div class="tile s-7" style="--i:0" data-detail="color" data-name="Color">
+      <div class="label"><span>Color</span><b>Brand primitives</b></div>
+      <div class="swatches">
+        <div class="sw sw-forest"><b>Forest 800</b>#0F3D29 · brand ground</div>
+        <div class="sw sw-mint"><b>Mint 500</b>#1FDC8C · the one action</div>
+        <div class="sw sw-sage"><b>Sage 50</b>#F5F8F4</div>
+        <div class="sw sw-ink"><b>Forest 950</b>#071A11</div>
+        <div class="sw sw-mint2"><b>Mint 200</b>highlight</div>
+        <div class="sw sw-lime"><b>Lime 300</b>celebration</div>
+        <div class="sw sw-sage2"><b>Sage 200</b>hairline</div>
+      </div>
+      <div class="label"><span>Category colors · funnel steps, covers, charts</span></div>
+      <div class="cats" aria-hidden="true"><i style="background:var(--cat-1)"></i><i style="background:var(--cat-2)"></i><i style="background:var(--cat-3)"></i><i style="background:var(--cat-4)"></i><i style="background:var(--cat-5)"></i><i style="background:var(--cat-6)"></i><i style="background:var(--cat-7)"></i><i style="background:var(--cat-8)"></i></div>
+    </div>
+    <div class="tile s-5" style="--i:1" data-detail="type" data-name="Typography">
+      <div class="label"><span>Typography</span><b>Four faces, one job each</b></div>
+      <div class="aa">A<span>a</span></div>
+      <div class="faces">
+        <div class="face"><span style="font-family:var(--font-display);font-weight:600">Sora</span><span>Titles · numbers</span></div>
+        <div class="face"><span style="font-family:var(--font-sans)">Figtree</span><span>Interface</span></div>
+        <div class="face"><span style="font-family:var(--font-serif);font-style:italic">Newsreader</span><span>Long-form · the Journal</span></div>
+        <div class="face"><span style="font-family:var(--font-mono);font-size:16px">JetBrains Mono</span><span>Versions · IDs</span></div>
+      </div>
+    </div>
+    <div class="tile s-6" style="--i:2" data-detail="type" data-name="Type scale">
+      <div class="label"><span>Type scale</span><b>19 styles</b></div>
+      <div class="ladder">
+        <div class="rung"><code>display-lg</code><span style="font-family:var(--font-display);font-weight:600;font-size:44px;line-height:48px;letter-spacing:-.03em">Twenty cards.</span></div>
+        <div class="rung"><code>display-sm</code><span style="font-family:var(--font-display);font-weight:600;font-size:32px;line-height:38px;letter-spacing:-.02em">Workspace hub</span></div>
+        <div class="rung"><code>heading-md</code><span style="font-size:18px;font-weight:650">Claim founding card No. 07</span></div>
+        <div class="rung"><code>body-md</code><span style="font-size:15px;color:var(--ink-muted)">Check the profile details, then approve.</span></div>
+        <div class="rung"><code>editorial-md</code><span style="font-family:var(--font-serif);font-size:18px;font-style:italic;color:var(--ink-muted)">Every name here chose to be listed.</span></div>
+        <div class="rung"><code>eyebrow</code><span style="font-size:11px;font-weight:700;letter-spacing:.16em;color:var(--ink-brand)">THE FOUNDING MEMBERS WALL</span></div>
+      </div>
+    </div>
+    <div class="tile s-3" style="--i:3" data-detail="spacing" data-name="Spacing">
+      <div class="label"><span>Spacing</span><b>4px base</b></div>
+      <div class="bars">
+        <div class="bar"><i style="width:4px"></i>4</div><div class="bar"><i style="width:8px"></i>8</div><div class="bar"><i style="width:12px"></i>12</div>
+        <div class="bar"><i style="width:16px"></i>16</div><div class="bar"><i style="width:24px"></i>24</div><div class="bar"><i style="width:32px"></i>32</div>
+        <div class="bar"><i style="width:48px"></i>48</div><div class="bar"><i style="width:64px"></i>64</div><div class="bar"><i style="width:96px"></i>96</div>
+      </div>
+    </div>
+    <div class="tile s-3" style="--i:4" data-detail="radius" data-name="Radius">
+      <div class="label"><span>Radius</span><b>Soft, never sharp</b></div>
+      <div class="radii">
+        <div style="border-top-right-radius:8px">8</div><div style="border-top-right-radius:12px">12</div><div style="border-top-right-radius:16px">16</div>
+        <div style="border-top-right-radius:22px">22</div><div style="border-top-right-radius:32px">32</div><div style="border-top-right-radius:999px">full</div>
+      </div>
+    </div>
+    <div class="tile s-4" style="--i:5" data-detail="shadow" data-name="Elevation">
+      <div class="label"><span>Elevation</span><b>Surfaces step up</b></div>
+      <div class="stack"><div>shadow-sm · cards</div><div>shadow-md · menus</div><div>shadow-lg · modals</div></div>
+    </div>
+    <div class="tile s-4" style="--i:6" data-detail="easing" data-name="Motion">
+      <div class="label"><span>Motion</span><b>Four curves</b></div>
+      <div class="curves">
+        <div class="curve">standard<div class="track"><i style="animation-timing-function:var(--ease-standard)"></i></div></div>
+        <div class="curve">enter<div class="track"><i style="animation-timing-function:var(--ease-enter)"></i></div></div>
+        <div class="curve">exit<div class="track"><i style="animation-timing-function:var(--ease-exit)"></i></div></div>
+        <div class="curve">spring<div class="track"><i style="animation-timing-function:var(--ease-spring)"></i></div></div>
+      </div>
+      <p>Fast for hovers, slower for panels. Under reduced motion, everything settles instantly.</p>
+    </div>
+    <div class="tile s-4" style="--i:7" data-detail="materials" data-name="Materials">
+      <div class="label"><span>Materials</span><b>Optional personal finish</b></div>
+      <div class="mats"><div class="mat m-glass">Frosted glass</div><div class="mat m-oak">Lacquered oak</div><div class="mat m-felt">Pressed felt</div></div>
+      <p>A layer people can switch on. The default stays flat, and text never sits on a texture.</p>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="sec"><span class="sec-k">02 · Components</span><h2>One of each. Built once, used everywhere.</h2><p>One button style per role, one tab style, one status vocabulary. Every piece is accessible from the keyboard.</p></section>
+  <section class="bento" aria-label="Components">
+    <div class="tile s-7" style="--i:0" data-detail="components" data-focus="Actions" data-name="Actions"><div class="label"><span>Actions</span><b>Button · 5 roles</b></div><div class="stage mount" data-mount="buttons"></div></div>
+    <div class="tile s-5" style="--i:1" data-detail="components" data-focus="Display" data-name="Display components"><div class="label"><span>Status</span><b>Fixed vocabulary</b></div><div class="stage mount" data-mount="status"></div></div>
+    <div class="tile s-4" style="--i:2" data-detail="components" data-focus="Forms" data-name="Form components"><div class="label"><span>Forms</span><b>Field · Input · Select</b></div><div class="stage mount" data-mount="form"></div></div>
+    <div class="tile s-4" style="--i:3" data-detail="components" data-focus="Actions" data-name="Controls"><div class="label"><span>Controls</span><b>Segmented · Switch · Slider</b></div><div class="stage mount" data-mount="controls"></div></div>
+    <div class="tile s-4" style="--i:4" data-detail="components" data-focus="Feedback" data-name="Feedback components"><div class="label"><span>Feedback</span><b>Banner · Toast</b></div><div class="stage mount" data-mount="feedback"></div></div>
+    <div class="tile s-8" style="--i:5" data-detail="components" data-focus="Patterns" data-name="Patterns"><div class="label"><span>Patterns</span><b>ProfileCard</b></div><div class="stage mount" data-mount="profile"></div></div>
+    <div class="tile s-4 r-2" style="--i:6" data-detail="components" data-focus="Patterns" data-name="Patterns"><div class="label"><span>Patterns</span><b>ModuleCard</b></div><div class="stage mount" data-mount="module" style="justify-items:center"></div></div>
+    <div class="tile s-8" style="--i:7" data-detail="components" data-focus="Navigation" data-name="Navigation components"><div class="label"><span>Flow</span><b>Stepper · StageStats</b></div><div class="stage mount" data-mount="flow"></div></div>
+    <div class="tile s-12" style="--i:8" data-detail="components" data-focus="Patterns" data-name="Funnel patterns"><div class="label"><span>Funnel</span><b>FunnelStepCard · FlowConnector</b></div><div class="stage mount" data-mount="funnel" style="overflow-x:auto"></div></div>
+  </section>
+
+  <!-- TEMPLATES -->
+  <section class="sec"><span class="sec-k">03 · Templates</span><h2>Whole screens, assembled only from the system.</h2><p>Each one below is the real template running live, scaled to fit. Sample data is fictional and marked.</p></section>
+  <section class="bento" aria-label="Templates">
+    <div class="tile s-12" style="--i:0" data-detail="templates" data-focus="WorkspaceHub" data-name="Workspace hub template"><div class="label"><span>Workspace hub</span><b>AppShell · FilterBar · ModuleCard · Inspector</b></div>
+      <div class="frame"><div class="frame-bar"><i></i><i></i><i></i><span>hub · Workspace</span></div><div class="viewport" data-template="WorkspaceHub" data-h="860"></div></div></div>
+    <div class="tile s-6" style="--i:1" data-detail="templates" data-focus="FunnelStudio" data-name="Funnel Studio template"><div class="label"><span>Funnel Studio</span><b>The Founding 20</b></div>
+      <div class="frame"><div class="frame-bar"><i></i><i></i><i></i><span>funnel · Campaign 2</span></div><div class="viewport" data-template="FunnelStudio" data-h="860"></div></div></div>
+    <div class="tile s-6" style="--i:2" data-detail="templates" data-focus="ReviewQueue" data-name="Profile review template"><div class="label"><span>Profile review</span><b>Peter &amp; Patti</b></div>
+      <div class="frame"><div class="frame-bar"><i></i><i></i><i></i><span>review · Submitted</span></div><div class="viewport" data-template="ReviewQueue" data-h="900"></div></div></div>
+    <div class="tile s-4" style="--i:3" data-detail="templates" data-focus="FoundingLanding" data-name="Founding 20 template"><div class="label"><span>Marketing</span><b>Founding 20</b></div>
+      <div class="frame"><div class="frame-bar"><i></i><i></i><i></i><span>betweengigs · founding-20</span></div><div class="viewport" data-template="FoundingLanding" data-h="1000"></div></div></div>
+    <div class="tile s-4" style="--i:4" data-detail="templates" data-focus="ProfileBuilder" data-name="Profile builder template"><div class="label"><span>Onboarding</span><b>Profile builder</b></div>
+      <div class="frame"><div class="frame-bar"><i></i><i></i><i></i><span>onboarding · step 1 of 4</span></div><div class="viewport" data-template="ProfileBuilder" data-h="1000"></div></div></div>
+    <div class="tile s-4" style="--i:5" data-detail="templates" data-focus="SignIn" data-name="Sign in template"><div class="label"><span>Access</span><b>Sign in</b></div>
+      <div class="frame"><div class="frame-bar"><i></i><i></i><i></i><span>account · sign in</span></div><div class="viewport" data-template="SignIn" data-h="1000"></div></div></div>
+  </section>
+
+  <!-- BRAND + BOX -->
+  <section class="sec"><span class="sec-k">04 · Handover</span><h2>Everything the team needs to build with it.</h2><p>Files ready to drop into the dashboard, plus the rules that keep new screens consistent.</p></section>
+  <section class="bento" aria-label="Handover">
+    <div class="tile s-5" style="--i:0" data-detail="logo" data-name="Logo">
+      <div class="label"><span>Logo</span><b>Follows the theme</b></div>
+      <div class="split" style="min-height:220px">
+        <div data-theme="light" style="justify-content:center;align-items:center"><span class="mount" data-mount="logo-stacked-light"></span></div>
+        <div data-theme="dark" style="justify-content:center;align-items:center;background:var(--surface-brand)"><span class="mount" data-mount="logo-stacked-dark"></span></div>
+      </div>
+      <p>Wide, stacked and monogram lockups, with each file's exact inks in light and dark.</p>
+    </div>
+    <div class="tile s-7" style="--i:1" data-detail="box" data-name="Handover package">
+      <div class="label"><span>In the box</span><b>Ready to install</b></div>
+      <div class="box">
+        <div><span>Design tokens</span><span>tokens.json · 186</span></div>
+        <div><span>Tailwind v4 theme</span><span>between-gigs.css</span></div>
+        <div><span>React components</span><span>50 · TypeScript</span></div>
+        <div><span>Screen templates</span><span>6</span></div>
+        <div><span>Brand book</span><span>BRAND.md</span></div>
+        <div><span>Logo rules + files</span><span>LOGO.md · 4 SVG</span></div>
+        <div><span>Font files</span><span>6 · woff2</span></div>
+        <div><span>QA scripts</span><span>axe + keyboard</span></div>
+      </div>
+    </div>
+    <div class="tile s-12" style="--i:2">
+      <div class="label"><span>Next</span><b>Roadmap</b></div>
+      <div class="next" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
+        <div>Charts for Reports, on the category palette</div>
+        <div>Date picker, calendar and file upload</div>
+        <div>Coverflow, split view and the Funnel Studio canvas</div>
+        <div>Writing Studio, Campaign Studio and material picker templates</div>
+      </div>
+    </div>
+  </section>
+
+  <dialog id="detail" aria-labelledby="detail-title">
+    <header class="dv-head"><div><h2 id="detail-title">Details</h2><p id="detail-sub"></p></div>
+      <button type="button" class="dv-close" id="detail-close" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button></header>
+    <div id="detail-body"><div id="detail-root"></div></div>
+  </dialog>
+
+  <footer class="foot"><span class="mount" data-mount="logo-mark"></span><span>Between Gigs Design System · v1.1 · October 2026</span></footer>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="bundle.js"></script>
+<script>
+(function () {
+  var meter = document.querySelector(".meter");
+  if (meter) for (var k = 0; k < 130; k++) meter.appendChild(document.createElement("i"));
+  if (!window.React || !window.BetweenGigs) return;
+  var R = React, BG = window.BetweenGigs, html = BG.html, I = BG.Icons;
+
+  function Controls() {
+    var v = R.useState("coverflow"), on = R.useState(true), shine = R.useState(40);
+    return html`<div className="grid gap-5">
+      <${BG.SegmentedControl} label="View" size="sm" value=${v[0]} onChange=${v[1]} options=${[{ value: "gallery", label: "Gallery" }, { value: "list", label: "List" }, { value: "coverflow", label: "Coverflow" }]} />
+      <${BG.Switch} checked=${on[0]} onChange=${on[1]} label="Highlight edits" description="Marks text that changed." />
+      <${BG.Slider} label="Shine" value=${shine[0]} onChange=${shine[1]} format=${function (x) { return x + "%"; }} />
+    </div>`;
+  }
+  function Flow() {
+    var s = R.useState(1);
+    return html`<div className="grid gap-6">
+      <${BG.Stepper} steps=${["Details", "Skills", "Availability", "Preview"]} current=${s[0]} onStepClick=${s[1]} />
+      <${BG.StageStats} title="This cohort" stages=${[{ label: "Invited", value: 120 }, { label: "Signed in", value: 64 }, { label: "Draft", value: 31 }, { label: "Submitted", value: 12, attention: true }, { label: "Approved", value: 18 }, { label: "In gallery", value: null }]} />
+    </div>`;
+  }
+  var open = html`<${BG.Button} size="sm" variant="secondary" fullWidth iconEnd=${html`<${I.ArrowUpRight}/>`}>Open<//>`;
+  var mounts = {
+    "logo-wide": function () { return html`<${BG.Logo} height=${30} />`; },
+    "logo-mark": function () { return html`<${BG.Logo} layout="mark" height=${20} />`; },
+    "hero-mark": function () { return html`<${BG.Logo} layout="mark" height=${440} />`; },
+    "logo-stacked-light": function () { return html`<${BG.Logo} layout="stacked" height=${150} />`; },
+    "logo-stacked-dark": function () { return html`<${BG.Logo} layout="stacked" height=${150} />`; },
+    "theme-light": function () { return html`<div className="flex flex-wrap gap-2"><${BG.Button} size="sm" variant="primary">Claim a card<//><${BG.StatusBadge} status="approved" size="sm" /></div>`; },
+    "theme-dark": function () { return html`<div className="flex flex-wrap gap-2"><${BG.Button} size="sm" variant="primary">Claim a card<//><${BG.StatusBadge} status="approved" size="sm" /></div>`; },
+    "buttons": function () { return html`<div className="grid gap-4">
+      <div className="row"><${BG.Button} variant="primary" iconEnd=${html`<${I.ArrowUpRight}/>`}>Claim a card<//><${BG.Button} variant="strong">Approve profile<//><${BG.Button} variant="secondary" iconStart=${html`<${I.Download}/>`}>Export<//><${BG.Button} variant="ghost" iconStart=${html`<${I.Undo2}/>`}>Undo<//></div>
+      <div className="row"><${BG.Button} variant="danger" size="sm" iconStart=${html`<${I.Trash2}/>`}>Remove access<//><${BG.Button} variant="primary" size="sm" loading>Saving<//><${BG.IconButton} label="Search" variant="secondary" icon=${html`<${I.Search}/>`} /><${BG.IconButton} label="Add" variant="primary" icon=${html`<${I.Plus}/>`} /></div>
+    </div>`; },
+    "status": function () { return html`<div className="row">${Object.keys(BG.statusMeta).map(function (k) { return html`<${BG.StatusBadge} key=${k} status=${k} />`; })}</div>`; },
+    "form": function () { return html`<div className="grid gap-4">
+      <${BG.Field} label="ZIP code" error="Enter a 5-digit ZIP code, like 90026."><${BG.Input} id="sc-zip" defaultValue="9002" /><//>
+      <${BG.Field} label="What do you need help with?"><${BG.Select} id="sc-svc" placeholder="Choose a service" options=${[{ value: "b", label: "Furniture & creative builds" }, { value: "m", label: "Makeup services" }]} /><//>
+      <${BG.Checkbox} id="sc-wall" defaultChecked label="Add me to the Founding Members wall" />
+    </div>`; },
+    "controls": function () { return html`<${Controls} />`; },
+    "feedback": function () { return html`<div className="grid gap-3">
+      <${BG.Banner} tone="warning" title="Draft · not public.">Submissions are disabled.<//>
+      <${BG.Banner} tone="info" title="Design stays locked">Text edits only.<//>
+      <${BG.Toast} message="Profile approved" tone="success" action=${{ label: "Undo", onClick: function () {} }} />
+    </div>`; },
+    "profile": function () { return html`<${BG.ProfileCard} sample name="Maya Chen" specialty="Costume & wardrobe" summary="Thoughtful alterations, wardrobe edits and custom pieces for everyday life." tags=${["Alterations", "Closet styling"]} location="Silver Lake · 3 miles away" availability="Available this week" rate=${45} action=${html`<${BG.Button} size="sm" variant="secondary">View profile<//>`} save=${html`<${BG.IconButton} size="sm" label="Save" pressed icon=${html`<${I.Star}/>`} />`} />`; },
+    "module": function () { return html`<${BG.ModuleCard} title="Connected work" status="preview" version="v3.46" action=${open} pin=${html`<${BG.IconButton} size="sm" label="Pin" icon=${html`<${I.Pin}/>`} />`} progress=${{ value: 55, label: "Building" }} selected />`; },
+    "flow": function () { return html`<${Flow} />`; },
+    "funnel": function () { return html`<div className="flex w-max items-stretch">
+      <${BG.FunnelStepCard} type="traffic" step=${1} status="published" title="As seen in Deadline" description="Press and Peter's network → landing" />
+      <${BG.FlowConnector} label="Clicks" />
+      <${BG.FunnelStepCard} type="page" step=${3} status="draft" title="Founding 20 landing" description="Card wheel, offer → Claim" selected />
+      <${BG.FlowConnector} label="Claims a card" />
+      <${BG.FunnelStepCard} type="form" step=${4} status="draft" title="Claim your card" description="Name, email, ZIP → reserved email" />
+      <${BG.FlowConnector} label="Books" variant="dashed" />
+      <${BG.FunnelStepCard} type="marketplace" step=${6} status="not-started" title="Book a professional" description="$250 applied at checkout" />
+    </div>`; },
+  };
+  document.querySelectorAll("[data-mount]").forEach(function (el) {
+    var f = mounts[el.getAttribute("data-mount")];
+    if (f) ReactDOM.createRoot(el).render(R.createElement(function () { return f(); }));
+  });
+
+  // Live templates, scaled into their frames.
+  document.querySelectorAll("[data-template]").forEach(function (vp) {
+    var T = BG.Templates && BG.Templates[vp.getAttribute("data-template")];
+    if (!T) return;
+    var h = Number(vp.getAttribute("data-h"));
+    var canvas = document.createElement("div");
+    canvas.className = "canvas";
+    canvas.style.height = h + "px";
+    canvas.setAttribute("inert", "");
+    canvas.setAttribute("aria-hidden", "true");
+    vp.appendChild(canvas);
+    var fit = function () { var s = vp.clientWidth / 1440; canvas.style.transform = "scale(" + s + ")"; vp.style.height = (h * s) + "px"; };
+    fit();
+    if (window.ResizeObserver) new ResizeObserver(fit).observe(vp);
+    ReactDOM.createRoot(canvas).render(R.createElement(T));
+  });
+})();
+</script>
+<script src="details.js"></script>

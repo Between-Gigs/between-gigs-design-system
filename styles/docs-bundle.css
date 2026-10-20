@@ -1,0 +1,6 @@
+/* Stylesheet for the docs bundle (previews and showcase). Reads the page's own token variables. */
+@import "tailwindcss" source(none);
+@import "./docs-theme.css";
+@source "../src/components";
+@source "../src/templates";
+@source "../docs/components";

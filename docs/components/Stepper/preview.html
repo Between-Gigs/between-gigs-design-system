@@ -1,0 +1,22 @@
+<!-- @dsCard group="Navigation" height=150 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Stepper</title>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const { useState } = React;
+const BG = window.BetweenGigs;
+const { html, Icons: I } = BG;
+function Demo() {
+  const { Stepper } = BG;
+  const [s, setS] = useState(1);
+  return html`<div className="max-w-xl p-6"><${Stepper} steps=${["Details", "Skills", "Availability", "Preview"]} current=${s} onStepClick=${setS} /></div>`;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(Demo));
+</script>
+</body>
+</html>

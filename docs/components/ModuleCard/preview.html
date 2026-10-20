@@ -1,0 +1,27 @@
+<!-- @dsCard group="Patterns" height=400 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ModuleCard</title>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const { useState } = React;
+const BG = window.BetweenGigs;
+const { html, Icons: I } = BG;
+function Demo() {
+  const { ModuleCard, Button, IconButton } = BG;
+  const open = html`<${Button} size="sm" variant="secondary" fullWidth iconEnd=${html`<${I.ArrowUpRight}/>`}>Open<//>`;
+  const pin = html`<${IconButton} label="Pin module" size="sm" icon=${html`<${I.Pin}/>`} />`;
+  return html`<div className="flex flex-wrap gap-4 p-6">
+    <${ModuleCard} title="Connected work" status="preview" version="v3.46" action=${open} pin=${pin} progress=${{ value: 55, label: "Building" }} selected />
+    <${ModuleCard} title="Feature reminders" status="working" action=${open} pin=${pin} progress=${{ value: 70, label: "Building" }} />
+    <${ModuleCard} title="Spec Builder" status="not-started" pin=${pin} progress=${{ value: 0, label: "Planned" }} />
+  </div>`;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(Demo));
+</script>
+</body>
+</html>

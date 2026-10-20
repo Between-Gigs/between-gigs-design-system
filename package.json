@@ -1,0 +1,39 @@
+{
+  "name": "@between-gigs/design-system",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Between Gigs design system: tokens, Tailwind v4 theme, React components and screen templates.",
+  "type": "module",
+  "main": "src/components/index.ts",
+  "files": ["src", "styles/between-gigs.css", "fonts", "logos", "tokens/tokens.json"],
+  "scripts": {
+    "tokens": "python3 tokens/build-tokens.py",
+    "typecheck": "tsc --noEmit",
+    "lint:values": "node scripts/check-raw-values.mjs",
+    "docs:bundle": "node scripts/build-bundle.mjs dist/docs-bundle.js && tailwindcss -i styles/docs-bundle.css -o dist/docs-bundle.css --minify",
+    "docs:previews": "python3 scripts/docs-previews.py && python3 scripts/docs-templates.py",
+    "build": "npm run tokens && npm run typecheck && npm run lint:values && npm run docs:bundle && npm run docs:previews && node scripts/build-showcase.mjs",
+    "qa": "python3 scripts/qa/harness.py && node scripts/qa/axe.mjs && node scripts/qa/keyboard.mjs",
+    "check": "npm run build && npm run qa"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "lucide-react": ">=0.400.0",
+    "tailwindcss": "^4.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "4.1.11",
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
+    "axe-core": "4.10.2",
+    "esbuild": "0.24.0",
+    "htm": "3.1.1",
+    "lucide-react": "0.454.0",
+    "playwright-core": "1.56.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "tailwindcss": "4.1.11",
+    "typescript": "5.6.3"
+  }
+}
