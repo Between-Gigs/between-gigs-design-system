@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cx } from "./cx";
 import { Check } from "./icons";
+import { layerAttrs, useAnchoredLayer } from "./layer";
 
 export interface MenuItem {
   label: string;
@@ -36,7 +37,9 @@ export function Menu({ trigger, items, align = "start", header, defaultOpen = fa
   const wrap = React.useRef<HTMLSpanElement>(null);
   const list = React.useRef<HTMLDivElement>(null);
   const triggerRef = React.useRef<HTMLElement | null>(null);
+  const popup = React.useRef<HTMLDivElement>(null);
   const id = React.useId();
+  useAnchoredLayer(open, triggerRef, popup, { align });
 
   const focusItem = (step: number | "first" | "last") => {
     const els = Array.from(list.current?.querySelectorAll<HTMLButtonElement>('[role^="menuitem"]:not(:disabled)') ?? []);
@@ -75,6 +78,8 @@ export function Menu({ trigger, items, align = "start", header, defaultOpen = fa
       {t}
       {open && (
         <div
+          ref={popup}
+          {...layerAttrs}
           onKeyDown={(e) => {
             if (e.key === "Escape") { e.preventDefault(); close(); }
           }}

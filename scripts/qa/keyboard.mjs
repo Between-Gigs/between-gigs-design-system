@@ -32,6 +32,15 @@ let p = await open('Tabs'); await p.locator('[role=tab][aria-selected=true]').fo
   p = await open('Table'); await p.locator('tbody tr').first().focus(); 
   ok('Table: rows focusable and Enter works', (await p.locator('tbody tr').first().getAttribute('tabindex')) === '0');
   p = await open('Menu'); ok('Menu: search box sits outside role=menu', (await p.locator('[role=menu] input').count()) === 0 && (await p.locator('input[aria-label="Find a company"]').count()) === 1);
+  p = await open('Select'); { const sel = p.locator('[role=combobox][aria-haspopup=listbox]').nth(1);
+    await sel.focus(); await p.keyboard.press('Enter'); await p.waitForTimeout(100);
+    ok('Select: Enter opens a styled list', (await p.locator('[role=listbox].rounded-lg').count()) === 1);
+    await p.keyboard.press('ArrowDown'); await p.keyboard.press('Enter'); await p.waitForTimeout(100);
+    ok('Select: arrow and Enter pick, list closes, focus returns', (await sel.innerText()).includes('Before Patti') && (await p.locator('[role=listbox]').count()) === 0 && await sel.evaluate((el) => el === document.activeElement));
+    await p.keyboard.press('Space'); await p.waitForTimeout(80); await p.keyboard.press('Escape'); await p.waitForTimeout(80);
+    ok('Select: Escape closes', (await p.locator('[role=listbox]').count()) === 0);
+    await p.keyboard.press('p'); await p.waitForTimeout(80);
+    ok('Select: typing a letter jumps to a match', (await sel.innerText()).includes('Patti')); }
   p = await open('Combobox'); const cb = p.locator('[role=combobox]'); await cb.click(); await cb.fill('tenn'); await p.keyboard.press('ArrowDown'); await p.keyboard.press('Enter'); await p.waitForTimeout(100);
   ok('Combobox: type, arrow and Enter selects', (await cb.inputValue()) === 'Tennis Shop', 'got ' + await cb.inputValue());
   p = await open('CommandPalette'); await p.keyboard.press('Control+k'); await p.waitForTimeout(200);

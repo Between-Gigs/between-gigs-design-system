@@ -1,14 +1,19 @@
 # Select
 
-Picks one value from a list of six or more. It is a native select inside the system's frame, so the keyboard, mobile pickers and screen readers all work without extra code.
+Picks one value from a short list. The list is drawn by the design system, not the operating system, so it has the same rounded, raised look as Menu and Combobox in both themes.
 
 ## The consumer provides
 
 - `options`: `{ value, label, disabled? }[]`.
-- `placeholder`: a first, unselectable option when nothing is chosen yet ("Choose a service").
-- `size`, `invalid`, `start` (an icon, as in filter bars), and standard select props.
+- `value` + `onValueChange(value)` to control it, or `defaultValue` to let it manage itself. `onChange` also fires with `{ target: { value } }` for form libraries.
+- `placeholder`: shown in the field until something is chosen ("Choose a service"). It is not an option in the list.
+- `name` to submit with a form (a hidden input carries the value). `size`, `invalid`, `disabled`, `start` (an icon, as in filter bars).
+
+## Keyboard
+
+Enter, Space or the arrow keys open the list; arrows, Home and End move; Enter or Space picks; Escape closes and returns focus. Typing a letter jumps to the next option that starts with it, open or closed.
 
 ## Use when
 
+- Up to about ten options. Longer lists, or options that need search, use Combobox.
 - Five or fewer options that all deserve to be seen: use RadioGroup or SegmentedControl.
-- Options with descriptions, avatars or search (company switcher): use Menu with a header Input.

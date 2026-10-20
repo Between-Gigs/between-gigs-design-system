@@ -1,5 +1,6 @@
 import * as React from "react";
 import { cx } from "./cx";
+import { layerAttrs, useAnchoredLayer } from "./layer";
 
 export interface PopoverProps {
   /** A Button or IconButton that opens the panel. */
@@ -31,6 +32,7 @@ export function Popover({ trigger, label, title, children, align = "start", widt
   const panel = React.useRef<HTMLDivElement>(null);
   const triggerRef = React.useRef<HTMLElement | null>(null);
   const id = React.useId();
+  useAnchoredLayer(open, triggerRef, panel, { align });
 
   React.useEffect(() => {
     if (!open) return;
@@ -58,6 +60,7 @@ export function Popover({ trigger, label, title, children, align = "start", widt
       {open && (
         <div
           ref={panel}
+          {...layerAttrs}
           id={id}
           role="dialog"
           aria-label={label}

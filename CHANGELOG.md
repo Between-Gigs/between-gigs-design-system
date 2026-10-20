@@ -7,6 +7,8 @@
 - The showcase's Templates section and template detail view.
 
 ### Fixed (detail inspection)
+- **Select's list box was the operating system's** (square corners, gray placeholder row, system border) and couldn't match the theme. Select now draws its own list, the same rounded, raised surface as Menu and Combobox, with full keyboard support (arrows, Home/End, Enter/Space, Escape, type-to-jump) and a hidden input for forms. New `onValueChange`; `onChange` still fires with `{ target: { value } }`.
+- **Dropdowns clipped inside cards, scrolling panels and dialogs.** Select, Combobox, Menu and Popover now open in the browser's top layer (`useAnchoredLayer` in `layer.ts`), pinned to their anchor, and flip above it when there's no room below.
 - **Double focus ring on inputs and selects** in pages that set their own unlayered focus style: the frame now lights only for its own field, and the showcase's page styles moved into the base layer so component styles win.
 - **Unreadable native option lists** in dark theme: Select options now take `surface-raised` and `ink`.
 - **Prompt bar showed two rings** when a button inside it had focus.

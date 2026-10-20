@@ -2,6 +2,7 @@ import * as React from "react";
 import { cx } from "./cx";
 import { Check, ChevronDown } from "./icons";
 import { controlFrame, type ControlSize } from "./Input";
+import { layerAttrs, useAnchoredLayer } from "./layer";
 
 export interface ComboboxOption {
   value: string;
@@ -38,6 +39,8 @@ export function Combobox({ options, value, onChange, placeholder = "Search…", 
   const [open, setOpen] = React.useState(false);
   const [active, setActive] = React.useState(0);
   const wrap = React.useRef<HTMLDivElement>(null);
+  const frame = React.useRef<HTMLDivElement>(null);
+  const listRef = React.useRef<HTMLUListElement>(null);
   const q = query.trim().toLowerCase();
   const shown = q ? options.filter((o) => (o.label + " " + (o.description ?? "")).toLowerCase().includes(q)) : options;
 
@@ -49,11 +52,12 @@ export function Combobox({ options, value, onChange, placeholder = "Search…", 
     return () => document.removeEventListener("pointerdown", onDown);
   }, [open]);
 
+  useAnchoredLayer(open, frame, listRef, { matchWidth: true });
   const choose = (o: ComboboxOption) => { if (o.disabled) return; onChange(o.value); setOpen(false); setQuery(""); };
 
   return (
     <div ref={wrap} className={cx("relative", className)}>
-      <div className={cx(controlFrame(size, invalid), "pr-2")}>
+      <div ref={frame} className={cx(controlFrame(size, invalid), "pr-2")}>
         {!open && selected?.icon}
         <input
           id={cid}
@@ -81,7 +85,7 @@ export function Combobox({ options, value, onChange, placeholder = "Search…", 
         <ChevronDown className={cx("pointer-events-none transition-transform", open && "rotate-180")} />
       </div>
       {open && (
-        <ul id={listId} role="listbox" className="absolute top-full right-0 left-0 z-dropdown mt-2 grid max-h-72 overflow-auto rounded-lg border border-line bg-surface-raised p-1.5 shadow-md">
+        <ul ref={listRef} {...layerAttrs} id={listId} role="listbox" className="absolute top-full right-0 left-0 z-dropdown mt-2 grid max-h-72 overflow-auto rounded-lg border border-line bg-surface-raised p-1.5 shadow-md">
           {shown.length === 0 && <li className="px-2.5 py-2 text-body-sm text-ink-subtle">{emptyText}</li>}
           {shown.map((o, i) => (
             <li
