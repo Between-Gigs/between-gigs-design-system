@@ -33,15 +33,17 @@ export const buttonSizes: Record<ButtonSize, string> = {
 };
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  { variant = "secondary", size = "md", iconStart, iconEnd, loading = false, fullWidth, disabled, className, children, type = "button", ...rest },
+  { variant = "secondary", size = "md", iconStart, iconEnd, loading = false, fullWidth, disabled, className, children, type = "button", onClick, ...rest },
   ref,
 ) {
   return (
     <button
       ref={ref}
       type={type}
-      disabled={disabled || loading}
+      disabled={disabled}
       aria-busy={loading || undefined}
+      aria-disabled={loading || undefined}
+      onClick={loading ? (e) => e.preventDefault() : onClick}
       className={cx(
         "inline-flex shrink-0 items-center justify-center rounded-md font-sans whitespace-nowrap select-none",
         "transition-colors duration-fast ease-standard [&_svg]:size-4 [&_svg]:shrink-0",
@@ -49,6 +51,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function 
         buttonVariants[variant],
         buttonSizes[size],
         fullWidth && "w-full",
+        loading && "cursor-progress",
         className,
       )}
       {...rest}

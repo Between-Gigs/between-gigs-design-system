@@ -262,6 +262,7 @@ CHECKS = [  # fg, grounds, minimum
   ("ink-muted", ["neutral-soft"], 4.5), ("ink", ["highlight"], 4.5),
   ("line-strong", ["surface","surface-sunken","bg"], 3), ("focus", ["bg","surface","surface-sunken","surface-raised"], 3),
   ("logo-mark", ["bg","surface"], 3), ("logo-ink", ["bg","surface"], 4.5),
+  ("ink-brand", ["bg","surface","surface-raised"], 3), ("bg", ["ink-brand"], 4.5),  # checked/on state fills and the mark on them
 ] + [(f"cat-{i}", ["surface","bg"], 3) for i in range(1, 9)]
 
 REPORT = []
@@ -326,6 +327,10 @@ UTILS = """/* 6. Utilities the scales don't cover. */
   &::-moz-range-track { height: 6px; border-radius: 9999px; background: linear-gradient(to right, var(--ink-brand) var(--fill, 50%), var(--line) var(--fill, 50%)); }
   &::-webkit-slider-thumb { appearance: none; width: 18px; height: 18px; margin-top: -6px; border-radius: 9999px; background: var(--surface-raised); border: 2px solid var(--ink-brand); box-shadow: var(--shadow-xs, none); }
   &::-moz-range-thumb { width: 14px; height: 14px; border-radius: 9999px; background: var(--surface-raised); border: 2px solid var(--ink-brand); }
+  /* Focus shows as a ring around the thumb, not a box around the whole track. */
+  &:focus-visible { outline: none; }
+  &:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 2px var(--surface-raised), 0 0 0 4px var(--focus); }
+  &:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 2px var(--surface-raised), 0 0 0 4px var(--focus); }
 }
 
 /* 7. Material layer (optional personal finish). See the Materials section. */

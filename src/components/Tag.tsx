@@ -30,7 +30,7 @@ export function Tag({ onRemove, selected, onSelect, className, children, ...rest
       {children}
       {onRemove && (
         <button type="button" onClick={onRemove} aria-label={`Remove ${typeof children === "string" ? children : "tag"}`}
-          className="inline-flex size-5 items-center justify-center rounded-full hover:bg-surface-hover [&_svg]:size-3">
+          className="inline-flex size-6 items-center justify-center rounded-full hover:bg-surface-hover focus-visible:outline-offset-0 [&_svg]:size-3">
           <Close />
         </button>
       )}

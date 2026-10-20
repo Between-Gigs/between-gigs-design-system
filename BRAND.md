@@ -53,6 +53,7 @@ Color has two layers. **Primitives** (`forest-*`, `mint-*`, `sage-*`, `amber-*`,
 - `action-strong` + `on-action-strong`: the decisive action inside a flow or review ("Create my profile", "Approve profile"). Forest in light theme, near-white in dark theme.
 - Secondary actions are outline buttons: `surface` fill, `line-strong` border, `ink` label.
 - Destructive actions use `action-danger` + `on-action-danger`, and always ask for confirmation inside the page.
+- Selected and on states of small controls (checked checkbox, chosen radio, switch on, slider fill, progress) use `ink-brand`, with `bg` for the mark on top. Mint is too light against white to show state on its own, so it stays reserved for labelled buttons.
 
 ### Status
 

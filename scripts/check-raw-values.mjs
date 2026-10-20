@@ -5,7 +5,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const dirs = ["src/components", "src/templates"];
+const dirs = ["src/components"];
 // Files allowed to hold raw values, and why.
 const allow = new Set(["src/components/Logo.tsx"]); // exact logo paths; inks come from logo-* tokens
 const rules = [

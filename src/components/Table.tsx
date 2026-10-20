@@ -51,7 +51,7 @@ export function Table<Row>({
                   {c.sortable && onSortChange ? (
                     <button type="button"
                       onClick={() => onSortChange({ key: c.key, direction: active && sort!.direction === "asc" ? "desc" : "asc" })}
-                      className={cx("inline-flex items-center gap-1 rounded-xs hover:text-ink", end && "flex-row-reverse")}>
+                      className={cx("-my-1 inline-flex items-center gap-1 rounded-xs py-1 hover:text-ink", end && "flex-row-reverse")}>
                       {c.header}
                       <ChevronDown className={cx("size-3.5 transition-transform", !active && "opacity-0", active && sort!.direction === "asc" && "rotate-180")} />
                     </button>

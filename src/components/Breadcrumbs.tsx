@@ -26,7 +26,7 @@ export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
               {last ? (
                 <span aria-current="page" className="inline-flex items-center gap-1.5 font-semibold text-ink [&_svg]:size-3.5">{c.icon}{c.label}</span>
               ) : (
-                <a href={c.href} className="inline-flex items-center gap-1.5 rounded-xs text-ink-muted hover:text-ink hover:underline [&_svg]:size-3.5">{c.icon}{c.label}</a>
+                <a href={c.href} className="-my-1 inline-flex items-center gap-1.5 rounded-xs py-1 text-ink-muted hover:text-ink hover:underline [&_svg]:size-3.5">{c.icon}{c.label}</a>
               )}
               {!last && <ChevronRight className={cx("size-3.5 text-ink-subtle")} />}
             </li>

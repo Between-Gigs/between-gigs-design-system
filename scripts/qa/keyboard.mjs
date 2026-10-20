@@ -1,4 +1,4 @@
-// Keyboard and screen-size checks for the interactive components and templates.
+// Keyboard and screen-size checks for the interactive components and the app shell.
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright-core";
@@ -46,19 +46,17 @@ let p = await open('Tabs'); await p.locator('[role=tab][aria-selected=true]').fo
   p = await open('ConfirmDialog'); await p.locator('button:has-text("Remove from gallery")').click(); await p.waitForTimeout(150);
   ok('ConfirmDialog: opens with a verb, not OK', (await p.locator('dialog[open] button:has-text("Remove profile")').count()) === 1);
   for (const w of [1440, 1180, 900, 400]) {
-    p = await open('ReviewQueue', w);
-    let reach = await p.locator('aside button:has-text("Approve profile")').isVisible().catch(() => false);
-    if (!reach) { await p.locator('button:has-text("Review panel")').click().catch(() => {}); await p.waitForTimeout(250); reach = await p.locator('dialog[open] button:has-text("Approve profile")').isVisible().catch(() => false); await p.keyboard.press('Escape'); await p.waitForTimeout(150); }
-    ok(`ReviewQueue @${w}px: approve action reachable`, reach);
+    p = await open('AppShell', w);
+    let insp = await p.locator('aside[aria-label="Connected work"]').isVisible().catch(() => false);
+    if (!insp) { await p.locator('button:has-text("Selected module")').click().catch(() => {}); await p.waitForTimeout(250); insp = await p.locator('dialog[open] :text("Design stays locked")').isVisible().catch(() => false); await p.keyboard.press('Escape'); await p.waitForTimeout(150); }
+    ok(`AppShell @${w}px: inspector reachable`, insp);
     let nav = await p.locator('aside[aria-label=Workspace] a[aria-current]').isVisible().catch(() => false);
     if (!nav) { await p.locator('button[aria-label="Open navigation"]').click().catch(() => {}); await p.waitForTimeout(250); nav = await p.locator('dialog[open] a[aria-current]').isVisible().catch(() => false); await p.keyboard.press('Escape'); }
-    ok(`ReviewQueue @${w}px: navigation reachable`, nav);
-    const sw = await p.evaluate(() => document.documentElement.scrollWidth); ok(`ReviewQueue @${w}px: no sideways page scroll`, sw <= w, 'scrollWidth ' + sw);
+    ok(`AppShell @${w}px: navigation reachable`, nav);
+    const sw = await p.evaluate(() => document.documentElement.scrollWidth); ok(`AppShell @${w}px: no sideways page scroll`, sw <= w, 'scrollWidth ' + sw);
   }
-  p = await open('ReviewQueue', 900); await p.locator('tbody tr').nth(1).click(); await p.waitForTimeout(250);
-  ok('ReviewQueue @900px: selecting a row opens the review drawer', await p.locator('dialog[open] button:has-text("Approve profile")').isVisible().catch(() => false));
-  p = await open('WorkspaceHub', 1440); await p.locator('button[aria-pressed]:has-text("Table Studio")').focus(); await p.keyboard.press('Enter'); await p.waitForTimeout(150);
-  ok('WorkspaceHub: module card selectable by keyboard', (await p.locator('aside h2:has-text("Table Studio")').count()) === 1);
+  p = await open('ModuleCard'); await p.locator('button[aria-pressed]:has-text("Feature reminders")').focus(); await p.keyboard.press('Enter'); await p.waitForTimeout(150);
+  ok('ModuleCard: selectable by keyboard', (await p.locator('button[aria-pressed=true]:has-text("Feature reminders")').count()) === 1);
 console.log(out.join("\n"));
 await b.close();
 const failed = out.filter((l) => l.startsWith("FAIL")).length;

@@ -14,7 +14,7 @@ const { html, Icons: I } = BG;
 function Demo() {
   const { Banner, Button } = BG;
   return html`<div className="grid gap-4 p-6">
-    <${Banner} tone="warning" layout="strip" title="Draft · not public." action=${html`<a className="text-label-sm text-ink underline" href="#">Open the funnel map</a>`}>Submissions are disabled; sample names are illustrative.<//>
+    <${Banner} tone="warning" layout="strip" title="Draft · not public." action=${html`<a className="-my-1 inline-block py-1 text-label-sm text-ink underline" href="#">Open the funnel map</a>`}>Submissions are disabled; sample names are illustrative.<//>
     <${Banner} tone="warning">Draft preview: nothing is saved or sent.<//>
     <${Banner} tone="info" title="Design stays locked">Text edits only. Global design adoption is a separate review.<//>
     <${Banner} tone="danger" title="Couldn't save the system" action=${html`<${Button} size="sm" variant="secondary">Retry<//>`} onDismiss=${() => {}}>Your changes are kept on this device.<//>

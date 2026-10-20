@@ -1,19 +1,25 @@
 {
   "name": "@between-gigs/design-system",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
-  "description": "Between Gigs design system: tokens, Tailwind v4 theme, React components and screen templates.",
+  "description": "Between Gigs design system: tokens, Tailwind v4 theme, React components.",
   "type": "module",
   "main": "src/components/index.ts",
-  "files": ["src", "styles/between-gigs.css", "fonts", "logos", "tokens/tokens.json"],
+  "files": [
+    "src",
+    "styles/between-gigs.css",
+    "fonts",
+    "logos",
+    "tokens/tokens.json"
+  ],
   "scripts": {
     "tokens": "python3 tokens/build-tokens.py",
     "typecheck": "tsc --noEmit",
     "lint:values": "node scripts/check-raw-values.mjs",
     "docs:bundle": "node scripts/build-bundle.mjs dist/docs-bundle.js && tailwindcss -i styles/docs-bundle.css -o dist/docs-bundle.css --minify",
-    "docs:previews": "python3 scripts/docs-previews.py && python3 scripts/docs-templates.py",
+    "docs:previews": "python3 scripts/docs-previews.py",
     "build": "npm run tokens && npm run typecheck && npm run lint:values && npm run docs:bundle && npm run docs:previews && node scripts/build-showcase.mjs",
-    "qa": "python3 scripts/qa/harness.py && node scripts/qa/axe.mjs && node scripts/qa/keyboard.mjs",
+    "qa": "python3 scripts/qa/harness.py && node scripts/qa/axe.mjs && node scripts/qa/keyboard.mjs && node scripts/qa/inspect.mjs",
     "check": "npm run build && npm run qa"
   },
   "peerDependencies": {

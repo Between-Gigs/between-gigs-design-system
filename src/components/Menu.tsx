@@ -79,7 +79,7 @@ export function Menu({ trigger, items, align = "start", header, defaultOpen = fa
             if (e.key === "Escape") { e.preventDefault(); close(); }
           }}
           className={cx(
-            "absolute top-full z-dropdown mt-2 grid max-h-96 min-w-56 overflow-auto rounded-lg border border-line bg-surface-raised p-1.5 shadow-md",
+            "absolute top-full z-dropdown mt-2 grid max-h-96 w-max max-w-80 min-w-56 overflow-auto rounded-lg border border-line bg-surface-raised p-1.5 shadow-md",
             align === "end" ? "right-0" : "left-0",
             className,
           )}

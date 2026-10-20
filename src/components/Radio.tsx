@@ -40,7 +40,7 @@ export function RadioGroup({ name, label, options, value, onChange, orientation 
                 onChange={() => onChange(o.value)}
                 className={cx(
                   "mt-0.5 size-4.5 shrink-0 cursor-pointer appearance-none rounded-full border border-line-strong bg-surface",
-                  "transition-[border-width,border-color] duration-fast checked:border-5 checked:border-action",
+                  "transition-[border-width,border-color] duration-fast checked:border-5 checked:border-ink-brand",
                   "disabled:cursor-not-allowed disabled:opacity-45",
                 )}
               />

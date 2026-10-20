@@ -39,7 +39,6 @@ for (const name of fs.readdirSync(docs).sort()) {
   const pv = path.join(docs, name, "preview.html"), rd = path.join(docs, name, "README.md");
   if (!fs.existsSync(pv) || !fs.existsSync(rd)) continue;
   const group = (fs.readFileSync(pv, "utf8").split("\n")[0].match(/group="([^"]+)"/) || [])[1] || "";
-  if (group === "Templates") continue;
   const summary = fs.readFileSync(rd, "utf8").split("\n").find((l) => l.trim() && !l.startsWith("#"));
   comps.push({ name, group, summary });
 }

@@ -20,6 +20,8 @@ css += "".join(f"@font-face{{font-family:'{f['family']}';src:url(file://{ROOT}/{
 read = lambda p: open(os.path.join(ROOT, p)).read()
 react, rdom = read("node_modules/react/umd/react.production.min.js"), read("node_modules/react-dom/umd/react-dom.production.min.js")
 bcss, bjs = read("dist/docs-bundle.css"), read("dist/docs-bundle.js")
+import shutil
+shutil.rmtree(OUT, ignore_errors=True)
 os.makedirs(OUT, exist_ok=True)
 n = 0
 docs = os.path.join(ROOT, "docs", "components")

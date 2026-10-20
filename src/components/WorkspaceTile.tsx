@@ -47,7 +47,7 @@ export function WorkspaceTile({ name, kind, status, color = "cat-8", image, href
         {status && <p className="text-body-sm text-ink-muted">{status}</p>}
       </div>
       <div className="flex items-center justify-between gap-2 border-t border-line py-2 pr-2 pl-4">
-        <a href={href} className="inline-flex items-center gap-1 rounded-xs text-label-sm text-link underline-offset-2 hover:underline">
+        <a href={href} className="-my-1 inline-flex items-center gap-1 rounded-xs py-1 text-label-sm text-link underline-offset-2 hover:underline">
           Open workspace
           <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true"><path d="M7 17 17 7" /><path d="M7 7h10v10" /></svg>
         </a>

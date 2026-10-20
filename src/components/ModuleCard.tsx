@@ -45,7 +45,7 @@ export function ModuleCard({ title, status, version, preview, progress, action, 
       <div className="grid flex-1 content-start gap-3 p-3">
         <Heading level={headingLevel} className="text-heading-sm text-ink">
           {onSelect
-            ? <button type="button" onClick={onSelect} aria-pressed={selected} className="rounded-xs text-left hover:underline">{title}</button>
+            ? <button type="button" onClick={onSelect} aria-pressed={selected} className="-my-0.5 rounded-xs py-0.5 text-left hover:underline">{title}</button>
             : title}
         </Heading>
         {action}

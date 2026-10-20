@@ -144,13 +144,6 @@ body { margin: 0; color: var(--ink); font-family: var(--text); -webkit-font-smoo
 .mount .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
 .stage { border-radius: 16px; background: var(--bg); border: 1px solid var(--rule); padding: 20px; flex: 1; display: grid; align-content: center; gap: 14px; min-width: 0; }
 
-/* template frames */
-.frame { border-radius: 16px; overflow: hidden; border: 1px solid var(--rule-strong); background: var(--bg); }
-.frame-bar { display: flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; background: #06140d; border-bottom: 1px solid var(--rule); font-family: var(--mono); font-size: 11px; color: var(--ink-subtle); }
-.frame-bar i { width: 9px; height: 9px; border-radius: 50%; background: #234634; }
-.frame-bar span { margin-left: 8px; }
-.viewport { position: relative; overflow: hidden; }
-.viewport > .canvas { position: absolute; top: 0; left: 0; width: 1440px; transform-origin: 0 0; }
 
 /* materials */
 .mats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; flex: 1; }
@@ -263,8 +256,10 @@ body { margin: 0; color: var(--ink); font-family: var(--text); -webkit-font-smoo
 .dv-filters { display: flex; flex-wrap: wrap; gap: 8px; position: sticky; top: -24px; z-index: 5; padding: 12px 0; background: var(--page); }
 .dv-list { margin: 0; padding-left: 18px; display: grid; gap: 8px; color: var(--ink-muted); font-size: 14px; line-height: 21px; max-width: 75ch; }
 .dv-mats { min-height: 160px; }
-a { color: var(--link); }
-:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+@layer base {
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+}
 </style>
 
 <div class="page" data-theme="dark">
@@ -291,10 +286,10 @@ a { color: var(--link); }
       <div class="big">50<small>React components</small></div>
       <p>Every one renders live on this page. Nothing here is a screenshot.</p>
     </div>
-    <div class="tile s-4" style="--i:2" data-detail="templates" data-name="Templates">
-      <div class="label"><span>Screens</span><b>Templates</b></div>
-      <div class="big">6<small>full templates</small></div>
-      <p>Hub, Funnel Studio, Review, Onboarding, Sign-in, Founding 20.</p>
+    <div class="tile s-4" style="--i:2" data-detail="color" data-name="Design tokens">
+      <div class="label"><span>Tokens</span><b>One source</b></div>
+      <div class="big">186<small>design tokens</small></div>
+      <p>Colors, type, spacing, radius, elevation and motion, in light and dark.</p>
     </div>
     <div class="tile s-6" style="--i:3" data-detail="a11y" data-name="Contrast checks">
       <div class="label"><span>Accessibility</span><b>WCAG 2.1 AA</b></div>
@@ -399,25 +394,8 @@ a { color: var(--link); }
     <div class="tile s-12" style="--i:8" data-detail="components" data-focus="Patterns" data-name="Funnel patterns"><div class="label"><span>Funnel</span><b>FunnelStepCard · FlowConnector</b></div><div class="stage mount" data-mount="funnel" style="overflow-x:auto"></div></div>
   </section>
 
-  <!-- TEMPLATES -->
-  <section class="sec"><span class="sec-k">03 · Templates</span><h2>Whole screens, assembled only from the system.</h2><p>Each one below is the real template running live, scaled to fit. Sample data is fictional and marked.</p></section>
-  <section class="bento" aria-label="Templates">
-    <div class="tile s-12" style="--i:0" data-detail="templates" data-focus="WorkspaceHub" data-name="Workspace hub template"><div class="label"><span>Workspace hub</span><b>AppShell · FilterBar · ModuleCard · Inspector</b></div>
-      <div class="frame"><div class="frame-bar"><i></i><i></i><i></i><span>hub · Workspace</span></div><div class="viewport" data-template="WorkspaceHub" data-h="860"></div></div></div>
-    <div class="tile s-6" style="--i:1" data-detail="templates" data-focus="FunnelStudio" data-name="Funnel Studio template"><div class="label"><span>Funnel Studio</span><b>The Founding 20</b></div>
-      <div class="frame"><div class="frame-bar"><i></i><i></i><i></i><span>funnel · Campaign 2</span></div><div class="viewport" data-template="FunnelStudio" data-h="860"></div></div></div>
-    <div class="tile s-6" style="--i:2" data-detail="templates" data-focus="ReviewQueue" data-name="Profile review template"><div class="label"><span>Profile review</span><b>Peter &amp; Patti</b></div>
-      <div class="frame"><div class="frame-bar"><i></i><i></i><i></i><span>review · Submitted</span></div><div class="viewport" data-template="ReviewQueue" data-h="900"></div></div></div>
-    <div class="tile s-4" style="--i:3" data-detail="templates" data-focus="FoundingLanding" data-name="Founding 20 template"><div class="label"><span>Marketing</span><b>Founding 20</b></div>
-      <div class="frame"><div class="frame-bar"><i></i><i></i><i></i><span>betweengigs · founding-20</span></div><div class="viewport" data-template="FoundingLanding" data-h="1000"></div></div></div>
-    <div class="tile s-4" style="--i:4" data-detail="templates" data-focus="ProfileBuilder" data-name="Profile builder template"><div class="label"><span>Onboarding</span><b>Profile builder</b></div>
-      <div class="frame"><div class="frame-bar"><i></i><i></i><i></i><span>onboarding · step 1 of 4</span></div><div class="viewport" data-template="ProfileBuilder" data-h="1000"></div></div></div>
-    <div class="tile s-4" style="--i:5" data-detail="templates" data-focus="SignIn" data-name="Sign in template"><div class="label"><span>Access</span><b>Sign in</b></div>
-      <div class="frame"><div class="frame-bar"><i></i><i></i><i></i><span>account · sign in</span></div><div class="viewport" data-template="SignIn" data-h="1000"></div></div></div>
-  </section>
-
   <!-- BRAND + BOX -->
-  <section class="sec"><span class="sec-k">04 · Handover</span><h2>Everything the team needs to build with it.</h2><p>Files ready to drop into the dashboard, plus the rules that keep new screens consistent.</p></section>
+  <section class="sec"><span class="sec-k">03 · Handover</span><h2>Everything the team needs to build with it.</h2><p>Files ready to drop into the dashboard, plus the rules that keep new screens consistent.</p></section>
   <section class="bento" aria-label="Handover">
     <div class="tile s-5" style="--i:0" data-detail="logo" data-name="Logo">
       <div class="label"><span>Logo</span><b>Follows the theme</b></div>
@@ -433,7 +411,7 @@ a { color: var(--link); }
         <div><span>Design tokens</span><span>tokens.json · 186</span></div>
         <div><span>Tailwind v4 theme</span><span>between-gigs.css</span></div>
         <div><span>React components</span><span>50 · TypeScript</span></div>
-        <div><span>Screen templates</span><span>6</span></div>
+        <div><span>Contrast report</span><span>130 pairs</span></div>
         <div><span>Brand book</span><span>BRAND.md</span></div>
         <div><span>Logo rules + files</span><span>LOGO.md · 4 SVG</span></div>
         <div><span>Font files</span><span>6 · woff2</span></div>
@@ -446,7 +424,7 @@ a { color: var(--link); }
         <div>Charts for Reports, on the category palette</div>
         <div>Date picker, calendar and file upload</div>
         <div>Coverflow, split view and the Funnel Studio canvas</div>
-        <div>Writing Studio, Campaign Studio and material picker templates</div>
+        <div>Screen templates built from the components</div>
       </div>
     </div>
   </section>
@@ -529,22 +507,6 @@ a { color: var(--link); }
     if (f) ReactDOM.createRoot(el).render(R.createElement(function () { return f(); }));
   });
 
-  // Live templates, scaled into their frames.
-  document.querySelectorAll("[data-template]").forEach(function (vp) {
-    var T = BG.Templates && BG.Templates[vp.getAttribute("data-template")];
-    if (!T) return;
-    var h = Number(vp.getAttribute("data-h"));
-    var canvas = document.createElement("div");
-    canvas.className = "canvas";
-    canvas.style.height = h + "px";
-    canvas.setAttribute("inert", "");
-    canvas.setAttribute("aria-hidden", "true");
-    vp.appendChild(canvas);
-    var fit = function () { var s = vp.clientWidth / 1440; canvas.style.transform = "scale(" + s + ")"; vp.style.height = (h * s) + "px"; };
-    fit();
-    if (window.ResizeObserver) new ResizeObserver(fit).observe(vp);
-    ReactDOM.createRoot(canvas).render(R.createElement(T));
-  });
 })();
 </script>
 <script src="details.js"></script>

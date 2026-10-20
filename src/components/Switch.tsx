@@ -23,22 +23,22 @@ export function Switch({ checked, onChange, label, description, disabled, classN
       disabled={disabled}
       onClick={() => onChange(!checked)}
       className={cx(
-        "relative inline-flex h-5 w-9 shrink-0 items-center rounded-full transition-colors duration-fast ease-standard",
-        checked ? "bg-action" : "bg-line-strong",
+        "relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors duration-fast ease-standard",
+        checked ? "bg-ink-brand" : "bg-line-strong",
         "disabled:cursor-not-allowed disabled:opacity-45",
         !label && className,
       )}
       {...rest}
     >
-      <span className={cx("size-4 rounded-full bg-white shadow-xs transition-transform duration-fast ease-standard",
-        checked ? "translate-x-4.5" : "translate-x-0.5")} />
+      <span className={cx("size-5 rounded-full bg-white shadow-xs transition-transform duration-fast ease-standard",
+        checked ? "translate-x-5.5" : "translate-x-0.5")} />
     </button>
   );
   if (!label) return control;
   return (
     <div className={cx("flex items-start gap-3", className)}>
-      <div className="pt-0.5">{control}</div>
-      <label htmlFor={sid} className="grid gap-0.5">
+      {control}
+      <label htmlFor={sid} className="grid gap-0.5 pt-0.5">
         <span className="text-label-md text-ink">{label}</span>
         {description && <span className="text-body-sm text-ink-muted">{description}</span>}
       </label>

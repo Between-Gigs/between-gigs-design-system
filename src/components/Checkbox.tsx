@@ -24,12 +24,12 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(functi
           disabled={disabled}
           className={cx(
             "peer size-4.5 cursor-pointer appearance-none rounded-xs border border-line-strong bg-surface",
-            "transition-colors duration-fast checked:border-action checked:bg-action",
+            "transition-colors duration-fast checked:border-ink-brand checked:bg-ink-brand",
             "aria-invalid:border-danger disabled:cursor-not-allowed disabled:opacity-45",
           )}
           {...rest}
         />
-        <Check className="pointer-events-none absolute inset-0.5 hidden size-3.5 text-on-action peer-checked:block" strokeWidth={3} />
+        <Check className="pointer-events-none absolute inset-0.5 hidden size-3.5 text-bg peer-checked:block" strokeWidth={3} />
       </span>
       {(label || description) && (
         <label htmlFor={cid} className={cx("grid gap-0.5", disabled ? "cursor-not-allowed" : "cursor-pointer")}>

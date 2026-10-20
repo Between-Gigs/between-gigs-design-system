@@ -19,12 +19,12 @@ export function AvatarGroup({ people, max = 4, size = "md", className }: AvatarG
   return (
     <span role="group" aria-label={label} className={cx("inline-flex items-center", className)}>
       {shown.map((p, i) => (
-        <span key={p.name + i} aria-hidden="true" className={cx("rounded-full ring-2 ring-surface", i > 0 && "-ml-2")}>
+        <span key={p.name + i} aria-hidden="true" className={cx("inline-flex rounded-full ring-2 ring-surface", i > 0 && (size === "sm" ? "-ml-1" : "-ml-1.5"))}>
           <Avatar name={p.name} src={p.src} size={size} />
         </span>
       ))}
       {rest > 0 && (
-        <span aria-hidden="true" className={cx("-ml-2 inline-flex items-center justify-center rounded-full bg-surface-sunken font-mono text-ink-muted ring-2 ring-surface",
+        <span aria-hidden="true" className={cx("inline-flex items-center justify-center rounded-full bg-surface-sunken font-mono text-ink-muted ring-2 ring-surface", size === "sm" ? "-ml-1" : "-ml-1.5",
           size === "sm" ? "size-6 text-data-sm" : "size-8 text-label-sm")}>+{rest}</span>
       )}
     </span>

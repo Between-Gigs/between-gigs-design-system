@@ -33,7 +33,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(function 
         value={value}
         defaultValue={value === undefined ? defaultValue ?? (placeholder ? "" : undefined) : undefined}
         aria-invalid={invalid || undefined}
-        className="h-full min-w-0 flex-1 cursor-pointer appearance-none bg-transparent pr-9 outline-none focus-visible:outline-none disabled:cursor-not-allowed"
+        className="h-full min-w-0 flex-1 cursor-pointer appearance-none bg-transparent pr-9 outline-none focus-visible:outline-none disabled:cursor-not-allowed [&_option]:bg-surface-raised [&_option]:text-ink [&_option:disabled]:text-ink-subtle"
         {...rest}
       >
         {placeholder && <option value="" disabled>{placeholder}</option>}

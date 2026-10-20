@@ -7,7 +7,8 @@ export type ControlSize = "sm" | "md" | "lg";
 export function controlFrame(size: ControlSize, invalid?: boolean, disabled?: boolean) {
   return cx(
     "flex items-center gap-2 rounded-md border bg-surface text-ink transition-colors duration-fast ease-standard",
-    "has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-focus",
+    // Only the field itself lights the frame, so a button inside (clear, unit picker) keeps its own single ring.
+    "has-[:is(input,select,textarea):focus-visible]:outline-2 has-[:is(input,select,textarea):focus-visible]:outline-offset-2 has-[:is(input,select,textarea):focus-visible]:outline-focus",
     invalid ? "border-danger" : "border-line-strong",
     disabled && "cursor-not-allowed bg-surface-sunken text-ink-disabled",
     size === "sm" && "h-8 px-2.5 text-body-sm",

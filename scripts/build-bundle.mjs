@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-// Builds the docs bundle: every component and template as one classic script (window.BetweenGigs),
+// Builds the docs bundle: every component as one classic script (window.BetweenGigs),
 // used by the component previews and the showcase. Apps import from src/ instead.
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = path.resolve(process.argv[2] ?? path.join(ROOT, "dist", "docs-bundle.js"));

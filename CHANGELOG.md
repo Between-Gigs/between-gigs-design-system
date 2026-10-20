@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.2.0 — October 2026
+
+### Removed
+- The six screen templates (Workspace hub, Funnel Studio, Profile review, Profile builder, Sign in, Founding 20), for now. The components they used all remain. They are in the history at commit `a9b1b5f` (`src/templates/`) if they come back.
+- The showcase's Templates section and template detail view.
+
+### Fixed (detail inspection)
+- **Double focus ring on inputs and selects** in pages that set their own unlayered focus style: the frame now lights only for its own field, and the showcase's page styles moved into the base layer so component styles win.
+- **Unreadable native option lists** in dark theme: Select options now take `surface-raised` and `ink`.
+- **Prompt bar showed two rings** when a button inside it had focus.
+- **Checked checkbox, chosen radio and switch-on were 1.6:1 in light theme.** They now use `ink-brand` (6.8:1 light), checked by the token build.
+- **Slider focus** is a ring around the thumb instead of a box around the track.
+- **Loading buttons looked disabled.** They keep their color, show the spinner and ignore clicks.
+- **Click targets under 24px** (WCAG 2.5.8): Switch is now 44×24, Tag remove 24×24, and breadcrumb, table-sort, module-title and workspace links have 24px hit areas without moving the layout.
+- New `scripts/qa/inspect.mjs` runs in `npm run qa`: flags double or missing focus rings, unstyled native options, small targets and clipped text on every preview and the showcase.
+
+### Changed
+- Small-screen QA now runs on the AppShell preview: the inspector and navigation drawers are checked at 1440, 1180, 900 and 400px. The ModuleCard preview checks keyboard selection.
+
 ## 1.1.0 — October 2026
 
 QA fixes and eight new components.

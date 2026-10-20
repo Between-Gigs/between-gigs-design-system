@@ -594,7 +594,7 @@ comp("Banner", "Feedback", 260, """
 function Demo() {
   const { Banner, Button } = BG;
   return html`<div className="grid gap-4 p-6">
-    <${Banner} tone="warning" layout="strip" title="Draft · not public." action=${html`<a className="text-label-sm text-ink underline" href="#">Open the funnel map</a>`}>Submissions are disabled; sample names are illustrative.<//>
+    <${Banner} tone="warning" layout="strip" title="Draft · not public." action=${html`<a className="-my-1 inline-block py-1 text-label-sm text-ink underline" href="#">Open the funnel map</a>`}>Submissions are disabled; sample names are illustrative.<//>
     <${Banner} tone="warning">Draft preview: nothing is saved or sent.<//>
     <${Banner} tone="info" title="Design stays locked">Text edits only. Global design adoption is a separate review.<//>
     <${Banner} tone="danger" title="Couldn't save the system" action=${html`<${Button} size="sm" variant="secondary">Retry<//>`} onDismiss=${() => {}}>Your changes are kept on this device.<//>
@@ -953,12 +953,15 @@ The top of every app page: where you are, what this is, and what you can do here
 comp("ModuleCard", "Patterns", 400, """
 function Demo() {
   const { ModuleCard, Button, IconButton } = BG;
+  const [sel, setSel] = useState("Connected work");
   const open = html`<${Button} size="sm" variant="secondary" fullWidth iconEnd=${html`<${I.ArrowUpRight}/>`}>Open<//>`;
   const pin = html`<${IconButton} label="Pin module" size="sm" icon=${html`<${I.Pin}/>`} />`;
+  const card = (title, status, value, label, version) => html`<${ModuleCard} title=${title} status=${status} version=${version} action=${status === "not-started" ? null : open} pin=${pin}
+    progress=${{ value, label }} selected=${sel === title} onSelect=${() => setSel(title)} />`;
   return html`<div className="flex flex-wrap gap-4 p-6">
-    <${ModuleCard} title="Connected work" status="preview" version="v3.46" action=${open} pin=${pin} progress=${{ value: 55, label: "Building" }} selected />
-    <${ModuleCard} title="Feature reminders" status="working" action=${open} pin=${pin} progress=${{ value: 70, label: "Building" }} />
-    <${ModuleCard} title="Spec Builder" status="not-started" pin=${pin} progress=${{ value: 0, label: "Planned" }} />
+    ${card("Connected work", "preview", 55, "Building", "v3.46")}
+    ${card("Feature reminders", "working", 70, "Building")}
+    ${card("Spec Builder", "not-started", 0, "Planned")}
   </div>`;
 }
 """, """
@@ -1019,7 +1022,7 @@ function Demo() {
       start=${html`<${IconButton} size="sm" label="Command menu" icon=${html`<${I.Command}/>`} /><${IconButton} size="sm" label="Attach" icon=${html`<${I.Plus}/>`} />`}
       end=${html`<${IconButton} size="sm" label="Voice" icon=${html`<${I.Mic}/>`} />`} />`}>
     <div className="grid gap-6">
-      <${PageHeader} eyebrow="Between Gigs · Builder" title="Workspace hub" description="101 modules · 6 tools" />
+      <${PageHeader} eyebrow="Between Gigs · Builder" title="Workspace hub" description="101 modules · 6 tools" actions=${html`<${BG.ShellInspectorButton} label="Selected module" />`} />
       <${FilterBar} end=${html`<${Button} size="sm" variant="ghost">Reset filters<//>`}>
         <${Input} size="sm" aria-label="Find a page" placeholder="Find a page, tool or path…" start=${html`<${I.Search}/>`} className="min-w-48 flex-1" />
         <${Select} size="sm" aria-label="Status" defaultValue="all" options=${[{ value: "all", label: "All statuses" }, { value: "w", label: "Working" }]} className="w-40" />
@@ -1214,7 +1217,7 @@ The current step is marked with `aria-current="step"`. Pair it with a forward bu
 comp("FlowConnector", "Patterns", 150, """
 function Demo() {
   const { FlowConnector, Card } = BG;
-  const box = (t) => html`<${Card} padding="sm" className="w-40 text-label-md">${t}<//>`;
+  const box = (t) => html`<${Card} padding="sm" className="w-40 shrink-0 text-label-md">${t}<//>`;
   return html`<div className="flex items-stretch p-6">
     ${box("Founding 20 landing")}<${FlowConnector} label="Claims a card" />${box("Claim your card")}<${FlowConnector} label="Books" variant="dashed" />${box("Book a professional")}
   </div>`;

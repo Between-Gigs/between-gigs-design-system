@@ -254,7 +254,7 @@
     ConfirmDialog: function () { return html`<${Stateful} init=${false} render=${function (v, set) { return html`<div><${BG.Button} variant="danger" iconStart=${html`<${I.Trash2}/>`} onClick=${function () { set(true); }}>Remove from gallery<//><${BG.ConfirmDialog} open=${v} onCancel=${function () { set(false); }} onConfirm=${function () { set(false); }} title="Remove Maya Chen from the gallery?" description="Her profile goes back to draft. She can resubmit." confirmLabel="Remove profile" /></div>`; }} />`; },
     AvatarGroup: function () { return html`<${BG.AvatarGroup} people=${["Peter Lenkov", "Patti", "Justin Massion", "Maya Chen", "Luis Ortega", "Ren\u00e9e Duval"].map(function (n) { return { name: n }; })} />`; },
     Kbd: function () { return html`<div className="dv-row"><span className="dv-inline">Search <${BG.Kbd} keys=${["\u2318", "K"]} /></span><span className="dv-inline">Undo <${BG.Kbd} keys=${["\u2318", "Z"]} /></span><span className="dv-inline">Close <${BG.Kbd} keys=${["Esc"]} /></span></div>`; },
-    AppShell: function () { return html`<p className="dv-sub">The frame of every signed-in screen. See it running in the Templates view.</p>`; },
+    AppShell: function () { return html`<p className="dv-sub">The frame of every signed-in screen: top bar, module bar, sidebar, page, inspector and the floating prompt bar. The sidebar and inspector become drawers on smaller screens.</p>`; },
   };
   function ComponentsView(props) {
     var f = useState(props.focus || "All"), fam = f[0], setFam = f[1];
@@ -271,32 +271,6 @@
           <div className="dv-demo">${d ? d() : null}</div>
         <//>`;
       })}
-    </div>`;
-  }
-
-  /* ---------- templates ---------- */
-  var templates = [
-    { key: "WorkspaceHub", label: "Workspace hub", h: 860 }, { key: "FunnelStudio", label: "Funnel Studio", h: 860 },
-    { key: "ReviewQueue", label: "Profile review", h: 900 }, { key: "ProfileBuilder", label: "Profile builder", h: 900 },
-    { key: "SignIn", label: "Sign in", h: 760 }, { key: "FoundingLanding", label: "Founding 20", h: 1000 },
-  ];
-  function Scaled(props) {
-    var vp = useRef(null), cv = useRef(null);
-    useEffect(function () {
-      var fit = function () { if (!vp.current) return; var s = Math.min(1, vp.current.clientWidth / 1440); cv.current.style.transform = "scale(" + s + ")"; vp.current.style.height = props.h * s + "px"; };
-      fit(); var ro = window.ResizeObserver ? new ResizeObserver(fit) : null; if (ro) ro.observe(vp.current);
-      return function () { if (ro) ro.disconnect(); };
-    }, [props.h]);
-    return html`<div className="frame"><div className="frame-bar"><i></i><i></i><i></i><span>${props.label} \u00b7 interactive</span></div>
-      <div className="viewport" ref=${vp}><div className="canvas" ref=${cv} style=${{ height: props.h + "px" }}>${R.createElement(BG.Templates[props.k])}</div></div></div>`;
-  }
-  function TemplatesView(props) {
-    var s = useState(props.focus || "WorkspaceHub"), cur = s[0], set = s[1];
-    var t = templates.find(function (x) { return x.key === cur; });
-    return html`<div className="dv-stack">
-      <${BG.SegmentedControl} label="Template" size="sm" value=${cur} onChange=${set} options=${templates.map(function (x) { return { value: x.key, label: x.label }; })} />
-      <p className="dv-lead">Fully interactive: filter, select cards, switch tabs, type in the forms. Sample data is fictional.</p>
-      <${Scaled} key=${cur} k=${cur} h=${t.h} label=${t.label} />
     </div>`;
   }
 
@@ -335,10 +309,9 @@
   }
   function BoxView() {
     var rows = [
-      ["tokens/", "build-tokens.py is the single source; it writes tokens.json, the Tailwind theme and a 130-pair contrast report."], ["scripts/qa/", "Accessibility audit (axe) and keyboard tests for every component and template."],
+      ["tokens/", "build-tokens.py is the single source; it writes tokens.json, the Tailwind theme and a 130-pair contrast report."], ["scripts/qa/", "Accessibility audit (axe) and keyboard tests for every component."],
       ["between-gigs.css", "The Tailwind v4 theme. Import it after Tailwind; the defaults are replaced by the brand's."],
       ["src/components/", "50 React components in TypeScript, one file each, no runtime dependency besides React."],
-      ["src/templates/", "6 full screens assembled from the components, ready to wire to real data."],
       ["fonts/", "Sora, Figtree, Newsreader and JetBrains Mono as variable woff2 files."],
       ["logos/", "Wide and stacked lockups, on-light and on-dark, as SVG."],
       ["BRAND.md", "The brand book: principles, content rules, color, type, layout, states, accessibility."],
@@ -362,7 +335,6 @@
     themes: { title: "Themes", sub: "Light, dark and brand islands", view: ThemesView },
     materials: { title: "Materials", sub: "The optional personal finish", view: MaterialsView },
     components: { title: "Components", sub: "All 50, running live", view: ComponentsView },
-    templates: { title: "Templates", sub: "Six screens, fully interactive", view: TemplatesView },
     logo: { title: "Logo", sub: "Lockups and rules", view: LogoView },
     box: { title: "Handover", sub: "Everything in the package", view: BoxView },
   };

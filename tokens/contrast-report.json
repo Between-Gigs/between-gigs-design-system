@@ -415,6 +415,42 @@
  },
  {
   "theme": "light",
+  "fg": "ink-brand",
+  "bg": "bg",
+  "fgv": "#17633f",
+  "bgv": "#f5f8f4",
+  "ratio": 6.78,
+  "min": 3
+ },
+ {
+  "theme": "light",
+  "fg": "ink-brand",
+  "bg": "surface",
+  "fgv": "#17633f",
+  "bgv": "#ffffff",
+  "ratio": 7.26,
+  "min": 3
+ },
+ {
+  "theme": "light",
+  "fg": "ink-brand",
+  "bg": "surface-raised",
+  "fgv": "#17633f",
+  "bgv": "#ffffff",
+  "ratio": 7.26,
+  "min": 3
+ },
+ {
+  "theme": "light",
+  "fg": "bg",
+  "bg": "ink-brand",
+  "fgv": "#f5f8f4",
+  "bgv": "#17633f",
+  "ratio": 6.78,
+  "min": 4.5
+ },
+ {
+  "theme": "light",
   "fg": "cat-1",
   "bg": "surface",
   "fgv": "#1e8a57",
@@ -996,6 +1032,42 @@
   "fgv": "#f5fff8",
   "bgv": "#0e2419",
   "ratio": 15.99,
+  "min": 4.5
+ },
+ {
+  "theme": "dark",
+  "fg": "ink-brand",
+  "bg": "bg",
+  "fgv": "#3deba0",
+  "bgv": "#071a11",
+  "ratio": 11.67,
+  "min": 3
+ },
+ {
+  "theme": "dark",
+  "fg": "ink-brand",
+  "bg": "surface",
+  "fgv": "#3deba0",
+  "bgv": "#0e2419",
+  "ratio": 10.57,
+  "min": 3
+ },
+ {
+  "theme": "dark",
+  "fg": "ink-brand",
+  "bg": "surface-raised",
+  "fgv": "#3deba0",
+  "bgv": "#143024",
+  "ratio": 9.19,
+  "min": 3
+ },
+ {
+  "theme": "dark",
+  "fg": "bg",
+  "bg": "ink-brand",
+  "fgv": "#071a11",
+  "bgv": "#3deba0",
+  "ratio": 11.67,
   "min": 4.5
  },
  {

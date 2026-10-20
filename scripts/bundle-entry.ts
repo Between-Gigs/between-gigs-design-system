@@ -16,4 +16,3 @@ export const Icons = {
 };
 /** Tagged-template JSX for previews: html`<${Button} variant="primary">Save<//>`. */
 export const html = htm.bind(React.createElement);
-export * as Templates from "../src/templates/index";

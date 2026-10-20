@@ -50,7 +50,7 @@ function Demo() {
       start=${html`<${IconButton} size="sm" label="Command menu" icon=${html`<${I.Command}/>`} /><${IconButton} size="sm" label="Attach" icon=${html`<${I.Plus}/>`} />`}
       end=${html`<${IconButton} size="sm" label="Voice" icon=${html`<${I.Mic}/>`} />`} />`}>
     <div className="grid gap-6">
-      <${PageHeader} eyebrow="Between Gigs · Builder" title="Workspace hub" description="101 modules · 6 tools" />
+      <${PageHeader} eyebrow="Between Gigs · Builder" title="Workspace hub" description="101 modules · 6 tools" actions=${html`<${BG.ShellInspectorButton} label="Selected module" />`} />
       <${FilterBar} end=${html`<${Button} size="sm" variant="ghost">Reset filters<//>`}>
         <${Input} size="sm" aria-label="Find a page" placeholder="Find a page, tool or path…" start=${html`<${I.Search}/>`} className="min-w-48 flex-1" />
         <${Select} size="sm" aria-label="Status" defaultValue="all" options=${[{ value: "all", label: "All statuses" }, { value: "w", label: "Working" }]} className="w-40" />

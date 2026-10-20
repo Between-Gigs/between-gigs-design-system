@@ -259,7 +259,7 @@ export function PromptBar({ value, onChange, onSubmit, placeholder = "Ask, note 
       onSubmit={(e) => { e.preventDefault(); if (value.trim()) onSubmit(); }}
       className={cx(
         "flex h-14 items-center gap-1.5 rounded-xl border border-line bg-surface-raised px-2 shadow-md",
-        "has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-focus",
+        "has-[input:focus-visible]:outline-2 has-[input:focus-visible]:outline-offset-2 has-[input:focus-visible]:outline-focus",
         className,
       )}
     >
