@@ -9,3 +9,7 @@ Pick one value from a long list by typing to filter it: the company switcher, as
 - A label: wrap it in Field, or pass `aria-label`.
 
 Arrow keys move through matches, Enter picks, Escape closes. For fewer than about ten options, use Select.
+
+## Level
+
+Molecule (atomic design). See README.md, Components.

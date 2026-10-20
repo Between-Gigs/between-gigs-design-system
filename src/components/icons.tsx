@@ -35,3 +35,5 @@ export const FormGlyph = glyph(<><rect x="4" y="3" width="16" height="18" rx="2"
 export const MailGlyph = glyph(<><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3.5 6.5 8.5 6 8.5-6" /></>);
 export const StoreGlyph = glyph(<><path d="M4 9.5 5.5 4h13L20 9.5" /><path d="M4 9.5a2.7 2.7 0 0 0 5.3 0 2.7 2.7 0 0 0 5.4 0 2.7 2.7 0 0 0 5.3 0" /><path d="M5.5 12v8h13v-8" /><path d="M10 20v-4h4v4" /></>);
 export const SignalGlyph = glyph(<><circle cx="12" cy="12" r="2" /><path d="M7.8 7.8a6 6 0 0 0 0 8.4" /><path d="M16.2 7.8a6 6 0 0 1 0 8.4" /><path d="M5 5a10 10 0 0 0 0 14" /><path d="M19 5a10 10 0 0 1 0 14" /></>);
+/** Founding card: a numbered Founding 20 member card. Drawn with the create-icon skill (icons/custom/founding-card.svg). */
+export const FoundingCardGlyph = glyph(<><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M8.5 8.3 L9.53 10.78 L12.21 10.99 L10.16 12.74 L10.79 15.36 L8.5 13.95 L6.21 15.36 L6.84 12.74 L4.79 10.99 L7.47 10.78Z" /><path d="M15 10h3" /><path d="M15 14h2" /></>);

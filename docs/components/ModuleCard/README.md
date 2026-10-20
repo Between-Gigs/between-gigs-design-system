@@ -11,3 +11,7 @@ A module in the Workspace hub: status, version, live preview, the open action an
 - `selected`: the module in focus in Coverflow.
 
 Coverflow's tilt and depth belong to the Coverflow layout, not to the card. The card itself stays flat.
+
+## Level
+
+Organism (atomic design). See README.md, Components.

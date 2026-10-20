@@ -12,3 +12,7 @@ Rows of records that share the same fields: people, invitations, campaigns, the 
 - `empty`: what to show when there are no rows.
 
 The header row sticks while scrolling. On narrow screens the table scrolls sideways inside its frame; for phones, prefer a card list.
+
+## Level
+
+Organism (atomic design). See README.md, Components.

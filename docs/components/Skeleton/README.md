@@ -8,3 +8,7 @@ A placeholder in the shape of content that is still loading. Use for loads over 
 - `className` for width and height.
 
 Match the real layout so nothing jumps when content arrives. Pulsing stops under reduced motion.
+
+## Level
+
+Atom (atomic design). See README.md, Components.

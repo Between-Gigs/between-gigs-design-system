@@ -8,3 +8,7 @@ One choice from two to five options that should all be visible at once.
 - `orientation`: `vertical` (default) or `horizontal` for short labels.
 
 Put the recommended option first and say so in its label or description. More than five options: use Select.
+
+## Level
+
+Molecule (atomic design). See README.md, Components.

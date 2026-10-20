@@ -11,3 +11,7 @@ A list of actions or choices opened from a button: Appearance, account, row acti
 - `align`: `start` or `end` relative to the trigger.
 
 Keyboard: Down arrow opens and moves, Up arrow, Home, End; Escape or Tab closes and returns focus to the trigger.
+
+## Level
+
+Molecule (atomic design). See README.md, Components.

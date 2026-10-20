@@ -1,9 +1,9 @@
 # Between Gigs Design System
 
-Tokens, a Tailwind CSS v4 theme and 50 React components for the Between Gigs dashboard, marketing site and onboarding, in light and dark.
+Tokens, a Tailwind CSS v4 theme and 51 React components for the Between Gigs dashboard, marketing site and onboarding, in light and dark.
 
 - **Brand book:** [BRAND.md](BRAND.md) (principles, content, color, type, layout, states, accessibility)
-- **Logo:** [LOGO.md](LOGO.md) · **Icons:** [ICONS.md](ICONS.md) (Lucide) · **Materials:** [MATERIALS.md](MATERIALS.md)
+- **Logo:** [LOGO.md](LOGO.md) · **Icons:** [ICONS.md](ICONS.md) (Lucide) · **Materials:** [MATERIALS.md](MATERIALS.md) · **Motion:** [MOTION.md](MOTION.md)
 - **Component guides:** [docs/components/](docs/components) (one README and live preview each)
 - **Showcase:** [between-gigs.github.io/between-gigs-design-system](https://between-gigs.github.io/between-gigs-design-system/), built from [docs/showcase/index.html](docs/showcase/index.html), a static page that runs every component live. `.github/workflows/pages.yml` republishes it on every push to `main`.
 - **QA report:** [docs/QA.md](docs/QA.md) · **Changes:** [CHANGELOG.md](CHANGELOG.md)
@@ -13,11 +13,12 @@ Tokens, a Tailwind CSS v4 theme and 50 React components for the Between Gigs das
 | Path | What |
 | --- | --- |
 | `tokens/build-tokens.py` | The single source of every token value. Writes everything below and checks contrast. |
-| `tokens/tokens.json` | All tokens: 93 colors (light and dark), 19 type styles, 74 scale values. |
-| `tokens/contrast-report.json` | 130 text/ground pairs with their contrast ratios, both themes. |
+| `tokens/tokens.json` | All tokens: 93 colors (light and dark), 19 type styles, 75 scale values. |
+| `tokens/contrast-report.json` | 138 text/ground pairs with their contrast ratios, both themes. |
 | `styles/between-gigs.css` | The Tailwind v4 theme the app imports. |
+| `src/motion/` | Page transitions, scroll reveals, scroll progress and parallax. See MOTION.md. |
 | `src/templates/` | Page templates built from the components (`ComingSoon`). |
-| `src/components/` | 50 components, TypeScript, one file each. No runtime dependency besides React. |
+| `src/components/` | 51 components, TypeScript, one file each. No runtime dependency besides React. |
 | `fonts/`, `logos/` | Sora, Figtree, Newsreader, JetBrains Mono (woff2); approved logo SVGs. |
 | `scripts/` | Docs bundle, previews, showcase, raw-value lint, QA (axe and keyboard tests). |
 
@@ -61,13 +62,9 @@ QA uses Playwright's Chromium: run `npx playwright install chromium` once if it 
 
 ## Components
 
-**Actions** Button · IconButton · SegmentedControl · Switch
-**Forms** Field · Input · Textarea · Select · Combobox · Checkbox · RadioGroup · Slider
-**Display** Badge · StatusBadge · Tag · Count · Avatar · AvatarGroup · Progress · Card · Stat · Accordion · Kbd
-**Feedback** Banner · Toast · Tooltip · Skeleton · EmptyState
-**Navigation** Tabs · Breadcrumbs · Pager · NavItem · Stepper · CommandPalette
-**Overlays** Menu · Popover · Modal · Drawer · ConfirmDialog
-**Data** Table
-**Layout** AppShell (TopBar, ModuleBar, Sidebar, Inspector, PromptBar) · FilterBar
-**Patterns** PageHeader · ModuleCard · WorkspaceTile · FunnelStepCard · FlowConnector · ProfileCard · StageStats
-**Brand** Logo
+Organised by atomic design: atoms are single controls and marks, molecules combine a few atoms into one job, organisms are whole regions of a screen, templates are full pages. Every component's README states its level.
+
+- **Atoms:** Button · IconButton · Switch · ThemeToggle · Input · Textarea · Select · Checkbox · Slider · Badge · StatusBadge · Tag · Count · Avatar · Progress · Skeleton · Kbd · Logo · Tooltip · FlowConnector · Reveal · Parallax · ScrollProgress
+- **Molecules:** SegmentedControl · Field · RadioGroup · Combobox · Card · Stat · Banner · Toast · EmptyState · Tabs · Breadcrumbs · Pager · NavItem · Menu · Popover · Accordion · AvatarGroup · Stepper · PageTransition (`useViewTransition`)
+- **Organisms:** Modal · Drawer · ConfirmDialog · Table · PageHeader · ModuleCard · AppShell (TopBar, ModuleBar, Sidebar, Inspector, PromptBar) · FilterBar · WorkspaceTile · FunnelStepCard · ProfileCard · StageStats · CommandPalette
+- **Templates:** ComingSoon

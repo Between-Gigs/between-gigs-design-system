@@ -14,3 +14,7 @@ Wraps one form control with its label and its help or error text, and connects t
 
 - Show errors after the person leaves the field or submits, not while they type.
 - Stack fields with `gap-5`; group related fields under a heading-sm.
+
+## Level
+
+Molecule (atomic design). See README.md, Components.

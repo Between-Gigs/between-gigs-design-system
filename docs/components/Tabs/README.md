@@ -13,3 +13,7 @@ Switches between sections of one page. This is the only tab style in the product
 - To change how the same data is displayed, use SegmentedControl. To go to another page, use links or NavItem.
 
 Arrow keys, Home and End move between tabs. The list scrolls horizontally instead of wrapping.
+
+## Level
+
+Molecule (atomic design). See README.md, Components.

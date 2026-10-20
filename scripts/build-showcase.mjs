@@ -39,8 +39,9 @@ for (const name of fs.readdirSync(docs).sort()) {
   const pv = path.join(docs, name, "preview.html"), rd = path.join(docs, name, "README.md");
   if (!fs.existsSync(pv) || !fs.existsSync(rd)) continue;
   const group = (fs.readFileSync(pv, "utf8").split("\n")[0].match(/group="([^"]+)"/) || [])[1] || "";
+  const level = (fs.readFileSync(pv, "utf8").split("\n")[0].match(/level="([^"]+)"/) || [])[1] || "";
   const summary = fs.readFileSync(rd, "utf8").split("\n").find((l) => l.trim() && !l.startsWith("#"));
-  comps.push({ name, group, summary });
+  comps.push({ name, group, level, summary });
 }
 fs.writeFileSync(path.join(OUT, "components.json"), JSON.stringify(comps));
 console.log(`Showcase assembled: ${comps.length} components, ${JSON.parse(fs.readFileSync(path.join(OUT, "pairs.json"))).length} contrast pairs.`);

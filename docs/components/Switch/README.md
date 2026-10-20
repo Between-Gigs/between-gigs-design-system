@@ -12,3 +12,7 @@ Turns a setting on or off immediately, with no save step.
 - The change applies the moment it is flipped (Typewriter, Highlight edits, Use Hub pointer).
 - For a yes/no inside a form that is submitted later, use Checkbox.
 - Label the setting, not the state: "Highlight edits", not "Highlighting is on".
+
+## Level
+
+Atom (atomic design). See README.md, Components.

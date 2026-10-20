@@ -20,3 +20,7 @@ The one container for grouped content. Module cards, profile cards, funnel steps
 
 - Don't nest raised cards. Inside a card, use `flat` or `sunken`.
 - Don't add a colored left border; use `stripe` on top, or a Badge.
+
+## Level
+
+Molecule (atomic design). See README.md, Components.

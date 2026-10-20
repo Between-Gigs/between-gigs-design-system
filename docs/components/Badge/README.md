@@ -12,3 +12,7 @@ A short label for a state or a type, in a tone color.
 
 - For the product's status words (Draft, Needs review, Approved…) use StatusBadge so the color always matches the word.
 - Badges are not buttons. For a removable or clickable label use Tag.
+
+## Level
+
+Atom (atomic design). See README.md, Components.

@@ -13,3 +13,7 @@ One step on the Funnel Studio canvas: what kind of step it is, its order, status
 - `fluid`: the card grows to share the row (min 192px). Without it the card is a fixed 224px, for canvases that scroll.
 
 Connector lines between steps belong to the canvas, drawn in `line-strong` with labels in `caption`.
+
+## Level
+
+Organism (atomic design). See README.md, Components.

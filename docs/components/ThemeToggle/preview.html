@@ -1,0 +1,27 @@
+<!-- @dsCard group="Actions" level="atom" height=150 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ThemeToggle</title>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const { useState } = React;
+const BG = window.BetweenGigs;
+const { html, Icons: I } = BG;
+function Demo() {
+  const { ThemeToggle } = BG;
+  const [t, setT] = useState("dark");
+  return html`<div className="flex flex-wrap items-center gap-6 p-6">
+    <${ThemeToggle} />
+    <${ThemeToggle} size="sm" />
+    <${ThemeToggle} showLabel=${false} theme=${t} onChange=${setT} />
+    <span className="text-body-sm text-ink-muted">The first two switch this whole page.</span>
+  </div>`;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(Demo));
+</script>
+</body>
+</html>

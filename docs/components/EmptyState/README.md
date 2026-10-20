@@ -9,3 +9,7 @@ Fills a view with nothing to show yet, and says how to start.
 - `action`: usually one primary Button. `icon`: a Lucide icon.
 
 For a filter with no matches, say so and offer "Reset filters" instead of a create action.
+
+## Level
+
+Molecule (atomic design). See README.md, Components.

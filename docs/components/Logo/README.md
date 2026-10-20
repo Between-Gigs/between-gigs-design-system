@@ -13,3 +13,7 @@ The Between Gigs logo, drawn from the approved files. Its inks follow the theme 
 - Keep clear space of at least half the monogram's height on every side.
 - On photos or material textures, put a solid `surface` or `surface-brand` plate behind it.
 - The original SVGs are in the Logos asset group for print, slides and partners.
+
+## Level
+
+Atom (atomic design). See README.md, Components.

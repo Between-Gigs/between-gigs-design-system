@@ -10,3 +10,7 @@ One headline number with its label. `StatRow` lays several out between hairlines
 - `size`: `lg` for marketing and dashboards, `md` inside panels.
 
 Only use stat rows when the numbers are the point of the page. Never invent figures to fill a row.
+
+## Level
+
+Molecule (atomic design). See README.md, Components.

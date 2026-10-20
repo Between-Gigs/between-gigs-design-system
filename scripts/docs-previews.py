@@ -3,7 +3,7 @@ import os, sys, textwrap
 
 OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "docs", "components")
 
-HEAD = """<!-- @dsCard group="{group}" height={height}{extra} -->
+HEAD = """<!-- @dsCard group="{group}" level="{level}" height={height}{extra} -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -24,6 +24,20 @@ ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(
 """
 
 C = {}
+
+# Atomic design level of every component: atoms are single controls and marks, molecules combine a few
+# atoms into one job, organisms are whole regions of a screen, templates are full pages.
+LEVELS = {
+  "atom": ["Button", "IconButton", "Switch", "ThemeToggle", "Input", "Textarea", "Select", "Checkbox", "Slider", "Badge",
+           "StatusBadge", "Tag", "Count", "Avatar", "Progress", "Skeleton", "Kbd", "Logo", "Tooltip", "FlowConnector",
+           "Reveal", "Parallax", "ScrollProgress"],
+  "molecule": ["SegmentedControl", "Field", "RadioGroup", "Combobox", "Card", "Stat", "Banner", "Toast", "EmptyState",
+               "Tabs", "Breadcrumbs", "Pager", "NavItem", "Menu", "Popover", "Accordion", "AvatarGroup", "Stepper", "PageTransition"],
+  "organism": ["Modal", "Drawer", "ConfirmDialog", "Table", "PageHeader", "ModuleCard", "AppShell", "FilterBar", "WorkspaceTile",
+               "FunnelStepCard", "ProfileCard", "StageStats", "CommandPalette"],
+  "template": ["ComingSoon"],
+}
+LEVEL = {n: lv for lv, names in LEVELS.items() for n in names}
 
 def comp(name, group, height, code, readme):
     C[name] = (group, height, textwrap.dedent(code).strip(), textwrap.dedent(readme).strip())
@@ -1493,12 +1507,180 @@ A keyboard key or shortcut, shown next to the action it triggers or inside menus
 - `keys`: each key separately, `["⌘", "K"]`. Use the Mac symbols in the UI and show Ctrl on Windows where it matters.
 """)
 
+# ------------------------------------------------------------------ Theme + Motion
+comp("ThemeToggle", "Actions", 150, """
+function Demo() {
+  const { ThemeToggle } = BG;
+  const [t, setT] = useState("dark");
+  return html`<div className="flex flex-wrap items-center gap-6 p-6">
+    <${ThemeToggle} />
+    <${ThemeToggle} size="sm" />
+    <${ThemeToggle} showLabel=${false} theme=${t} onChange=${setT} />
+    <span className="text-body-sm text-ink-muted">The first two switch this whole page.</span>
+  </div>`;
+}
+""", """
+# ThemeToggle
+
+The Day/Night switch: a sliding sun and moon. Left uncontrolled, it switches the whole page with a circular reveal that grows from the switch.
+
+## The consumer provides
+
+- Nothing, for the usual case: it reads and writes `data-theme` on `<html>` and remembers the choice (localStorage key `bg-theme`).
+- Or `theme` and `onChange(theme, origin)` to control it, for example to save the choice to the person's account. Call `useTheme().setTheme(theme, origin)` to keep the reveal.
+- `size` `sm` or `md`, and `showLabel` (Day / Night text, default on).
+
+## Use when
+
+- One per screen, in the top bar or the account menu. Not inside forms.
+- Restore the saved theme before first paint (an inline script that sets `data-theme`), so the page never flashes the wrong theme.
+- The reveal uses the View Transitions API and turns off under reduced motion; the switch still works instantly.
+""")
+
+comp("PageTransition", "Motion", 420, """
+function Demo() {
+  const { useViewTransition, pageEffects, Button, Card } = BG;
+  const [fx, setFx] = useState("slide");
+  const [page, setPage] = useState(0);
+  const go = useViewTransition(fx);
+  const pages = [["Workspace hub", "Your projects, drafts and the founding wall."], ["Funnel Studio", "Campaign 2: four steps, two drafts."], ["Profile review", "Twelve profiles waiting for approval."]];
+  const nav = (i, e) => go(() => setPage(i), e.currentTarget, i < page ? "back" : "forward");
+  return html`<div className="grid gap-4 p-6">
+    <div className="flex flex-wrap gap-2" role="group" aria-label="Effect">
+      ${pageEffects.map((f) => html`<${Button} key=${f} size="sm" variant=${f === fx ? "strong" : "secondary"} aria-pressed=${f === fx} onClick=${() => setFx(f)}>${f}<//>`)}
+    </div>
+    <div className="flex gap-2" role="tablist" aria-label="Pages">
+      ${pages.map((p, i) => html`<${Button} key=${i} size="sm" variant="ghost" role="tab" aria-selected=${i === page} onClick=${(e) => nav(i, e)}>${p[0]}<//>`)}
+    </div>
+    <div className="vt-page overflow-hidden rounded-xl border border-line bg-surface p-8">
+      <p className="text-label-sm text-ink-subtle">Page ${page + 1} of 3</p>
+      <h3 className="mt-2 font-display text-display-sm text-ink">${pages[page][0]}</h3>
+      <p className="mt-2 text-body-md text-ink-muted">${pages[page][1]}</p>
+    </div>
+  </div>`;
+}
+""", """
+# PageTransition
+
+Animated moves between pages and views, on the browser's View Transitions API: the old page animates out while the new one animates in. Seven effects: `reveal`, `slide`, `push`, `zoom`, `flip`, `wipe` and `dissolve`.
+
+## The consumer provides
+
+- A content region with the `vt-page` class. Only that region moves; the shell (top bar, sidebar) holds still.
+- The change itself, wrapped: `const go = useViewTransition("slide"); go(() => navigate("/studio"), event.currentTarget)`. Or call `startPageTransition(update, { effect, origin, direction })` directly.
+- `direction: "back"` for back navigation, so slide and flip run the other way. `origin` is where `reveal` grows from (the clicked element or the pointer event).
+
+## Use when
+
+- `slide` for moving sideways between peers (tabs, steps). `push` for drilling into a detail. `zoom` for opening something from a grid. `reveal` and `wipe` for big moments (publish, launch). `flip` and `dissolve` sparingly, once per flow.
+- One effect per kind of move, the same everywhere in the product.
+- Under reduced motion, or in browsers without the API, the change happens instantly. Nothing depends on the animation finishing.
+""")
+
+comp("Reveal", "Motion", 360, """
+function Demo() {
+  const { Reveal, revealEffects, Button } = BG;
+  const [k, setK] = useState(0);
+  return html`<div className="grid gap-4 p-6">
+    <div><${Button} size="sm" variant="secondary" onClick=${() => setK(k + 1)}>Replay<//></div>
+    <div key=${k} className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      ${revealEffects.map((fx, i) => html`<${Reveal} key=${fx} effect=${fx} delay=${i * 70} className="grid h-24 place-items-center rounded-lg border border-line bg-surface font-mono text-data-sm text-ink-muted">${fx}<//>`)}
+    </div>
+  </div>`;
+}
+""", """
+# Reveal
+
+Animates content in as it scrolls into view. Eight effects: `fade-up`, `scale-in`, `blur-in`, `slide-left`, `slide-right`, `clip-up`, `tilt-in` and `pop`.
+
+## The consumer provides
+
+- `effect`, and `delay` in ms to stagger a group (`index * 60`).
+- `repeat` to play again each time it re-enters the viewport (default once). `threshold` for how much must be visible first (default 0.2).
+
+## Use when
+
+- Section openers, card grids and marketing pages. Not for app chrome, table rows or anything people need the moment the page loads.
+- `fade-up` is the default. Keep one or two effects per page.
+- The content is always in the DOM and readable by assistive tech. Under reduced motion it simply shows.
+""")
+
+comp("ScrollProgress", "Motion", 200, """
+function Demo() {
+  const { ScrollProgress } = BG;
+  const box = React.useRef(null);
+  return html`<div className="grid gap-2 p-6">
+    <${ScrollProgress} target=${box} placement="inline" aria-label="Reading progress" />
+    <div ref=${box} tabIndex="0" aria-label="Article" className="h-32 overflow-auto rounded-lg border border-line bg-surface p-4 text-body-md text-ink-muted">
+      ${Array.from({ length: 8 }, (_, i) => html`<p key=${i} className="mb-3">Paragraph ${i + 1}. Scroll this panel and the mint bar above fills.</p>`)}
+    </div>
+  </div>`;
+}
+""", """
+# ScrollProgress
+
+A thin mint bar that fills as you scroll: reading progress on long pages, guides and the Journal.
+
+## The consumer provides
+
+- Nothing for the page: `<ScrollProgress />` pins to the top of the viewport.
+- `target` (a ref) and `placement="inline"` to follow a scrolling panel instead.
+
+## Use when
+
+- Long reading pages only. Not on dashboards or short pages.
+""")
+
+comp("Parallax", "Motion", 260, """
+function Demo() {
+  const { Parallax, Logo } = BG;
+  return html`<div className="relative h-52 overflow-hidden rounded-xl bg-surface-brand p-6" data-theme="dark">
+    <${Parallax} speed=${-0.3} className="pointer-events-none absolute -right-8 -bottom-10 opacity-20"><${Logo} layout="mark" height=${180} /><//>
+    <p className="relative max-w-xs font-display text-heading-lg text-ink">Scroll the page: the mark drifts behind the text.</p>
+  </div>`;
+}
+""", """
+# Parallax
+
+Moves decorative art at a different speed from the scroll, for depth: hero marks, covers, background shapes.
+
+## The consumer provides
+
+- `speed`: 0.2 is gentle, negative moves the other way. Keep it under 0.5.
+
+## Use when
+
+- Decorative layers only, behind content. Never on text people read or controls people use.
+- Turns off under reduced motion.
+""")
+
+comp("ComingSoon", "Templates", 640, """
+function Demo() {
+  return html`<div className="h-full"><${BG.Templates.ComingSoon} links=${[{ label: "Instagram", href: "#instagram" }, { label: "Privacy", href: "#privacy" }, { label: "Terms", href: "#terms" }]} /></div>`;
+}
+""", """
+# ComingSoon
+
+The teaser page before launch: logo, a Coming soon badge, the headline, one line of copy and an email signup. It sits on a curved panel over the quiet Europium backdrop, lit by a mint horizon glow; the button and field glow on hover and focus.
+
+## The consumer provides
+
+- `onJoin(email)`: save the email. The page validates the address and shows the confirmation itself.
+- `links` for the footer (social, Privacy, Terms, contact) and `copyright`. Take both from the live site; the template invents none.
+
+## Use when
+
+- A product or city that isn't open yet. Keep it this simple: no countdown, no feature list.
+- It is a dark-theme island in either theme. The backdrop is `backdrop-europium` (see MATERIALS.md).
+""")
+
 def main():
     for name, (group, height, code, readme) in C.items():
         d = os.path.join(OUT, name)
         os.makedirs(d, exist_ok=True)
-        open(os.path.join(d, "preview.html"), "w").write(HEAD.format(group=group, height=height, extra=(" width=1440" if name == "AppShell" else ""), name=name, code=code))
-        open(os.path.join(d, "README.md"), "w").write(readme + "\n")
+        assert name in LEVEL, f"{name} has no atomic level in LEVELS"
+        open(os.path.join(d, "preview.html"), "w").write(HEAD.format(group=group, level=LEVEL[name], height=height, extra=(" width=1440" if name == "AppShell" else ""), name=name, code=code))
+        open(os.path.join(d, "README.md"), "w").write(readme + f"\n\n## Level\n\n{LEVEL[name].capitalize()} (atomic design). See README.md, Components.\n")
     print(len(C), "components")
 
 main()

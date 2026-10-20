@@ -8,3 +8,7 @@ A panel that slides in from the left or right edge and blocks the page until it'
 - `side`: `left` for navigation, `right` for details and settings. `size`: `sm` (default), `md`, `lg`.
 
 Built on Modal, so focus stays inside, Escape closes, and focus returns to the button that opened it.
+
+## Level
+
+Organism (atomic design). See README.md, Components.

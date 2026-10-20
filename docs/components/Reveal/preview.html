@@ -1,0 +1,27 @@
+<!-- @dsCard group="Motion" level="atom" height=360 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Reveal</title>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const { useState } = React;
+const BG = window.BetweenGigs;
+const { html, Icons: I } = BG;
+function Demo() {
+  const { Reveal, revealEffects, Button } = BG;
+  const [k, setK] = useState(0);
+  return html`<div className="grid gap-4 p-6">
+    <div><${Button} size="sm" variant="secondary" onClick=${() => setK(k + 1)}>Replay<//></div>
+    <div key=${k} className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      ${revealEffects.map((fx, i) => html`<${Reveal} key=${fx} effect=${fx} delay=${i * 70} className="grid h-24 place-items-center rounded-lg border border-line bg-surface font-mono text-data-sm text-ink-muted">${fx}<//>`)}
+    </div>
+  </div>`;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(Demo));
+</script>
+</body>
+</html>

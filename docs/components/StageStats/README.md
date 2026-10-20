@@ -9,3 +9,7 @@ Counts per stage of a pipeline, in order: Invited → Signed in → Draft → Su
 - `attention`: highlights stages waiting on someone (Submitted waits on Peter or Patti).
 
 Use real counts only. In proposals and drafts, show dashes, not invented numbers.
+
+## Level
+
+Organism (atomic design). See README.md, Components.

@@ -27,7 +27,7 @@ const r = await esbuild.build({
   tsconfigRaw: { compilerOptions: { jsx: "react" } }, metafile: true,
 });
 let js = r.outputFiles[0].text;
-const skip = new Set(["cx", "statusMeta", "useToast", "Icons", "html", "buttonVariants", "buttonSizes", "controlFrame", "initials", "CardHeader", "StatRow", "ToastProvider", "TabList", "Tab", "TabPanel", "NavSection", "TopBar", "ToolbarDivider", "ModuleBar", "Sidebar", "Inspector", "InspectorSection", "PromptBar", "FilterLabel", "stepTypes", "useAppShell", "ShellMenuButton", "ShellInspectorButton", "useCommandShortcut"]);
+const skip = new Set(["cx", "statusMeta", "useToast", "Icons", "html", "buttonVariants", "buttonSizes", "controlFrame", "initials", "CardHeader", "StatRow", "ToastProvider", "TabList", "Tab", "TabPanel", "NavSection", "TopBar", "ToolbarDivider", "ModuleBar", "Sidebar", "Inspector", "InspectorSection", "PromptBar", "FilterLabel", "stepTypes", "useAppShell", "ShellMenuButton", "ShellInspectorButton", "useCommandShortcut", "useTheme", "FoundingCardGlyph"]);
 const names = Object.keys(r.metafile.outputs[Object.keys(r.metafile.outputs)[0]].exports ?? {});
 const src = fs.readFileSync(path.join(ROOT, "src", "components", "index.ts"), "utf8");
 const comps = [...src.matchAll(/export \{ ([^}]+) \}/g)].flatMap((m) => m[1].split(",").map((s) => s.trim()))

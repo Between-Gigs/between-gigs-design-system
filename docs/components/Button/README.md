@@ -22,3 +22,7 @@ Triggers an action. Five variants, each with one job, so a person can tell at a 
 - Don't make a primary button to fill space. If you're unsure which one is primary, the screen has too many actions.
 - Don't replace the label with "Loading…".
 - Don't put two primary or two danger buttons next to each other.
+
+## Level
+
+Atom (atomic design). See README.md, Components.

@@ -9,3 +9,7 @@ One row in the sidebar or a section nav, with an icon and an optional count. `Na
 - `collapsed`: rail mode, icon only; the label becomes the accessible name and tooltip.
 
 Sidebar rows use Lucide icons at 20px. The illustrated category artwork belongs in category headers, not in nav rows.
+
+## Level
+
+Molecule (atomic design). See README.md, Components.

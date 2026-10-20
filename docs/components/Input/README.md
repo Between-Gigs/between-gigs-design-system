@@ -13,3 +13,7 @@ A single-line text field. The focus ring sits on the whole frame, so icons and u
 
 - Always give it a label: through Field, or `aria-label` when the context is obvious (a search box with a search icon).
 - Placeholders show an example, never the label.
+
+## Level
+
+Atom (atomic design). See README.md, Components.

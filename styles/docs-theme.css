@@ -160,6 +160,7 @@
   --duration-base: var(--duration-base);
   --duration-slow: var(--duration-slow);
   --duration-deliberate: var(--duration-deliberate);
+  --duration-page: var(--duration-page);
 }
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 @layer base {
@@ -226,6 +227,86 @@
   --material-tint: #e3cfa3;
   [data-theme=dark] &, &[data-theme=dark] { --material-tint: #e8a6c4; }
   @media (prefers-color-scheme: dark) { :root:not([data-theme=light]) & { --material-tint: #e8a6c4; } }
+}
+
+/* 8b. Glow: brand light for dark launch surfaces. Mint only, always on a dark island. */
+@utility glow-horizon {
+  /* A curved horizon of mint light: a huge ellipse whose top edge glows, like a planet's rim. */
+  position: absolute; left: 50%; top: 80%; width: 170%; aspect-ratio: 2 / 1; translate: -50% 0; border-radius: 50%;
+  pointer-events: none; z-index: 0;
+  border-top: 1px solid color-mix(in oklab, --theme(--color-mint-300) 75%, transparent);
+  background: radial-gradient(50% 22% at 50% 0%, color-mix(in oklab, --theme(--color-mint-500) 22%, transparent), transparent 100%);
+  box-shadow: 0 -18px 70px -12px color-mix(in oklab, --theme(--color-mint-500) 55%, transparent), inset 0 26px 70px -28px color-mix(in oklab, --theme(--color-mint-300) 45%, transparent);
+}
+@utility glow-text { text-shadow: 0 0 42px color-mix(in oklab, --theme(--color-mint-500) 45%, transparent); }
+@utility glow-hover {
+  transition-property: box-shadow, transform, background-color, border-color;
+  transition-duration: --theme(--duration-base);
+  &:hover, &:focus-visible { box-shadow: 0 0 0 1px color-mix(in oklab, --theme(--color-mint-300) 60%, transparent), 0 10px 34px -8px color-mix(in oklab, --theme(--color-mint-500) 70%, transparent); transform: translateY(-1px); }
+  &:active { transform: none; }
+}
+@utility glow-focus {
+  transition: box-shadow --theme(--duration-base);
+  &:focus-within { box-shadow: 0 0 0 4px color-mix(in oklab, --theme(--color-mint-500) 18%, transparent), 0 8px 30px -10px color-mix(in oklab, --theme(--color-mint-500) 55%, transparent); }
+}
+@media (prefers-reduced-motion: reduce) { .glow-hover:hover { transform: none; } }
+
+/* 9. Motion: page transitions (View Transitions API) and scroll reveals. See MOTION.md.
+   startPageTransition() sets data-vt (effect) and --vt-dir (1 forward, -1 back) on <html>; the content region
+   carries `vt-page`. The shell has no transition name, so it stays still while the page moves. */
+/* `vt-page` marks the region that moves; startPageTransition names it `page` only while a transition runs. */
+@utility vt-page { --vt-region: page; }
+::view-transition-group(*) { animation-duration: --theme(--duration-page); animation-timing-function: --theme(--ease-standard); }
+:root[data-vt]::view-transition-old(page), :root[data-vt]::view-transition-new(page) { animation-duration: --theme(--duration-page); animation-timing-function: cubic-bezier(.65, 0, .2, 1); animation-fill-mode: both; mix-blend-mode: normal; }
+:root[data-vt=theme]::view-transition-old(root), :root[data-vt=theme]::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+:root[data-vt=theme]::view-transition-new(root) { animation: vt-reveal --theme(--duration-page) cubic-bezier(.2, .8, .2, 1) both; }
+:root[data-vt=reveal]::view-transition-old(page) { animation-name: vt-hold; }
+:root[data-vt=reveal]::view-transition-new(page) { animation-name: vt-reveal; }
+:root[data-vt=slide]::view-transition-old(page) { animation-name: vt-slide-out; }
+:root[data-vt=slide]::view-transition-new(page) { animation-name: vt-slide-in; }
+:root[data-vt=push]::view-transition-old(page) { animation-name: vt-sink; }
+:root[data-vt=push]::view-transition-new(page) { animation-name: vt-rise; }
+:root[data-vt=zoom]::view-transition-old(page) { animation-name: vt-zoom-out; }
+:root[data-vt=zoom]::view-transition-new(page) { animation-name: vt-zoom-in; }
+:root[data-vt=flip]::view-transition-old(page) { animation-name: vt-flip-out; animation-timing-function: cubic-bezier(.5, 0, .9, .5); animation-duration: calc(--theme(--duration-page) / 2); }
+:root[data-vt=flip]::view-transition-new(page) { animation-name: vt-flip-in; animation-timing-function: cubic-bezier(.1, .5, .5, 1); animation-duration: calc(--theme(--duration-page) / 2); animation-delay: calc(--theme(--duration-page) / 2); }
+:root[data-vt=wipe]::view-transition-old(page) { animation-name: vt-hold; }
+:root[data-vt=wipe]::view-transition-new(page) { animation-name: vt-wipe; }
+:root[data-vt=dissolve]::view-transition-old(page) { animation-name: vt-dissolve-out; }
+:root[data-vt=dissolve]::view-transition-new(page) { animation-name: vt-dissolve-in; }
+@keyframes vt-hold { from, to { opacity: 1; } }
+@keyframes vt-reveal { from { clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 50%)); } to { clip-path: circle(var(--vt-r, 150%) at var(--vt-x, 50%) var(--vt-y, 50%)); } }
+@keyframes vt-slide-out { to { transform: translateX(calc(var(--vt-dir, 1) * -32%)); opacity: 0; } }
+@keyframes vt-slide-in { from { transform: translateX(calc(var(--vt-dir, 1) * 100%)); } }
+@keyframes vt-sink { to { transform: scale(.9); opacity: .25; border-radius: 24px; } }
+@keyframes vt-rise { from { transform: translateY(100%); } }
+@keyframes vt-zoom-out { to { transform: scale(1.18); opacity: 0; filter: blur(6px); } }
+@keyframes vt-zoom-in { from { transform: scale(.82); opacity: 0; } }
+@keyframes vt-flip-out { to { transform: perspective(1400px) rotateY(calc(var(--vt-dir, 1) * -90deg)); opacity: .4; } }
+@keyframes vt-flip-in { from { transform: perspective(1400px) rotateY(calc(var(--vt-dir, 1) * 90deg)); opacity: .4; } }
+@keyframes vt-wipe { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0 0 0 0); } }
+@keyframes vt-dissolve-out { to { opacity: 0; filter: blur(14px) saturate(1.6); transform: scale(1.03); } }
+@keyframes vt-dissolve-in { from { opacity: 0; filter: blur(14px) saturate(1.6); transform: scale(.97); } }
+
+/* Scroll reveals: <Reveal effect="..."> sets data-reveal; data-shown is added when it enters the viewport. */
+[data-reveal] { transition-property: opacity, transform, filter, clip-path; transition-duration: --theme(--duration-page); transition-timing-function: cubic-bezier(.2, .8, .2, 1); transition-delay: var(--reveal-delay, 0ms); }
+[data-reveal]:not([data-shown]) { opacity: 0; }
+[data-reveal=fade-up]:not([data-shown]) { transform: translateY(32px); }
+[data-reveal=scale-in]:not([data-shown]) { transform: scale(.9); }
+[data-reveal=blur-in]:not([data-shown]) { filter: blur(16px); transform: scale(1.04); }
+[data-reveal=slide-left]:not([data-shown]) { transform: translateX(-56px); }
+[data-reveal=slide-right]:not([data-shown]) { transform: translateX(56px); }
+[data-reveal=clip-up] { clip-path: inset(0 0 0 0); }
+/* Partly clipped, not fully: a fully clipped element never reports as on screen. */
+[data-reveal=clip-up]:not([data-shown]) { clip-path: inset(45% 0 0 0); transform: translateY(20px); }
+[data-reveal=tilt-in]:not([data-shown]) { transform: perspective(900px) rotateX(24deg) translateY(24px); transform-origin: 50% 100%; }
+[data-reveal=pop]:not([data-shown]) { transform: scale(.6); }
+[data-reveal=pop][data-shown] { transition-timing-function: --theme(--ease-spring); }
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+  [data-reveal] { transition: none; }
+  [data-reveal]:not([data-shown]) { opacity: 1; transform: none; filter: none; clip-path: none; }
 }
 
 /* 8. Brand backdrop: a quiet Europium phosphor field for teaser and launch pages (Coming soon).

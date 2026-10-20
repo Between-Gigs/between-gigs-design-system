@@ -8,3 +8,7 @@ The recessed row of search and filters above a collection (Workspace hub, materi
 - `end`: right-aligned extras, usually "Reset filters" (ghost Button), shown only when a filter is active.
 
 All controls inside use `size="sm"`. The bar wraps on narrow screens; it never scrolls sideways.
+
+## Level
+
+Organism (atomic design). See README.md, Components.

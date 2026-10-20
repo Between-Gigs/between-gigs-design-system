@@ -12,3 +12,7 @@ A company workspace in the Playset gallery: cover, relationship, name, state and
 
 - The cover is a flat category color. No gradients.
 - Initials sit on a `surface` plate in `ink`, never directly on the color. That keeps them readable in both themes (dark-theme category colors are light).
+
+## Level
+
+Organism (atomic design). See README.md, Components.

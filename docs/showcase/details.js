@@ -182,7 +182,7 @@
   }
 
   /* ---------- components ---------- */
-  var families = ["All", "Actions", "Forms", "Display", "Feedback", "Navigation", "Overlays", "Data", "Patterns", "Layout", "Brand"];
+  var families = ["All", "Actions", "Forms", "Display", "Feedback", "Navigation", "Overlays", "Data", "Patterns", "Layout", "Brand", "Motion", "Templates"];
   function ModalDemo() {
     var o = useState(false);
     return html`<div><${BG.Button} variant="primary" onClick=${function () { o[1](true); }}>Open the claim dialog<//>
@@ -253,6 +253,12 @@
     CommandPalette: function () { return html`<${Stateful} init=${false} render=${function (v, set) { return html`<div className="dv-row"><${BG.Button} variant="secondary" iconStart=${html`<${I.Search}/>`} onClick=${function () { set(true); }}>Search everything<//><${BG.Kbd} keys=${["\u2318", "K"]} /><${BG.CommandPalette} open=${v} onClose=${function () { set(false); }} commands=${[{ id: "1", group: "Modules", label: "Funnel Studio", icon: html`<${I.Filter}/>`, onRun: function () {} }, { id: "2", group: "Modules", label: "Profile review", icon: html`<${I.Users}/>`, onRun: function () {} }, { id: "3", group: "Actions", label: "New module", icon: html`<${I.Plus}/>`, shortcut: ["\u2318", "N"], onRun: function () {} }]} /></div>`; }} />`; },
     ConfirmDialog: function () { return html`<${Stateful} init=${false} render=${function (v, set) { return html`<div><${BG.Button} variant="danger" iconStart=${html`<${I.Trash2}/>`} onClick=${function () { set(true); }}>Remove from gallery<//><${BG.ConfirmDialog} open=${v} onCancel=${function () { set(false); }} onConfirm=${function () { set(false); }} title="Remove Maya Chen from the gallery?" description="Her profile goes back to draft. She can resubmit." confirmLabel="Remove profile" /></div>`; }} />`; },
     AvatarGroup: function () { return html`<${BG.AvatarGroup} people=${["Peter Lenkov", "Patti", "Justin Massion", "Maya Chen", "Luis Ortega", "Ren\u00e9e Duval"].map(function (n) { return { name: n }; })} />`; },
+    ThemeToggle: function () { return html`<div className="dv-row"><${BG.ThemeToggle} /><${BG.ThemeToggle} size="sm" /><${BG.ThemeToggle} size="sm" showLabel=${false} /></div>`; },
+    PageTransition: function () { return html`<p className="dv-lead">Live in the Motion section of the showcase: pick an effect, then switch pages.</p>`; },
+    Reveal: function () { return html`<div className="mx-reveals">${BG.revealEffects.map(function (f, i) { return html`<${BG.Reveal} key=${f} effect=${f} delay=${i * 70} repeat=${true} className="mx-rv">${f}<//>`; })}</div>`; },
+    ScrollProgress: function () { return html`<p className="dv-lead">The mint bar pinned to the top of the showcase page is ScrollProgress.</p>`; },
+    Parallax: function () { return html`<p className="dv-lead">The large BG mark behind the hero drifts with Parallax as you scroll.</p>`; },
+    ComingSoon: function () { return html`<p className="dv-lead">See section 05 \u00b7 Templates, and Open full page.</p>`; },
     Kbd: function () { return html`<div className="dv-row"><span className="dv-inline">Search <${BG.Kbd} keys=${["\u2318", "K"]} /></span><span className="dv-inline">Undo <${BG.Kbd} keys=${["\u2318", "Z"]} /></span><span className="dv-inline">Close <${BG.Kbd} keys=${["Esc"]} /></span></div>`; },
     AppShell: function () { return html`<p className="dv-sub">The frame of every signed-in screen: top bar, module bar, sidebar, page, inspector and the floating prompt bar. The sidebar and inspector become drawers on smaller screens.</p>`; },
   };
@@ -267,7 +273,7 @@
       })}</div>
       ${shown.map(function (x) {
         var d = demos[x.name];
-        return html`<${Sec} key=${x.name} id=${"c-" + x.name} title=${x.name} meta=${x.group} lead=${x.summary}>
+        return html`<${Sec} key=${x.name} id=${"c-" + x.name} title=${x.name} meta=${x.group + (x.level ? " \u00b7 " + x.level : "")} lead=${x.summary}>
           <div className="dv-demo">${d ? d() : null}</div>
         <//>`;
       })}
@@ -325,9 +331,9 @@
   }
   function BoxView() {
     var rows = [
-      ["tokens/", "build-tokens.py is the single source; it writes tokens.json, the Tailwind theme and a 130-pair contrast report."], ["scripts/qa/", "Accessibility audit (axe) and keyboard tests for every component."],
+      ["tokens/", "build-tokens.py is the single source; it writes tokens.json, the Tailwind theme and a 138-pair contrast report."], ["scripts/qa/", "Accessibility audit (axe) and keyboard tests for every component."],
       ["between-gigs.css", "The Tailwind v4 theme. Import it after Tailwind; the defaults are replaced by the brand's."],
-      ["src/components/", "50 React components in TypeScript, one file each, no runtime dependency besides React."],
+      ["src/components/", "51 React components in TypeScript, one file each, no runtime dependency besides React."],
       ["fonts/", "Sora, Figtree, Newsreader and JetBrains Mono as variable woff2 files."],
       ["logos/", "Wide and stacked lockups, on-light and on-dark, as SVG."],
       ["BRAND.md", "The brand book: principles, content rules, color, type, layout, states, accessibility."],
@@ -350,7 +356,7 @@
     a11y: { title: "Accessibility", sub: "Every contrast pair, both themes", view: A11yView },
     themes: { title: "Themes", sub: "Light, dark and brand islands", view: ThemesView },
     materials: { title: "Materials", sub: "The optional personal finish", view: MaterialsView },
-    components: { title: "Components", sub: "All 50, running live", view: ComponentsView },
+    components: { title: "Components", sub: "All of them, running live", view: ComponentsView },
     logo: { title: "Logo", sub: "Lockups and rules", view: LogoView },
     box: { title: "Handover", sub: "Everything in the package", view: BoxView },
   };
@@ -371,18 +377,32 @@
     if (t[0] === 2) return html`<p className="dv-lead">This view couldn't load its data. Reload the page to try again.</p>`;
     return R.createElement(v.view, { focus: props.focus });
   }
-  function openDetail(key, focus, trigger) {
-    var v = views[key]; if (!v) return;
-    lastTrigger = trigger || null;
-    document.getElementById("detail-title").textContent = v.title;
-    document.getElementById("detail-sub").textContent = v.sub;
-    root.render(R.createElement(Detail, { k: key, focus: focus || v.focus, key: key + (focus || "") }));
-    if (!dlg.open) dlg.showModal();
-    document.getElementById("detail-body").scrollTop = 0;
+  // Shared-element morph: the tile grows into the dialog, and the dialog shrinks back into it on close.
+  var still = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function morph(from, to, update) {
+    if (!document.startViewTransition || still || !from || !to) { update(); return; }
+    from.style.viewTransitionName = "morph";
+    var t = document.startViewTransition(function () { from.style.viewTransitionName = ""; update(); to.style.viewTransitionName = "morph"; });
+    t.finished.finally(function () { from.style.viewTransitionName = ""; to.style.viewTransitionName = ""; });
   }
+  var lastTile = null;
+  function openDetail(key, focus, trigger, tile) {
+    var v = views[key]; if (!v) return;
+    lastTrigger = trigger || null; lastTile = tile || null;
+    var show = function () {
+      document.getElementById("detail-title").textContent = v.title;
+      document.getElementById("detail-sub").textContent = v.sub;
+      ReactDOM.flushSync(function () { root.render(R.createElement(Detail, { k: key, focus: focus || v.focus, key: key + (focus || "") })); });
+      if (!dlg.open) dlg.showModal();
+      document.getElementById("detail-body").scrollTop = 0;
+    };
+    if (dlg.open) show(); else morph(tile, dlg, show);
+  }
+  function closeDetail() { if (!dlg.open) return; morph(dlg, lastTile && lastTile.isConnected ? lastTile : null, function () { dlg.close(); }); }
   dlg.addEventListener("close", function () { root.render(null); if (lastTrigger) lastTrigger.focus(); });
-  dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
-  document.getElementById("detail-close").addEventListener("click", function () { dlg.close(); });
+  dlg.addEventListener("cancel", function (e) { e.preventDefault(); closeDetail(); });
+  dlg.addEventListener("click", function (e) { if (e.target === dlg) closeDetail(); });
+  document.getElementById("detail-close").addEventListener("click", closeDetail);
 
   // Tiles: the "View all" button opens the view; clicks on the tile's quiet areas do too.
   var INTERACTIVE = "button, a, input, select, textarea, label, [role=switch], [role=radio], [role=tab], [role=slider], [role=menu]";
@@ -394,13 +414,13 @@
     btn.innerHTML = '<span>View all</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>';
     btn.setAttribute("aria-label", "View all: " + (tile.getAttribute("data-name") || views[key].title));
     btn.setAttribute("aria-haspopup", "dialog");
-    btn.addEventListener("click", function (e) { e.stopPropagation(); openDetail(key, focus, btn); });
+    btn.addEventListener("click", function (e) { e.stopPropagation(); openDetail(key, focus, btn, tile); });
     (lab || tile).appendChild(btn);
     tile.classList.add("is-link");
     tile.addEventListener("click", function (e) {
       if (e.target.closest(".mount") && e.target.closest(INTERACTIVE)) return;
       if (window.getSelection && String(window.getSelection())) return;
-      openDetail(key, focus, btn);
+      openDetail(key, focus, btn, tile);
     });
   });
 })();

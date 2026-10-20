@@ -9,3 +9,7 @@ The top of every app page: where you are, what this is, and what you can do here
 - `title`, optional `meta` (version or count), `description` (one sentence).
 - `actions`: page-level Buttons, primary last.
 - `size`: `page` (display-sm) for app pages, `studio` (display-md) for studio landing pages.
+
+## Level
+
+Organism (atomic design). See README.md, Components.

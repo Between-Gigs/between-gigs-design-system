@@ -12,3 +12,7 @@ A brief confirmation that something just happened, with an optional Undo.
 
 - Don't use a toast for errors the person must act on; use a Banner.
 - Don't stack more than three. The provider keeps the newest three.
+
+## Level
+
+Molecule (atomic design). See README.md, Components.

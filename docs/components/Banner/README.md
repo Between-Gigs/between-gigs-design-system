@@ -12,3 +12,7 @@ A message about a page or section that stays until it is resolved or dismissed.
 
 - The message is about the state of the page (draft, locked, failed to save).
 - For a confirmation that something just happened, use a Toast. For a field error, use Field's `error`.
+
+## Level
+
+Molecule (atomic design). See README.md, Components.

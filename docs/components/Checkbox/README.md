@@ -11,3 +11,7 @@ A yes/no choice inside a form, or one of several independent choices in a list.
 
 - The choice is saved with the form. For a setting that applies immediately, use Switch.
 - Never pre-check consent boxes (reviews, marketing, being listed publicly).
+
+## Level
+
+Atom (atomic design). See README.md, Components.

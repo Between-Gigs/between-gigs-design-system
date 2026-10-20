@@ -17,3 +17,7 @@ Enter, Space or the arrow keys open the list; arrows, Home and End move; Enter o
 
 - Up to about ten options. Longer lists, or options that need search, use Combobox.
 - Five or fewer options that all deserve to be seen: use RadioGroup or SegmentedControl.
+
+## Level
+
+Atom (atomic design). See README.md, Components.

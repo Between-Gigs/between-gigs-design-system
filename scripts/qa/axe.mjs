@@ -23,6 +23,8 @@ for (const f of fs.readdirSync(DIR).filter((x) => x.endsWith(".html"))) {
   page.on("pageerror", (e) => errs.push(e.message));
   await page.goto("file://" + path.join(DIR, f));
   await page.waitForTimeout(300);
+  // Audit the settled page: wait for entrance transitions (scroll reveals, page transitions) to finish.
+  await page.waitForFunction(() => document.getAnimations().every((a) => a.playState !== "running" || a.effect?.getTiming().iterations === Infinity), null, { timeout: 4000 }).catch(() => {});
   if (errs.length) { renderErrors++; console.log(`RENDER ERROR ${f}: ${errs[0]}`); }
   await page.addScriptTag({ content: axe });
   const res = await page.evaluate(async (skip) => {

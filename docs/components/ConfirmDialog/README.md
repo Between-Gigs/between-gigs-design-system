@@ -11,3 +11,7 @@ Asks before something destructive or hard to undo.
 - `tone`: `danger` (default) or `default`.
 
 If the action can be undone, skip the dialog and offer Undo in a Toast instead.
+
+## Level
+
+Organism (atomic design). See README.md, Components.

@@ -1,0 +1,24 @@
+<!-- @dsCard group="Motion" level="atom" height=260 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Parallax</title>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const { useState } = React;
+const BG = window.BetweenGigs;
+const { html, Icons: I } = BG;
+function Demo() {
+  const { Parallax, Logo } = BG;
+  return html`<div className="relative h-52 overflow-hidden rounded-xl bg-surface-brand p-6" data-theme="dark">
+    <${Parallax} speed=${-0.3} className="pointer-events-none absolute -right-8 -bottom-10 opacity-20"><${Logo} layout="mark" height=${180} /><//>
+    <p className="relative max-w-xs font-display text-heading-lg text-ink">Scroll the page: the mark drifts behind the text.</p>
+  </div>`;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(Demo));
+</script>
+</body>
+</html>

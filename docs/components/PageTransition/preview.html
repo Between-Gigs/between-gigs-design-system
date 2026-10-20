@@ -1,0 +1,38 @@
+<!-- @dsCard group="Motion" level="molecule" height=420 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PageTransition</title>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const { useState } = React;
+const BG = window.BetweenGigs;
+const { html, Icons: I } = BG;
+function Demo() {
+  const { useViewTransition, pageEffects, Button, Card } = BG;
+  const [fx, setFx] = useState("slide");
+  const [page, setPage] = useState(0);
+  const go = useViewTransition(fx);
+  const pages = [["Workspace hub", "Your projects, drafts and the founding wall."], ["Funnel Studio", "Campaign 2: four steps, two drafts."], ["Profile review", "Twelve profiles waiting for approval."]];
+  const nav = (i, e) => go(() => setPage(i), e.currentTarget, i < page ? "back" : "forward");
+  return html`<div className="grid gap-4 p-6">
+    <div className="flex flex-wrap gap-2" role="group" aria-label="Effect">
+      ${pageEffects.map((f) => html`<${Button} key=${f} size="sm" variant=${f === fx ? "strong" : "secondary"} aria-pressed=${f === fx} onClick=${() => setFx(f)}>${f}<//>`)}
+    </div>
+    <div className="flex gap-2" role="tablist" aria-label="Pages">
+      ${pages.map((p, i) => html`<${Button} key=${i} size="sm" variant="ghost" role="tab" aria-selected=${i === page} onClick=${(e) => nav(i, e)}>${p[0]}<//>`)}
+    </div>
+    <div className="vt-page overflow-hidden rounded-xl border border-line bg-surface p-8">
+      <p className="text-label-sm text-ink-subtle">Page ${page + 1} of 3</p>
+      <h3 className="mt-2 font-display text-display-sm text-ink">${pages[page][0]}</h3>
+      <p className="mt-2 text-body-md text-ink-muted">${pages[page][1]}</p>
+    </div>
+  </div>`;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(Demo));
+</script>
+</body>
+</html>

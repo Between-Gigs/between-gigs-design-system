@@ -50,4 +50,6 @@ export { CommandPalette, useCommandShortcut, type CommandPaletteProps, type Comm
 export { ConfirmDialog, type ConfirmDialogProps } from "./ConfirmDialog";
 export { AvatarGroup, type AvatarGroupProps } from "./AvatarGroup";
 export { Kbd } from "./Kbd";
+export { FoundingCardGlyph } from "./icons";
+export { ThemeToggle, useTheme, type ThemeToggleProps, type Theme, type UseThemeOptions } from "./ThemeToggle";
 export { type HeadingLevel } from "./heading";

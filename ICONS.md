@@ -33,6 +33,16 @@ Components never import an icon pack themselves. They take icons as props (`icon
 
 A few icons are drawn inside the system (`src/components/icons.tsx`), so components work with no icon package installed: `ChevronDown`, `ChevronLeft`, `ChevronRight`, `Check`, `Close`, `Info`, `Alert`, `CheckCircle`, `XCircle` and `Spinner`, plus the funnel step-type glyphs `SignalGlyph` (traffic), `PageGlyph` (web page), `FormGlyph` (form), `MailGlyph` (email) and `StoreGlyph` (marketplace). They follow Lucide's 24px grid and rounded caps, so they sit cleanly next to Lucide icons.
 
+Custom product icons, drawn with the `create-icon` skill (source SVGs in `icons/custom/`):
+
+| Icon | Means |
+| --- | --- |
+| `FoundingCardGlyph` | A Founding 20 member card: the Founding 20 nav item and card wall. |
+
+## When Lucide has no icon for it
+
+Ask Claude: "make an icon for …". The `create-icon` skill (`.claude/skills/create-icon/`) checks Lucide first, then draws a new icon on Lucide's grid (24px, 2px stroke, round caps, 2px padding), validates it with `node scripts/check-icons.mjs`, previews it beside Lucide icons at 16, 20 and 24px in both themes with `node scripts/icon-preview.mjs <name>`, and wires it into the library and this file.
+
 ## Icons in use
 
 The Lucide icons the components and previews use today, with their meaning:

@@ -9,3 +9,7 @@ Multi-line text: project descriptions, review notes, prompts, hypotheses.
 - `invalid`: set by Field.
 
 Use inside a Field. For long-form writing with formatting, use the Writing Studio editor, not this.
+
+## Level
+
+Atom (atomic design). See README.md, Components.

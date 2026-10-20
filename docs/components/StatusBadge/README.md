@@ -18,3 +18,7 @@ The product's fixed status vocabulary. Each word always appears in the same colo
 ## The consumer provides
 
 - `status`: one of the keys above. A new status is a design decision: add it to `statusMeta` and the README's status table together.
+
+## Level
+
+Atom (atomic design). See README.md, Components.

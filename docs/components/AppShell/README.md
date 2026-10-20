@@ -19,3 +19,7 @@ The frame of every signed-in screen. It places the top bar, the module bar, the 
 
 - One top bar, one module bar, one sidebar per screen. Split views put several page panes inside `children`; they don't repeat the shell.
 - Materials (the personal finish) apply to the TopBar, Sidebar and PromptBar surfaces only.
+
+## Level
+
+Organism (atomic design). See README.md, Components.

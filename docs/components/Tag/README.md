@@ -9,3 +9,7 @@ Keywords on cards ("Alterations", "Closet styling"), filter chips ("Silver Lake"
 - `onRemove`: adds a remove button named "Remove <tag>".
 
 Tags describe; they never show status. Use Badge or StatusBadge for state.
+
+## Level
+
+Atom (atomic design). See README.md, Components.

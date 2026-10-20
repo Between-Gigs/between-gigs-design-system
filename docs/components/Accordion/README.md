@@ -9,3 +9,7 @@ Sections that expand and collapse in place: Thread setup, FAQs, groups of settin
 - `variant`: `framed` (default) or `flush` inside panels.
 
 Don't hide anything people need on every visit. Each header is a real button with `aria-expanded`.
+
+## Level
+
+Molecule (atomic design). See README.md, Components.

@@ -1,0 +1,27 @@
+<!-- @dsCard group="Motion" level="atom" height=200 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ScrollProgress</title>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const { useState } = React;
+const BG = window.BetweenGigs;
+const { html, Icons: I } = BG;
+function Demo() {
+  const { ScrollProgress } = BG;
+  const box = React.useRef(null);
+  return html`<div className="grid gap-2 p-6">
+    <${ScrollProgress} target=${box} placement="inline" aria-label="Reading progress" />
+    <div ref=${box} tabIndex="0" aria-label="Article" className="h-32 overflow-auto rounded-lg border border-line bg-surface p-4 text-body-md text-ink-muted">
+      ${Array.from({ length: 8 }, (_, i) => html`<p key=${i} className="mb-3">Paragraph ${i + 1}. Scroll this panel and the mint bar above fills.</p>`)}
+    </div>
+  </div>`;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(Demo));
+</script>
+</body>
+</html>

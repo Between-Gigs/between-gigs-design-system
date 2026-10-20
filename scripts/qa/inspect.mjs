@@ -69,7 +69,8 @@ const browser = await chromium.launch();
 async function inspect(url, label, widths) {
   const found = new Set();
   for (const width of widths) {
-    const p = await browser.newPage({ viewport: { width, height: 900 } });
+    // Reduced motion: measure final layout, not entrance transitions (scaled or clipped reveals).
+    const p = await browser.newPage({ viewport: { width, height: 900 }, reducedMotion: "reduce" });
     await p.goto(url); await p.waitForTimeout(url.startsWith("http") ? 1200 : 300);
     (await p.evaluate(staticChecks)).forEach((x) => found.add(x));
     const seen = new Set(); let repeats = 0;

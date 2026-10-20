@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.5.0 — October 2026
+
+### Added
+- **ThemeToggle** (atom) and **useTheme**: the Day/Night switch, now a library component. It sets `data-theme` on `<html>`, remembers the choice, and reveals the new theme as a circle growing from the switch.
+- **Motion** (`src/motion/`, MOTION.md): `useViewTransition` / `startPageTransition` with seven page transitions (reveal, slide, push, zoom, flip, wipe, dissolve) on the View Transitions API; shared-element morphs; `Reveal` with eight scroll effects; `ScrollProgress`; `Parallax`. New token `duration-page` (640ms). All of it off under reduced motion.
+- **Atomic design levels**: every component is an atom, molecule, organism or template, stated in its README and the README's component list.
+- **create-icon skill** (`.claude/skills/create-icon/`): when Lucide has no icon for something, Claude draws one on Lucide's grid, validates it (`npm run icons:check`), previews it beside Lucide icons at 16/20/24px in both themes, and wires it in. First icon made with it: `FoundingCardGlyph`.
+- **Glow utilities**: `glow-horizon`, `glow-text`, `glow-hover`, `glow-focus`, for dark launch surfaces.
+- **Showcase**: section 03 · Motion with live demos, the library ThemeToggle in the top bar, a scroll-progress bar, tiles and headings that reveal on scroll, a drifting hero mark, and tiles that morph into their detail pages.
+
+### Changed
+- **ComingSoon** sits on a curved panel with a mint horizon glow; the button and field glow on hover and focus. Footer `links` and `copyright` are props (no invented contact details).
+- "Open full page" opens the template full screen inside the showcase, morphing out of its frame, instead of a separate file that could load blank in the hosted preview.
+- Counts on the showcase and README now match the data: 187 tokens (75 scale), 138 contrast pairs, 51 components.
+
 ## 1.4.0 — October 2026
 
 ### Added

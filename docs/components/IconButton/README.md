@@ -14,3 +14,7 @@ A square button that shows only an icon, for toolbars and dense headers where th
 
 - The icon is unambiguous (search, close, more, layout). Otherwise use a Button with a label.
 - Wrap in Tooltip when the action needs more than one word or has a shortcut.
+
+## Level
+
+Atom (atomic design). See README.md, Components.

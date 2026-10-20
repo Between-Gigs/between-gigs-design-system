@@ -3,4 +3,7 @@
 @import "./docs-theme.css";
 @source "../src/components";
 @source "../src/templates";
+@source "../src/motion";
 @source "../docs/components";
+@source "../docs/showcase/index.html";
+@source "../docs/showcase/details.js";

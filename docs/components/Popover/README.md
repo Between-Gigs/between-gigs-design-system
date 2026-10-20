@@ -13,3 +13,7 @@ A small panel of settings or details anchored to a button, that doesn't block th
 - Changes apply as people make them. For a list of actions use Menu. For a task that must be finished or cancelled, use Modal or Drawer.
 
 Focus moves into the panel when it opens; Escape or a click outside closes it.
+
+## Level
+
+Molecule (atomic design). See README.md, Components.

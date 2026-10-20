@@ -10,3 +10,7 @@ A professional in search results: who they are, what they do, where, when, and f
 - `sample`: marks a fictional sample profile. Every sample must be marked.
 
 Photos are real portraits of the professional at work. No stock imagery. Without a photo, the initials stand in.
+
+## Level
+
+Organism (atomic design). See README.md, Components.
