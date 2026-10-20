@@ -1,6 +1,7 @@
 import * as React from "react";
-import { ArrowUpRight, Check, Mail } from "lucide-react";
-import { Button, Input, Logo } from "../components";
+import { ArrowUpRight } from "lucide-react";
+import { Logo, cx } from "../components";
+import { buttonSizes, buttonVariants } from "../components/Button";
 
 export interface ComingSoonLink {
   label: string;
@@ -8,8 +9,10 @@ export interface ComingSoonLink {
 }
 
 export interface ComingSoonProps {
-  /** Called with the email when someone joins the list. */
-  onJoin?: (email: string) => void;
+  /** Where "Get on the call sheet" goes: the sign-up form or page. Default "#call-sheet". */
+  ctaHref?: string;
+  /** Called when the button is pressed, for analytics or to open a sign-up dialog. */
+  onCta?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
   /** Footer links (Instagram, Privacy, Terms, contact). Take them from the live site. */
   links?: ComingSoonLink[];
   /** Footer copyright line. Default "© 2026 Between Gigs". */
@@ -18,21 +21,9 @@ export interface ComingSoonProps {
 
 /**
  * Coming soon: the simple teaser page before launch. A curved, glowing panel on the quiet Europium
- * backdrop, with one email capture. Always a dark-theme island.
+ * backdrop, with one call to action. Always a dark-theme island.
  */
-export function ComingSoon({ onJoin, links = [], copyright = "© 2026 Between Gigs" }: ComingSoonProps) {
-  const [email, setEmail] = React.useState("");
-  const [error, setError] = React.useState<string>();
-  const [joined, setJoined] = React.useState(false);
-
-  const submit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!/^\S+@\S+\.\S+$/.test(email)) { setError("Enter an email address, like you@example.com."); return; }
-    setError(undefined);
-    setJoined(true);
-    onJoin?.(email);
-  };
-
+export function ComingSoon({ ctaHref = "#call-sheet", onCta, links = [], copyright = "© 2026 Between Gigs" }: ComingSoonProps) {
   return (
     <div data-theme="dark" className="flex min-h-full bg-bg p-2 sm:p-3">
       <div className="backdrop-europium relative isolate flex flex-1 flex-col overflow-hidden rounded-xl border border-line text-ink sm:rounded-2xl">
@@ -47,26 +38,13 @@ export function ComingSoon({ onJoin, links = [], copyright = "© 2026 Between Gi
           <h1 className="max-w-3xl font-display text-display-lg text-balance text-ink sm:text-display-xl">
             Coming <span className="glow-text text-ink-brand">soon.</span>
           </h1>
-          <p className="max-w-lg text-body-lg text-ink-muted">
-            Los Angeles Call Sheet
-          </p>
-
-          {joined ? (
-            <p role="status" className="mt-2 flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-2 text-body-md text-ink">
-              <Check className="size-5 text-ink-brand" /> You're on the call sheet. We'll email {email} when we open.
-            </p>
-          ) : (
-            <form noValidate onSubmit={submit} className="mt-2 grid w-full max-w-md gap-2 text-left">
-              <div className="flex flex-col gap-3 sm:flex-row">
-                <Input type="email" size="lg" aria-label="Email" placeholder="you@example.com" start={<Mail />} value={email}
-                  invalid={Boolean(error)} aria-describedby={error ? "coming-soon-error" : undefined}
-                  onChange={(e) => setEmail(e.target.value)} className="glow-focus sm:flex-1" />
-                <Button type="submit" variant="primary" size="lg" className="group glow-hover"
-                  iconEnd={<ArrowUpRight className="transition-transform duration-base group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />}>Get on the call sheet</Button>
-              </div>
-              {error && <p id="coming-soon-error" className="text-body-sm text-danger">{error}</p>}
-            </form>
-          )}
+          <p className="text-body-lg text-ink-muted">Los Angeles Call Sheet</p>
+          <a href={ctaHref} onClick={onCta}
+            className={cx("group glow-hover mt-4 inline-flex shrink-0 items-center justify-center rounded-lg font-sans whitespace-nowrap transition-colors duration-fast [&_svg]:size-5",
+              buttonVariants.primary, buttonSizes.lg, "h-14 px-8 text-heading-sm")}>
+            Get on the call sheet
+            <ArrowUpRight aria-hidden="true" className="transition-transform duration-base group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </a>
         </main>
 
         <footer className="relative z-raised flex flex-wrap items-center justify-between gap-3 px-6 py-5 text-caption text-ink-subtle sm:px-10">

@@ -3,7 +3,8 @@
 ## 1.6.2 — October 2026
 
 ### Changed
-- **ComingSoon copy** matches the live brand: eyebrow "Extraordinary talent. Everyday solutions.", headline "Coming soon.", line "Los Angeles Call Sheet", button "Get on the call sheet" with an up-right arrow, and the confirmation "You're on the call sheet."
+- **ComingSoon copy** matches the live brand: eyebrow "Extraordinary talent. Everyday solutions.", headline "Coming soon.", line "Los Angeles Call Sheet".
+- **ComingSoon has one call to action**, "Get on the call sheet ↗", instead of the email form. It is a link (`ctaHref`, default `#call-sheet`) styled as the primary button, with an optional `onCta`. `onJoin` is removed.
 
 ## 1.6.1 — October 2026
 
